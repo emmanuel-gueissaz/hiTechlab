@@ -1,0 +1,77 @@
+.infoClient{
+    display: inline-block;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 5px;
+    margin-top: 2%;
+    width: 49%;
+    text-align: left;
+    padding-left: 2%;
+    font-family: Arial;
+    color: black;
+    font-size: 120%;
+
+}
+
+
+.petitLabel{
+    display: inline-block;
+    width: 60%;
+
+}
+
+.labelInfoClient{
+    display: inline-block;
+    width: 35%;
+    text-align: right;
+    margin-right: 3%;
+}
+
+.leClient{
+    display: inline-block;
+    width: 82%;
+}
+
+.edit {
+    vertical-align: top; 
+    margin-top: 2%;
+}
+
+
+.demandeDevis{
+    display: inline-block;
+    width: 100%;
+      box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 5px;
+    margin-top: 1%;
+}
+
+
+.titreDevis{
+    text-align: left;
+    display: block;
+    width: 100%;
+    color: black;
+    font-family: Arial;
+    margin-top: 3%;
+    
+}
+
+
+.laDemande{
+
+    width: 100%;
+    margin-bottom: 1%;
+    margin-top: 1%;
+    vertical-align: 0;
+}
+
+.labelDsDevis{
+    display: inline-block;
+    width: 15%;
+}
+
+@media (max-width: 768px){
+    .infoClient{
+        width: 100%;
+    }
+}

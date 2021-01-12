@@ -1,0 +1,50 @@
+.lesTechniciens{
+    text-align: center;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    margin-top: 2%;
+    border-radius: 5px;
+        vertical-align: 0;
+}
+
+
+.labelTech{
+    display: inline-block;
+    width: 20%;
+      font-family: Arial;
+      color: black;
+    
+}
+
+.view{
+    vertical-align: 0;
+
+}
+
+.leTech{
+    height: 55px;
+}
+
+.titreTech{
+    display: inline-block;
+      width: 15%;
+        margin-right: 4%;
+      
+}
+
+
+@media (max-width: 768px) {
+    
+    .noResponsive{
+        display: none;
+    }
+    
+    .labelTech{
+        width: 35%;
+    }
+    
+    .titreTech{
+        width: 25%;
+        margin-right: 10%;
+    }
+    
+}

@@ -1,0 +1,127 @@
+.createDevis{
+    display: none;
+    width: 100%;
+    text-align: center;
+    margin-top: 2%;
+}
+
+.titreReparation{
+    display: inline-block;
+    width: 20%;
+    margin-right: 3%;
+}
+
+.inputReparation{
+    display: inline-block;
+    width: 18%;
+}
+
+.labelReparation{
+    display: inline-block;
+    text-align: right;
+    width: 50%;
+    margin-right: 3%;
+}
+
+
+.miniLabel{
+    display: inline-block;
+    width: 90%;
+    font-size: 80%;
+}
+
+.rapport{
+    display: none;
+    width: 50%;
+    border-radius: 15px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    margin-bottom: 2%;
+}
+
+.checkRapport{
+    display: inline-block;
+    width: 8%;
+}
+
+.lesDevis{
+    text-align: center;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    margin-top: 2%;
+    border-radius: 5px;
+        vertical-align: 0;
+}
+
+#afficheRapport{
+
+    margin-left: 0.5%;
+}
+
+#afficheRecondition{
+    margin-left: 0.5%;
+
+}
+
+#afficheSAV{
+    margin-left: 0.5%;
+}
+
+.labelCheck{
+    font-size: 1em;
+    width: 38%;
+    display: inline-block;
+    text-align: right;
+}
+
+
+.lesav{
+    display: none;
+    width: 100%;
+}
+
+.recondition{
+    display: none;
+    width: 100%;
+}
+
+
+.listeAjout{
+
+    width: 15%;
+    vertical-align: 0;
+
+}
+
+
+
+.plus{
+
+    width: 3%;
+    vertical-align: 0;
+}
+
+
+@media (max-width: 768px) {
+
+    .labelReparation{
+        width: 55%;
+        font-size: 110%;
+
+    }
+
+    .inputReparation{
+        width: 39%;
+    }
+
+    .rapport{
+        width: 95%;
+    }
+
+
+    .listeAjout{
+        width: 30%;
+    }
+
+    .plus{
+        width: 8%;
+    }
+}

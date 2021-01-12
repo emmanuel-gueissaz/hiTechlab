@@ -1,0 +1,133 @@
+
+.labelClient{
+    display: inline-block;
+    width: 45%;
+    text-align: right;
+    margin-right: 5%;
+    font-family: Arial;
+
+
+}
+
+.titre{
+    margin-bottom: 1%;
+    margin-top: 1%;
+}
+
+.inputClient{
+    display: inline-block;
+    width: 20%;
+    margin-bottom: 1%;
+
+}
+
+.createClient{
+    display: inline-block;
+    width: 90%;
+    display: none;
+
+
+}
+
+.checkboxClient{
+    display: inline-block;
+    width: 20%;
+}
+
+
+.boutonClient{
+
+    margin-top: 2%;
+    display: inline-block;
+
+}
+
+
+.rechercheCliFiche{
+    display: none;
+
+    width: 100%;
+
+
+}
+
+.leClient{
+    background-color: white;
+    color: black;
+    font-size: 120%;
+    border-radius: 10px;
+     transition-duration: 0.6s;
+
+}
+.leClient:hover {
+    background-color: #E84D0E;
+    color: white;
+    cursor: pointer;
+
+
+}
+
+
+.pro{
+    background-color:#007bff; 
+    color:white;
+     transition-duration: 0.6s;
+}
+
+.pro:hover{
+    background-color: #E84D0E;
+    color: white;
+    cursor: pointer;
+}
+
+.professionnel{
+    display: none;
+    width: 100%;
+}
+.labelLong{
+    display: inline-block;
+    width: 30%;
+
+}
+.labelMoyen{
+
+    display: inline-block;
+    width: 12%;
+
+
+}
+
+
+
+
+hr{
+    border-top:1px solid;
+
+}
+
+
+.noResponsive{
+    display: inline-block;
+}
+
+
+@media (max-width: 768px) {
+
+    .inputClient{
+        width: 40%;  
+    }
+
+    .labelClient{
+        width: 50%;
+    }
+
+
+    .noResponsive{
+        display: none;
+    }
+
+
+    .labelMoyen{
+        width: 40%;
+    }
+}

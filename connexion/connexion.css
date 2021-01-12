@@ -1,0 +1,61 @@
+.contentConnexion{
+
+
+}
+
+.imageCnx{
+
+    position: absolute;
+    left: 0;
+    width: 49%;
+    border-right: 1px solid #E84D0E;
+    text-align: center;
+    z-index: 1;
+    height: 100%;
+    
+
+
+
+}
+
+.connexion{
+
+    width: 50%;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    animation-duration: 1s;
+}
+
+
+
+.inputConnexion{
+    display: inline-block;
+    width: 50%;
+    margin-bottom: 4%;
+
+}
+
+
+.menuConnexion{
+    width: 50%;
+}
+
+.formulaires{
+    margin-top: 8%;
+}
+
+@media (max-width: 768px) {
+
+    .connexion{
+        width: 100%;
+        position: absolute;
+        right: 0;
+        text-align: center;
+    }
+
+    .imageCnx{
+        display: none;
+    }
+
+}
