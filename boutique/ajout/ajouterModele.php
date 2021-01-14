@@ -78,7 +78,7 @@ if (isset($_POST['ajouterMod'])) {
         $insert = "insert into modele (lib_modeele,id_marque,id_mat) values ('$nom',$marque,$typeMat)";
         $requete = $conn->prepare($insert);
         $requete->execute();
-        echo '<script> alert_info("type matériel ajouté","success");    setTimeout(function(){ history.go(-2); }, 1500); </script>';
+        echo '<script> alert_info("Modèle ajouté","success");    setTimeout(function(){ history.go(-2); }, 1500); </script>';
     } catch (Exception $ex) {
         echo '<script> alert_info("erreur","error");</script>';
     }

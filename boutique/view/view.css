@@ -1,0 +1,125 @@
+.cadreView{
+    display: inline-block;
+    width: 100%;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; 
+    border-radius: 5px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 400px;
+    margin-top: 1%;
+ 
+
+}
+
+
+.element{
+    width: 100%;
+
+
+}
+
+.labelElement{
+    display: inline-block;
+    width: 80%;
+    font-family: Arial;
+    font-size: 120%;
+    color: black;
+}
+
+.labelPiece{
+    display: inline-block;
+    width: 25%;
+    font-family: Arial;
+    font-size: 120%;
+    color: black;
+}
+
+
+.titrePiece{
+     display: inline-block;
+    width: 26%;
+    font-family: Arial;
+    font-size: 120%;
+    color: black;
+    text-align: left;
+
+}
+
+.iconElement{
+    display: inline-block;
+    margin-left: 1%;
+}
+
+.titreView{
+    width: 100%;
+}
+
+.lableTitreView{
+    display: inline-block;
+    width: 80%;
+    font-family: Arial;
+    color: black;
+    text-align: left;
+    font-size: 200%;
+    margin-top: 1%;
+
+}
+
+.cadreView::-webkit-scrollbar-thumb {
+	 border-radius: 10px;
+	background-color: #3e64ff;
+}
+
+.cadreView::-webkit-scrollbar{
+    background-color:  #F5F5F5;
+width: 8px;
+
+}
+
+
+
+.labelRecherche{
+    display: inline-block;
+    width: 25%;
+  
+    
+}
+
+
+.selectRecheche{
+     display: inline-block;
+    width: 20%;
+    vertical-align: 0;
+}
+
+
+@media (max-width: 768px){
+    .labelRecherche{
+        width: 59%;
+        font-size: 100%;
+    }
+    
+    .selectRecheche{
+        width: 39%;
+    }
+    
+    
+    .noResponsive{
+        display: none;
+    }
+    
+ 
+    .labelPiece{
+    width: 35%;
+    font-size: 100%;
+}
+
+
+.titrePiece{
+    width: 35%;
+    font-size: 100%;
+  
+}
+
+
+}

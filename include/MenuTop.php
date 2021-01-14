@@ -9,8 +9,8 @@
 
 <link href="../lib/css/styleMenu.css" rel="stylesheet" type="text/css"/>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light" >
-                    <div class="container-fluid">
+<nav class="navbar navbar-expand-lg navbar-light bg-light"  style="    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 5px;" >
+    <div class="container-fluid" >
 
                         <button type="button" id="sidebarCollapse" class="btn btn-primary">
                             <i class="fa fa-bars"></i>

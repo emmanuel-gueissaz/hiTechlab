@@ -10,13 +10,13 @@
                         <a href="#"><span class="fa fa-home"></span> Tableau de bord</a>
                     </li>
                     <li>
-                        <a href="../client/menuClient.php"><span class="fa fa-user"></span> Client</a>
+                        <a href="/hitechlab/client/menuClient.php"><span class="fa fa-user"></span> Client</a>
                     </li>
                     <li>
-                        <a href="../reparation/menuReparation.php"><span class="fa fa-sticky-note"></span> réparation</a>
+                        <a href="/hitechlab/reparation/menuReparation.php"><span class="fa fa-sticky-note"></span> réparation</a>
                     </li>
                     <li>
-                        <a href="../boutique/menuBoutique.php"><span class="fa fa-cogs"></span> Boutique</a>
+                        <a href="/hitechlab/boutique/menuBoutique.php"><span class="fa fa-cogs"></span> Boutique</a>
                     </li>
                     <li>
                         <a href="#"><span class="fa fa-paper-plane"></span> Contacts</a>

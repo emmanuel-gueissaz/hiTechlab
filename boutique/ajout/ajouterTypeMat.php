@@ -17,7 +17,7 @@ include '../../BDD/connexionBdd.php';
         
         <h4 class="titreAjout" > Nouveau type de materiel </h4> 
         <h4 class="labelAjout" > nom: </h4> 
-        <input class=" inputMdp form-control" type="password"  name="laMat" required=""/><br>
+        <input class=" inputMdp form-control" type="text"  name="laMat" required=""/><br>
        
         <input type="button"  class="btn btn-outline-danger btn-lg inputMdp" value="annuler" onclick="history.back()"/>
         <input type="submit" name="ajouterMat" class="btn btn-outline-primary btn-lg inputMdp" value="ajouter" />

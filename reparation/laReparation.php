@@ -23,8 +23,8 @@ include '../BDD/connexionBdd.php';
         <link href="ficheClient.css" rel="stylesheet" type="text/css"/>
         <link href="reparation.css" rel="stylesheet" type="text/css"/>
 
-        
-         <script>
+
+        <script>
 
 
             function displayOn(bouton, aAfficher) {
@@ -145,7 +145,7 @@ include '../BDD/connexionBdd.php';
                                 <h3 class="labelCheck">Arrière abimé : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
 
 
-                                <h3 class="labelCheck" style="width: 85.5%;">Déjà en contact avec l'humidité  : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
+                                <h3 class="labelCheck" style="width: 85.5%;">A été en contact avec l'humidité  : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
 
 
 
@@ -175,7 +175,7 @@ include '../BDD/connexionBdd.php';
                         <h4 class="labelReparation">    Note client: </h4> <input class="inputReparation form-control" type="text" id="noteCli" name="noteCli" />
                         <h4 class="labelReparation"> Note visible: </h4> <input class="inputReparation form-control" type="text" id="noteVisi" name="noteVisi" />
                         <h4 class="labelReparation"> Note interne: </h4> <input class="inputReparation form-control" type="text" id="noteInterne" name="noteInterne" />
-                        <h4 class="labelReparation"> Code vérrouillage : </h4> <input class="inputReparation form-control" type="number" id="codeVerro" name="codeVerro" />
+                        <h4 class="labelReparation"> Code vérrouillage : </h4> <input class="inputReparation form-control" type="text" id="codeVerro" name="codeVerro" />
                         <h4 class="labelReparation"> Date de restitution : </h4> <input class="inputReparation form-control" type="date" id="dateRest" name="dateRest" />
                         <h4 class="labelReparation"> Heure de restitution : </h4> <input class="inputReparation form-control" type="time" id="heureRest" name="heureRest" />
 
@@ -200,82 +200,79 @@ include '../BDD/connexionBdd.php';
 
                             <h4 class="labelReparation"> Défauts constatés: </h4> <input class="inputReparation form-control" type="text" id="defautreco" name="defautreco"  />
                         </div>
-                        <input class="checkRapport" type="checkbox" name="garantie" />
-                        <h3 class="miniLabel"> J’autorise Hi-Tech LAB  à réaliser des interventions sur mon appareil électronique 
-                            et accepte l’annulation de toutes garanties dont mon appareil électronique pourrait faire l’objet.</h3> 
-
+                    
 
                         <!-- fin de la page -->
 
 
                     </div>
                     <div style="text-align: center;">
-                        <input type="button"  class="btn btn-outline-danger btn-lg" value="annuler" onclick="history.back()"/>
-                        <input type="submit" class="btn btn-outline-primary btn-lg" name="creerDevis" id="valideTest" value="creer"/>
+                        <input type="button"  class="btn btn-outline-danger btn-lg" value="Retour" onclick="history.back()"/>
+                        <input type="submit" class="btn btn-outline-primary btn-lg" name="creerDevis" id="valideTest" value="Ajouter intervention"/>
 
                     </div>
                 </form>
             </div> 
 
 
-           
+
 
             <!-- libscript js -->
             <script src="../lib/js/bootstrap.min.js" type="text/javascript"></script>
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
             <script src="../lib/js/main.js" type="text/javascript"></script>
             <script src="../lib/js/popper.js" type="text/javascript"></script>
-            
-            
+
+
             <script>
-                           function load_data(mat, marque)
-                                {
-                                    $.ajax({
-                                        url: "./ajax/rechercheModele.php",
-                                        method: "post",
-                                        data: {query: mat, marque},
-                                        success: function (data)
-                                        {
-                                            $('#result').html(data);
-                                        }
-                                    });
-                                }
-
-
-
-
-                                $('#marque').click(function () {
-
-
-                                    var mat = $('#mat').val();
-                                    var marque = $('#marque').val();
-                                    load_data(mat, marque);
-                                    ;
+                            function load_data(mat, marque)
+                            {
+                                $.ajax({
+                                    url: "./ajax/rechercheModele.php",
+                                    method: "post",
+                                    data: {query: mat, marque},
+                                    success: function (data)
+                                    {
+                                        $('#result').html(data);
+                                    }
                                 });
+                            }
 
-                                $('#mat').click(function () {
 
 
-                                    var mat = $('#mat').val();
-                                    var marque = $('#marque').val();
-                                    load_data(mat, marque);
-                                });
-                                    
-                                   
-                                    var mat = $('#mat').val();
-                                    var marque = $('#marque').val();
-                                    load_data(mat, marque);
-                             
+
+                            $('#marque').click(function () {
+
+
+                                var mat = $('#mat').val();
+                                var marque = $('#marque').val();
+                                load_data(mat, marque);
+                                ;
+                            });
+
+                            $('#mat').click(function () {
+
+
+                                var mat = $('#mat').val();
+                                var marque = $('#marque').val();
+                                load_data(mat, marque);
+                            });
+
+
+                            var mat = $('#mat').val();
+                            var marque = $('#marque').val();
+                            load_data(mat, marque);
+
 
             </script>
 
- <?php
+            <?php
             $requete = "select * from reparation inner join modele ON modele.id_modele = reparation.id_modele where id=" . $_GET['id'] . ";";
             $requete = $conn->prepare($requete);
             $requete->execute();
             $ligne = $requete->fetch();
-            
-                   $typeMat = $ligne['id_mat'];
+
+            $typeMat = $ligne['id_mat'];
             $marque = $ligne['id_marque'];
             $modele = $ligne['id_modele'];
             $serie = $ligne['numserie'];
@@ -287,55 +284,66 @@ include '../BDD/connexionBdd.php';
             $code = $ligne['codeverrouillage'];
             $date = $ligne['daterestitution'];
             $heure = $ligne['heure'];
-            $panne = $ligne['anciennePanne'];
-            $inter = $ligne['ancienintervention'];
-            $remplacement = $ligne['pieceRemplace'];
+            $panne = $ligne['anciennepanne'];
+            $inter = $ligne['ancienneintervention'];
+            $remplacement = $ligne['pieceremplace'];
             $defautsav = $ligne['defautsav'];
             $defautreco = $ligne['defautreco'];
-            
-            
+
+
             $rapport = $ligne['rapportcli'];
-            
+
             echo "<script>"
-            
             . "$('#mat').val($typeMat)"
- 
-                    . "</script>";
+            . "</script>";
+
             echo "<script>"
- 
             . "$('#marque').val($marque)"
- 
-                    . "</script>";
+            . "</script>";
+
             echo "<script>"
- 
             . "      var mat = $('#mat').val();
-                                    var marque = $('#marque').val();
-                                    load_data(mat, marque);
-                                 
-                             "
- 
-                    . "</script>";
-            
-            
+                     var marque = $('#marque').val();
+                     load_data(mat, marque);"
+            . "</script>";
+
+
             // problème sur le modèle 
-     
-              echo "<script>"
- 
-     
+
+            echo "<script>"
             . "$('#serie').val('$serie'),"
             . "$('#afficheRapport').click(),"
+                    ." setTimeout(function(){   $('#result').val('$modele'); }, 200);"
             . "$('#etat').val($etat),"
             . "$('#accessoire').val('$accessoire'),"
             . "$('#noteCli').val('$noteCli'),"
-            . "$('#noteVisi').val('$noteVisi')"
-   
-                    . "</script>";
+            . "$('#noteVisi').val('$noteVisi'),"
+            . "$('#noteInterne').val('$noteInterne'),"
+            . "$('#codeVerro').val('$code'),"
+            . "$('#dateRest').val('$date'),"
+            . "$('#heureRest').val('$heure'),"
+            . "$('#panne').val('$panne'),"
+            . "$('#intervention').val('$inter'),"
+            . "$('#remplacement').val('$remplacement'),"
+            . "$('#defautsav').val('$defautsav'),"
+            . "$('#defautreco').val('$defautreco')"
+            . "</script>";
             
-            
-            
-            
-            
-    
+            if ($panne != '') {
+                echo "<script>"
+                . "$('#afficheSAV').click()"
+                . "</script>";
+            }
+
+
+            if ($defautreco != '') {
+                echo "<script>"
+                . "$('#afficheRecondition').click()"
+                . "</script>";
+            }
+
+
+
             echo "<script>var temp = '$rapport';
                         temp = temp.replace('{','');
                         temp = temp.replace('}','');
@@ -347,7 +355,11 @@ include '../BDD/connexionBdd.php';
                             }
 
                             }
+                            
+
                   </script>";
+            
+            
             ?>
 
 
@@ -363,10 +375,13 @@ include '../BDD/connexionBdd.php';
 
 
 
-        <?php
-        include '../include/ProtectSession.php';
-        ?>
-
+<?php
+include '../include/ProtectSession.php';
+?>
+        <script>
+  
+   
+        </script>
 
     </body>
 </html>

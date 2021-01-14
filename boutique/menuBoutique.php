@@ -109,7 +109,9 @@ include '../BDD/connexionBdd.php';
 
                     </div>
 
-                   
+                    
+                    
+                    <input type="button" class="btn btn-outline-primary btn-lg" onclick="document.location.href= '/hitechlab/boutique/lesAjouts.php'" value="ajout"/>
 
                 </div>
             </div>

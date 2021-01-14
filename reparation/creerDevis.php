@@ -138,7 +138,7 @@ include '../BDD/connexionBdd.php';
                                 <h3 class="labelCheck">Arrière abimé : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
 
 
-                                <h3 class="labelCheck" style="width: 85.5%;">Déjà en contact avec l'humidité  : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
+                                <h3 class="labelCheck" style="width: 85.5%;">A été en contact avec l'humidité  : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
 
 
 
@@ -168,7 +168,7 @@ include '../BDD/connexionBdd.php';
                         <h4 class="labelReparation">    Note client: </h4> <input class="inputReparation form-control" type="text" id="Nom" name="noteCli" />
                         <h4 class="labelReparation"> Note visible: </h4> <input class="inputReparation form-control" type="text" id="Nom" name="noteVisi" />
                         <h4 class="labelReparation"> Note interne: </h4> <input class="inputReparation form-control" type="text" id="Nom" name="noteInterne" />
-                        <h4 class="labelReparation"> Code vérrouillage : </h4> <input class="inputReparation form-control" type="number" id="Nom" name="codeVerro" />
+                        <h4 class="labelReparation"> Code vérrouillage : </h4> <input class="inputReparation form-control" type="text" id="Nom" name="codeVerro" />
                         <h4 class="labelReparation"> Date de restitution : </h4> <input class="inputReparation form-control" type="date" id="Nom" name="dateRest" />
                         <h4 class="labelReparation"> Heure de restitution : </h4> <input class="inputReparation form-control" type="time" id="Nom" name="heureRest" />
 

@@ -2,7 +2,7 @@
 error_reporting(0);
 session_start();
 $host='localhost';
-$db = 'hiTechLabFinal';
+$db = 'hitechlab';
 $username = 'postgres';
 $password = 'cjpst2613';
 
