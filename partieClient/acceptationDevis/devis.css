@@ -1,0 +1,241 @@
+
+.rapporttech{
+    display: inline-block;
+    width: 40%;
+    border-radius: 15px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    margin-bottom: 2%;
+    margin-left: 0.5%;
+}
+
+.checkRapport{
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    vertical-align: middle;
+
+}
+
+.checkRapport:checked:after{
+    display: inline-block;
+    content: "✔";
+    visibility: visible;
+    width: 22px;
+    height: 22px;
+    text-align: center;
+    border-radius: 2px;
+    background: #00EE00;
+    color: #fff;
+    vertical-align: 0;
+
+
+}
+
+
+
+.checkTest{
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    vertical-align: middle;
+    border: none;
+
+
+}
+
+
+.checkTest:checked:after{
+    display: inline-block;
+    content: "✘";
+    visibility: visible;
+    width: 22px;
+    height: 22px;
+    text-align: center;
+    border-radius: 2px;
+    background: red;
+    color: #fff;
+    vertical-align: 0;
+
+}
+
+.labelCheck{
+    font-size: 1em;
+    width: 38%;
+    display: inline-block;
+    text-align: right;
+}
+.labelCheckSpec{
+    width: 90%;
+    font-size: 1.2em;
+    display: inline-block;
+    text-align: left;
+    border-bottom: 1px solid;
+}
+
+.titreRapport{
+    display: inline-block;
+    width: 40%;
+    text-align: center;
+    font-family: Arial;
+    font-size: 160%;
+}
+
+.cadreView {
+    display: inline-block;
+    width: 95%;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; 
+    border-radius: 5px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 0px;
+    transition: all 1s;
+    margin-top: 1%;
+
+}
+
+.cadreView::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #6c757d;
+}
+
+.cadreView::-webkit-scrollbar{
+    background-color:  #F5F5F5;
+    width: 8px;
+
+}
+
+
+.leDevis{
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+
+}
+
+
+.lableTitreView{
+    display: inline-block;
+    text-align: left;
+    width: 30%;
+    font-family: Arial;
+    font-size: 2em;
+    border-bottom: 1px solid;
+
+}
+
+.boutonHautDevis{
+    display: inline-block; 
+    width: 59%; 
+    text-align: right;
+    
+}
+
+.info{
+    display: inline-block;
+    width: 30%;
+    margin-left: 15%;
+    text-align: left;
+
+}
+
+.titreInfo{
+    font-family: Arial;
+    font-size: 1.7em;
+    width: 96%;
+    margin-left: 3%;
+    color: black;
+
+
+
+}
+.labelInfo{
+    font-family: Arial;
+    font-size: 1.1em;
+    width: 90%;
+    margin-left: 9%;
+    color: black;
+
+
+}
+
+.donneIntervention{
+    display: inline-block;
+    width: 27%;
+    color: black;
+    font-family: Arial;
+    font-size: 140%;
+    text-align: left;
+    margin-top: 2%;
+    margin-bottom: 1%;
+}
+
+
+.inputQte{
+    display: inline-block;
+    width: 7%;
+    vertical-align: middle;
+    height: 30px;
+
+
+}
+
+.basPageDevis{
+    font-family: Arial;
+    color: black;
+    text-align: left;
+    margin-top: 2%;
+    width: 95%;
+    margin-left: 4%;
+}
+
+.ValidationDevis{
+    display: inline-block;
+    width: 30%;
+    margin-bottom: 3%;
+    margin-top: 2%;
+}
+
+.responsive{
+    display: none;
+}
+
+
+@media (max-width: 768px){
+  
+    .rapporttech{
+        width: 95%;
+    }
+    
+    
+    .noResponsive{
+        display: none;
+    }
+    
+    .responsive{
+        display: inline-block;
+    }
+    
+    
+    .titreRapport{
+        width: 100%;
+    }
+    
+    .lableTitreView{
+        font-size: 1.3em;
+        width: 24%;
+    }
+    
+    .boutonHautDevis{
+        width: 65%;
+    }
+    
+    .info{
+        display: inline-block;
+        width: 40%;
+        margin-left: 5%;
+        text-align: left;
+
+    }
+
+    
+}

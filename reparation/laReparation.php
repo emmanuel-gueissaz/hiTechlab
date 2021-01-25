@@ -118,34 +118,86 @@ include '../BDD/connexionBdd.php';
                             <h4 class="labelReparation">Rapport: </h4>
                             <input class="form-check-input checkVisibleRapport" type="checkbox" id="afficheRapport"  onclick="displayOn('afficheRapport', 'rapport');"   > 
                         </div>
+                        <h3 class="titreRapport">  Rapport client : </h3>  
+                        <h3 class="titreRapport"> Rapport technicien : </h3>  
                         <div style="text-align: center;">
+
                             <div class="rapport" id="rapport">
-                                <h3 class="labelCheck"> Affichage : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
+                                <h3 class="labelCheck"> Affichage : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"  disabled=""/>
                                 <h3 class="labelCheck"> Bouton volume haut : </h3>  
-                                <input class="checkRapport" type="checkbox" name="rapport[]"/>
-                                <h3 class="labelCheck"> Bouton volume bas : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
-                                <h3 class="labelCheck">Bouton power : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
-                                <h3 class="labelCheck">Lecteur d'empreinte : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
-                                <h3 class="labelCheck">Caméra avant : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
-                                <h3 class="labelCheck">Caméra arrière : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
-                                <h3 class="labelCheck">Son haut-parleurs : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
-                                <h3 class="labelCheck">Son écouteur : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
-                                <h3 class="labelCheck">Tactile : </h3>  <input  class="checkRapport"type="checkbox" name="rapport[]"/>
-                                <h3 class="labelCheck">Connecteur de charge : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
-                                <h3 class="labelCheck">Autonomie : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
-                                <h3 class="labelCheck">Prise écouteur : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
-                                <h3 class="labelCheck">Réseaux : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
-                                <h3 class="labelCheck">Wifi : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
-                                <h3 class="labelCheck">Flash : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
-                                <h3 class="labelCheck">Bluetooth : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
-                                <h3 class="labelCheck">GPS : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
-                                <h3 class="labelCheck">Capteur lumière  : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
-                                <h3 class="labelCheck">Capteur proximmité  : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
-                                <h3 class="labelCheck">Ecran abimé </h3>    <input class="checkRapport" type="checkbox" name="rapport[]"/>
-                                <h3 class="labelCheck">Arrière abimé : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
+                                <input class="checkRapport" type="checkbox" name="rapport[]"  disabled=""/>
+                                <h3 class="labelCheck"> Bouton volume bas : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]" disabled=""/>
+                                <h3 class="labelCheck">Bouton power : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"  disabled=""/>
+                                <h3 class="labelCheck">Lecteur d'empreinte : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"  disabled=""/>
+                                <h3 class="labelCheck">Caméra avant : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"  disabled=""/>
+                                <h3 class="labelCheck">Caméra arrière : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"  disabled=""/>
+                                <h3 class="labelCheck">Son haut-parleurs : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"  disabled=""/>
+                                <h3 class="labelCheck">Son écouteur : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"  disabled=""/>
+                                    <h3 class="labelCheck">Tactile : </h3>  <input  class="checkRapport"type="checkbox" name="rapport[]"  disabled="" />
+                                <h3 class="labelCheck">Connecteur de charge : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]" disabled=""/>
+                                <h3 class="labelCheck">Autonomie : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"  disabled=""/>
+                                <h3 class="labelCheck">Prise écouteur : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"  disabled=""/>
+                                <h3 class="labelCheck">Réseaux : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"  disabled=""/>
+                                <h3 class="labelCheck">Wifi : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"  disabled=""/>
+                                <h3 class="labelCheck">Flash : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"  disabled=""/>
+                                <h3 class="labelCheck">Bluetooth : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"  disabled=""/>
+                                <h3 class="labelCheck">GPS : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"  disabled=""/>
+                                <h3 class="labelCheck">Capteur lumière  : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"  disabled=""/>
+                                <h3 class="labelCheck">Capteur proximmité  : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"  disabled=""/>
+                                <h4 class="labelCheckSpec">Dans quel état est l'écran :</h4>  <br>
+                                <h3 class="labelCheck">Intact   : </h3> <input class="checkRapport" type="checkbox" name="rapport[]"  disabled=""/>
+                                <h3 class="labelCheck">Micro-rayures   : </h3> <input class="checkRapport" type="checkbox" name="rapport[]"  disabled=""/>
+                                <h3 class="labelCheck">Rayures   : </h3> <input class="checkRapport" type="checkbox" name="rapport[]"  disabled=""/>
+                                <h3 class="labelCheck">Cassé   : </h3> <input class="checkRapport" type="checkbox" name="rapport[]" disabled=""/>
+                                <h4 class="labelCheckSpec">Quel est l'état de la coque :</h4>  <br>
+                                <h3 class="labelCheck">Intact   : </h3> <input class="checkRapport" type="checkbox" name="rapport[]" disabled=""/>
+                                <h3 class="labelCheck">Micro-rayures   : </h3> <input class="checkRapport" type="checkbox" name="rapport[]" disabled=""/>
+                                <h3 class="labelCheck">Rayures   : </h3> <input class="checkRapport" type="checkbox" name="rapport[]" disabled=""/>
+                                <h3 class="labelCheck">Cassé   : </h3> <input class="checkRapport" type="checkbox" name="rapport[]" disabled=""/>
+
+                                <h3 class="labelCheck">Le tiroir SIM est-il présent ? </h3>  <input class="checkRapport" type="checkbox" name="rapport[]" disabled=""/>
 
 
-                                <h3 class="labelCheck" style="width: 85.5%;">A été en contact avec l'humidité  : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
+
+
+
+                            </div>
+
+                            <div class="rapporttech"  >
+                                <h3 class="labelCheck"> Affichage : </h3>  <input class="checkRapport" type="checkbox" name="rapportTech[]"/>
+                                <h3 class="labelCheck"> Bouton volume haut : </h3>  
+                                <input class="checkRapport" type="checkbox" name="rapportTech[]"  />
+                                <h3 class="labelCheck"> Bouton volume bas : </h3>  <input class="checkRapport" type="checkbox" name="rapportTech[]" />
+                                <h3 class="labelCheck">Bouton power : </h3>  <input class="checkRapport" type="checkbox" name="rapportTech[]"  />
+                                <h3 class="labelCheck">Lecteur d'empreinte : </h3>  <input class="checkRapport" type="checkbox" name="rapportTech[]"  />
+                                <h3 class="labelCheck">Caméra avant : </h3>  <input class="checkRapport" type="checkbox" name="rapportTech[]"  />
+                                <h3 class="labelCheck">Caméra arrière : </h3>  <input class="checkRapport" type="checkbox" name="rapportTech[]"  />
+                                <h3 class="labelCheck">Son haut-parleurs : </h3>  <input class="checkRapport" type="checkbox" name="rapportTech[]"  />
+                                <h3 class="labelCheck">Son écouteur : </h3>  <input class="checkRapport" type="checkbox" name="rapportTech[]"  />
+                                <h3 class="labelCheck">Tactile : </h3>  <input  class="checkRapport"type="checkbox" name="rapportTech[]"   />
+                                <h3 class="labelCheck">Connecteur de charge : </h3>  <input class="checkRapport" type="checkbox" name="rapportTech[]" />
+                                <h3 class="labelCheck">Autonomie : </h3>  <input class="checkRapport" type="checkbox" name="rapportTech[]"  />
+                                <h3 class="labelCheck">Prise écouteur : </h3>  <input class="checkRapport" type="checkbox" name="rapportTech[]"  />
+                                <h3 class="labelCheck">Réseaux : </h3>  <input class="checkRapport" type="checkbox" name="rapportTech[]"  />
+                                <h3 class="labelCheck">Wifi : </h3>  <input class="checkRapport" type="checkbox" name="rapportTech[]"  />
+                                <h3 class="labelCheck">Flash : </h3>  <input class="checkRapport" type="checkbox" name="rapportTech[]"  />
+                                <h3 class="labelCheck">Bluetooth : </h3>  <input class="checkRapport" type="checkbox" name="rapportTech[]"  />
+                                <h3 class="labelCheck">GPS : </h3>  <input class="checkRapport" type="checkbox" name="rapportTech[]"  />
+                                <h3 class="labelCheck">Capteur lumière  : </h3>  <input class="checkRapport" type="checkbox" name="rapportTech[]"  />
+                                <h3 class="labelCheck">Capteur proximmité  : </h3>  <input class="checkRapport" type="checkbox" name="rapportTech[]"  />
+                                <h4 class="labelCheckSpec">Dans quel état est l'écran :</h4>  <br>
+                                <h3 class="labelCheck">Intact   : </h3> <input class="checkRapport" type="checkbox" name="rapportTech[]"  />
+                                <h3 class="labelCheck">Micro-rayures   : </h3> <input class="checkRapport" type="checkbox" name="rapportTech[]"  />
+                                <h3 class="labelCheck">Rayures   : </h3> <input class="checkRapport" type="checkbox" name="rapportTech[]"  />
+                                <h3 class="labelCheck">Cassé   : </h3> <input class="checkRapport" type="checkbox" name="rapportTech[]" />
+                                <h4 class="labelCheckSpec">Quel est l'état de la coque :</h4>  <br>
+                                <h3 class="labelCheck">Intact   : </h3> <input class="checkRapport" type="checkbox" name="rapportTech[]" />
+                                <h3 class="labelCheck">Micro-rayures   : </h3> <input class="checkRapport" type="checkbox" name="rapportTech[]" />
+                                <h3 class="labelCheck">Rayures   : </h3> <input class="checkRapport" type="checkbox" name="rapportTech[]" />
+                                <h3 class="labelCheck">Cassé   : </h3> <input class="checkRapport" type="checkbox" name="rapportTech[]"  />
+
+                                <h3 class="labelCheck">Le tiroir SIM est-il présent ? </h3>  <input class="checkRapport" type="checkbox" name="rapportTech[]"/>
+
 
 
 
@@ -200,7 +252,7 @@ include '../BDD/connexionBdd.php';
 
                             <h4 class="labelReparation"> Défauts constatés: </h4> <input class="inputReparation form-control" type="text" id="defautreco" name="defautreco"  />
                         </div>
-                    
+
 
                         <!-- fin de la page -->
 
@@ -208,7 +260,7 @@ include '../BDD/connexionBdd.php';
                     </div>
                     <div style="text-align: center;">
                         <input type="button"  class="btn btn-outline-danger btn-lg" value="Retour" onclick="history.back()"/>
-                        <input type="submit" class="btn btn-outline-primary btn-lg" name="creerDevis" id="valideTest" value="Ajouter intervention"/>
+                        <input type="submit" class="btn btn-outline-primary btn-lg" name="ModifierRapport" id="ModifierRapport" value="Modifier"/>
 
                     </div>
                 </form>
@@ -225,6 +277,28 @@ include '../BDD/connexionBdd.php';
 
 
             <script>
+                            $('#ModifierRapport').click(function () {
+                                var test = document.getElementsByName('rapportTech[]');
+                                var temp = '';
+                                temp += '{';
+                                for (var i = 0; i < test.length; i++) {
+                                    temp += test[i].checked;
+                                    if (i < test.length - 1) {
+                                        temp += ',';
+                                    }
+
+                                }
+                                temp += '}';
+
+                                document.getElementById('leRapportCacher').value = temp;
+                                console.log(temp);
+                            }
+                            );
+
+
+
+
+
                             function load_data(mat, marque)
                             {
                                 $.ajax({
@@ -292,6 +366,8 @@ include '../BDD/connexionBdd.php';
 
 
             $rapport = $ligne['rapportcli'];
+            $rapportTech = $ligne['rapporttech'];
+
 
             echo "<script>"
             . "$('#mat').val($typeMat)"
@@ -313,7 +389,7 @@ include '../BDD/connexionBdd.php';
             echo "<script>"
             . "$('#serie').val('$serie'),"
             . "$('#afficheRapport').click(),"
-                    ." setTimeout(function(){   $('#result').val('$modele'); }, 200);"
+            . " setTimeout(function(){   $('#result').val('$modele'); }, 200);"
             . "$('#etat').val($etat),"
             . "$('#accessoire').val('$accessoire'),"
             . "$('#noteCli').val('$noteCli'),"
@@ -328,7 +404,7 @@ include '../BDD/connexionBdd.php';
             . "$('#defautsav').val('$defautsav'),"
             . "$('#defautreco').val('$defautreco')"
             . "</script>";
-            
+
             if ($panne != '') {
                 echo "<script>"
                 . "$('#afficheSAV').click()"
@@ -351,15 +427,77 @@ include '../BDD/connexionBdd.php';
                           lerapport = document.getElementsByName('rapport[]');
                            for (var i = 0; i < temp.length; i++) {
                            if(temp[i]=='t'){
-                             lerapport[i].checked = true;;
+                             lerapport[i].checked = true;
                             }
 
                             }
                             
 
                   </script>";
-            
-            
+
+            echo "<script>var temp = '$rapportTech';
+                        temp = temp.replace('{','');
+                        temp = temp.replace('}','');
+                        temp = temp.split(',');
+                        
+                        var rapportCli = '$rapport';
+                        rapportCli = rapportCli.replace('{','');
+                        rapportCli = rapportCli.replace('}','');
+                        rapportCli = rapportCli.split(',');
+                         
+
+                          lerapport = document.getElementsByName('rapportTech[]');
+                           for (var i = 0; i < temp.length; i++) {
+                           if(temp[i]=='t'){
+                            lerapport[i].checked = true;
+                            if(rapportCli[i]!='t'){
+                             lerapport[i].className = 'checkTest' ;
+                            }
+                            
+                            }
+
+                            }
+                            
+
+                  </script>";
+
+
+
+            if (isset($_POST['ModifierRapport'])) {
+                $id = $_GET['id'];
+                $modele = $_POST['modele'];
+                $serie = $_POST['serie'];
+                $etat = $_POST['etat'];
+                $accessoire = $_POST['accessoire'];
+                $noteCli = $_POST['noteCli'];
+                $noteVisi = $_POST['noteVisi'];
+                $noteInterne = $_POST['noteInterne'];
+                $code = $_POST['codeVerro'];
+                $date = $_POST['dateRest'];
+                $heure = $_POST['heureRest'];
+                $panne = $_POST['panne'];
+                $inter = $_POST['intervention'];
+                $remplacement = $_POST['remplacement'];
+                $defautsav = $_POST['defautsav'];
+                $defautreco = $_POST['defautreco'];
+
+
+                $rapport = $_POST['leRapportCacher'];
+
+                try {
+
+                    $update = "update reparation
+set (id_modele,numserie,id_etat,accessoires,noteclient,notevisiblebon,noteinterne,codeverrouillage,daterestitution,heure,anciennepanne,ancienneintervention,pieceremplace,defautsav,defautreco,rapporttech) = ('$modele','$serie','$etat','$accessoire','$noteCli','$noteVisi','$noteInterne','$code','$date','$heure','$panne', '$inter', '$remplacement', '$defautsav', '$defautreco','$rapport')
+where reparation.id = $id;";
+
+                    $update = $conn->prepare($update);
+                    $update->execute();
+
+                    echo "<script> alert_info_redirect('rapport modifié', 'success','/hitechlab/reparation/lareparation.php?id=$id');</script>";
+                } catch (Exception $ex) {
+                    echo '<script> alert_info("erreur", "error");</script>';
+                }
+            }
             ?>
 
 
@@ -375,12 +513,12 @@ include '../BDD/connexionBdd.php';
 
 
 
-<?php
-include '../include/ProtectSession.php';
-?>
+        <?php
+        include '../include/ProtectSession.php';
+        ?>
         <script>
-  
-   
+
+
         </script>
 
     </body>

@@ -32,23 +32,78 @@
 
 .rapport{
     display: none;
-    width: 50%;
+    width: 49%;
     border-radius: 15px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     margin-bottom: 2%;
+    margin-right: 0.5%;
+}
+.rapporttech{
+    display: inline-block;
+    width: 49%;
+    border-radius: 15px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    margin-bottom: 2%;
+    margin-left: 0.5%;
 }
 
 .checkRapport{
     display: inline-block;
-    width: 8%;
+    width: 22px;
+    height: 22px;
+    vertical-align: middle;
+
 }
+
+.checkRapport:checked:after{
+    display: inline-block;
+    content: "✔";
+    visibility: visible;
+    width: 22px;
+    height: 22px;
+    text-align: center;
+    border-radius: 2px;
+    background: #00EE00;
+    color: #fff;
+    vertical-align: 0;
+
+
+}
+
+
+
+.checkTest{
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    vertical-align: middle;
+    border: none;
+
+
+}
+
+
+.checkTest:checked:after{
+    display: inline-block;
+    content: "✘";
+    visibility: visible;
+    width: 22px;
+    height: 22px;
+    text-align: center;
+    border-radius: 2px;
+    background: red;
+    color: #fff;
+    vertical-align: 0;
+
+}
+
 
 .lesDevis{
     text-align: center;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     margin-top: 2%;
     border-radius: 5px;
-        vertical-align: 0;
+    vertical-align: 0;
 }
 
 #afficheRapport{
@@ -70,6 +125,21 @@
     width: 38%;
     display: inline-block;
     text-align: right;
+}
+.labelCheckSpec{
+    width: 90%;
+    font-size: 1.2em;
+    display: inline-block;
+    text-align: left;
+    border-bottom: 1px solid;
+}
+
+.titreRapport{
+    display: inline-block;
+    width: 49%;
+    text-align: center;
+    font-family: Arial;
+    font-size: 160%;
 }
 
 
@@ -100,6 +170,113 @@
 }
 
 
+.infoDevis{
+    display: inline-block;
+    width: 100%;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 5px;
+    margin-top: 1%;
+
+}
+
+
+.labelinfoDevis{
+    display: inline-block;
+    width: 19%;
+    color: black;
+    text-align: right;
+    margin-right: 1%;
+}
+
+
+.donneInfoDevis{
+    display: inline-block;
+    width: 9%;
+    color: black;
+}
+
+.donneIntervention{
+    display: inline-block;
+    width: 27%;
+    color: black;
+    font-family: Arial;
+    font-size: 140%;
+    text-align: left;
+    margin-top: 2%;
+    margin-bottom: 1%;
+}
+
+
+.AffichePlus{
+    display: none;
+    width: 100%;
+}
+
+.inputQte{
+    display: inline-block;
+    width: 30%;
+    vertical-align: middle;
+    height: 30px;
+
+
+}
+
+
+.viewDevis{
+    display: inline-block;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    width: 95%;
+    border-radius: 5px;
+
+}
+
+.barRechercheDevis{
+    width: 100%;
+
+
+}
+
+
+.selectRecheche{
+    display: inline-block;
+    width: 24%;
+    text-align: right;
+}
+
+.labelDsDevis{
+    display: inline-block;
+    width: 17%;
+}
+
+.leDevis{
+    display: block;
+    margin-top: 1%;
+    margin-bottom: 1%;
+
+
+}
+.affichageDesDevis{
+max-height: 500px;
+overflow-x: hidden;
+overflow-y: scroll;
+}
+
+
+
+
+
+
+.affichageDesDevis::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #007bff;
+}
+
+.affichageDesDevis::-webkit-scrollbar{
+    background-color:  #F5F5F5;
+    width: 8px;
+
+}
+
 @media (max-width: 768px) {
 
     .labelReparation{
@@ -115,6 +292,9 @@
     .rapport{
         width: 95%;
     }
+    .rapporttech{
+        width: 95%;
+    }
 
 
     .listeAjout{
@@ -124,4 +304,23 @@
     .plus{
         width: 8%;
     }
+
+    .noResponsive{
+        display: none;
+    }
+
+
+    .labelinfoDevis{
+        width: 50%;
+    }
+    .donneInfoDevis{
+        width: 30%;
+    }
+
+
+    .selectRecheche{
+        width: 95%;
+        text-align: center;
+    }
 }
+

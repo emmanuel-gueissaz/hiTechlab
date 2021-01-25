@@ -23,6 +23,9 @@
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="nav navbar-nav ml-auto">
                                 <li class="nav-item active">
+                                    <a class="nav-link" href="">Accueil</a>
+                                </li>
+                                 <li class="nav-item">
                                     <?php if($_SESSION['nom']!= null){
                                                 echo '<a class="nav-link" href="/connexion/connexion.php">' . $_SESSION['nom'] . '</a>';
                                    
@@ -47,4 +50,4 @@
                     </div>
 
                 </nav>
-     <script src="../../lib/js/jquery.min.js" type="text/javascript"></script>
+     <script src="../lib/js/jquery.min.js" type="text/javascript"></script>

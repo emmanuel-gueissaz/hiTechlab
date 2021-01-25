@@ -5,6 +5,13 @@
 
 <?php
 include '../BDD/connexionBdd.php';
+
+
+
+            require_once '../vendor/autoload.php';
+            
+            use PHPMailer\PHPMailer\PHPMailer;
+            use PHPMailer\PHPMailer\Exception;
 ?>
 <html lang="fr">
     <head>
@@ -134,11 +141,21 @@ include '../BDD/connexionBdd.php';
                                 <h3 class="labelCheck">GPS : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
                                 <h3 class="labelCheck">Capteur lumière  : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
                                 <h3 class="labelCheck">Capteur proximmité  : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
-                                <h3 class="labelCheck">Ecran abimé </h3>    <input class="checkRapport" type="checkbox" name="rapport[]"/>
-                                <h3 class="labelCheck">Arrière abimé : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
+                                <h4 class="labelCheckSpec">Dans quel état est l'écran :</h4>  <br>
+                                 <h3 class="labelCheck">Intact   : </h3> <input class="checkRapport" type="checkbox" name="rapport[]"/>
+                                 <h3 class="labelCheck">Micro-rayures   : </h3> <input class="checkRapport" type="checkbox" name="rapport[]"/>
+                                 <h3 class="labelCheck">Rayures   : </h3> <input class="checkRapport" type="checkbox" name="rapport[]"/>
+                                 <h3 class="labelCheck">Cassé   : </h3> <input class="checkRapport" type="checkbox" name="rapport[]"/>
+                                  <h4 class="labelCheckSpec">Quel est l'état de la coque :</h4>  <br>
+                                 <h3 class="labelCheck">Intact   : </h3> <input class="checkRapport" type="checkbox" name="rapport[]"/>
+                                 <h3 class="labelCheck">Micro-rayures   : </h3> <input class="checkRapport" type="checkbox" name="rapport[]"/>
+                                 <h3 class="labelCheck">Rayures   : </h3> <input class="checkRapport" type="checkbox" name="rapport[]"/>
+                                 <h3 class="labelCheck">Cassé   : </h3> <input class="checkRapport" type="checkbox" name="rapport[]"/>
+                                 
+                                <h3 class="labelCheck">Le tiroir SIM est-il présent ? </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
 
 
-                                <h3 class="labelCheck" style="width: 85.5%;">A été en contact avec l'humidité  : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
+                               
 
 
 
@@ -323,6 +340,60 @@ include '../BDD/connexionBdd.php';
 
 
                 echo '<script> alert_info_redirect("devis créer","success","/client/menuClient.php");</script>';
+                
+                
+            $html = '<html><head>'
+                    . ' <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">'
+                    . '</head>'
+                    . '<body style="font-family: Arial;">'
+                    . '<div style="text-align:center;"> '
+                    . '<H4 style="display:inline-block; margin-bottom: 2px;">Bienvenue chez </H4><br>'
+                    . '<h2 style="display:inline-block;">HI-TECH LAB </H2><br> '
+                    . '</div>'
+                    . '<div style="text-align:center;">'
+                    . 'Bonjour, votre demande a été prise en charge. <br> '
+                    . 'Veuillez cliquer sur le lien suivant pour accéder au suivis en-ligne '
+
+                    . '     <div style="text-align:center">  <input type="button" value="Suivre votre réparation" style="               
+                 display: inline-block;
+  border-radius: 4px;
+  background-color: #E84D0E;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 20px;
+  padding: 13px;
+  width: 250px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;"
+ 
+  /></div></div>'
+                    . '</body></html>';
+                 $mail = new PHPmailer();
+            $mail->isSMTP(); // Paramétrer le Mailer pour utiliser SMTP 
+            $mail->Host = 'smtp.gmail.com'; // Spécifier le serveur SMTP
+            $mail->SMTPAuth = true; // Activer authentication SMTP
+            $mail->Username = 'loup.cascadeur@gmail.com'; // Votre adresse email d'envoi
+            $mail->Password = 'cjpst26130'; // Le mot de passe de cette adresse email
+            $mail->SMTPSecure = 'ssl'; // Accepter SSL
+            $mail->Port = 465;
+
+            $mail->setFrom('loup.cascadeur@gmail.com', 'Hi tech lab'); // Personnaliser l'envoyeur
+            $mail->addAddress('loup.cascadeur@gmail.com', 'Client'); // Ajouter le destinataire
+            $mail->addReplyTo('loup.cascadeur@gmail.com', 'Information'); // L'adresse de réponse
+
+
+            $mail->isHTML(true); // Paramétrer le format des emails en HTML ou non
+
+            $mail->Subject = 'Demande de prise en charge';
+            $mail->Body = $html;
+
+            $mail->SMTPDebug = 1;
+            if (!$mail->send()) {
+            } 
+
+          
             } catch (Exception $ex) {
                 echo '<script> alert_info("erreur","error");</script>';
             }

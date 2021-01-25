@@ -23,7 +23,7 @@ if (isset($_POST['query'])) {
 
     $requete = "select id_forfait, nom_forfait, tarif, piece.nom_piece, forfait.id_piece, forfait.tarif from  forfait
 left join piece on piece.id_piece = forfait.id_piece
-where forfait.id_categ = '$categ' and (forfait.nom_forfait like '%$nom%' or forfait.tarif::text  like '%$nom%') ; ";
+where forfait.id_categ = '$categ' and (forfait.nom_forfait like '%$nom%' or forfait.tarif::text  like '%$nom%' or piece.nom_piece like '%$nom%') ; ";
     $requete = $conn->prepare($requete);
     $requete->execute();
 

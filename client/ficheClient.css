@@ -40,7 +40,7 @@
 .demandeDevis{
     display: inline-block;
     width: 100%;
-      box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     border-radius: 5px;
     margin-top: 1%;
 }
@@ -53,16 +53,67 @@
     color: black;
     font-family: Arial;
     margin-top: 3%;
-    
+
 }
 
 
 .laDemande{
 
     width: 100%;
-    margin-bottom: 1%;
-    margin-top: 1%;
+    padding-top: 1%;
+    padding-bottom: 1%;
     vertical-align: 0;
+    border-radius: 5px;
+
+}
+
+
+.attAccepte{
+    width: 100%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    vertical-align: 0;
+    border-radius: 5px;
+    background-color: orange;
+    color: white;
+}
+
+.Refuse{
+    width: 100%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    vertical-align: 0;
+    border-radius: 5px;
+    background-color: red;
+    color: white;
+}
+.accepte{
+    width: 100%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    vertical-align: 0;
+    border-radius: 5px;
+    background-color: lawngreen;
+    color: black;
+}
+
+.reparer{
+    width: 100%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    vertical-align: 0;
+    border-radius: 5px;
+    background-color: lawngreen;
+    color: black;
+}
+.facture{
+    width: 100%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    vertical-align: 0;
+    border-radius: 5px;
+    background-color: purple;
+    color: white;
 }
 
 .labelDsDevis{

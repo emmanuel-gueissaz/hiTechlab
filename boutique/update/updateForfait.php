@@ -47,9 +47,9 @@ include '../../BDD/connexionBdd.php';
         <input class=" inputMdp form-control" type="text"  name="desc" id="desc" required=""/>
         <h4 class="labelAjout" > tarif : </h4> 
         <input class=" inputMdp form-control" type="number"  name="tarif" id="tarif" required=""/>
-  <h4 class="labelAjout">Piece : </h4>
+        <h4 class="labelAjout">Piece : </h4>
         <div class="form-check form-switch inputMdp ">
-          
+
             <input class="form-check-input" type="checkbox" id="affichePiece" name="affichePiece" onclick="displayOn('affichePiece', 'recherchePiece');"   > 
         </div>
 
@@ -127,6 +127,18 @@ include '../../BDD/connexionBdd.php';
 
             </select>
             <input type="button" value="+" class="plus btn btn-primary btn-sm" onclick="document.location.href = '/hitechlab/boutique/ajout/ajouterPiece.php'"/>
+            
+            <h4 class="labelAjout">Plus : </h4>
+            <div class="form-check form-switch inputMdp ">
+                <input class="form-check-input" type="checkbox"  id="afficheMarge"  onclick="displayOn('afficheMarge', 'marge');"   > 
+            </div>
+            <div class="marge" id="marge" >
+                 <h4 class="labelAjout">Prix pièce: </h4>
+                 <input class="inputMdp form-control" type="text"   id="prixPiece" disabled=""/>
+                <h4 class="labelAjout">Marge: </h4>
+                <input class="inputMdp form-control" type="text"   id="lamarge" disabled="" />
+            </div>
+
         </div>
 
         <input type="button"  class="btn btn-outline-danger btn-lg inputMdp" value="Retour" onclick="history.back()"/>
@@ -238,6 +250,9 @@ $typeMat = $ligne['id_mat'];
 $marque = $ligne['id_marque'];
 $modele = $ligne['id_modele'];
 $typePiece = $ligne['id_categ'];
+$prixAchat = $ligne['prixachat'];
+$marge = $tarif - $prixAchat;
+
 
 
 
@@ -248,7 +263,7 @@ echo "<script>"
  . "$('#tarif').val('$tarif');"
  . "</script>";
 
-echo $piece;
+
 if ($piece != '') {
     echo "<script>"
     . "$('#affichePiece').click(),"
@@ -260,7 +275,9 @@ if ($piece != '') {
     . " setTimeout(function(){   $('#result').val('$modele'); }, 300);"
     . "$('#typePiece').val($typePiece);"
     . " setTimeout(function(){   $('#typePiece').click(); }, 300),"
-    . "$('#lapiece').val($piece);"
+    . "$('#lapiece').val($piece),"
+    . "$('#lamarge').val('$marge'),"
+    . "$('#prixPiece').val('$prixAchat');"
     . "</script>";
 }
 
@@ -271,19 +288,18 @@ if (isset($_POST['modifierForfait'])) {
     $tarif = $_POST['tarif'];
     $piece = $_POST['affichePiece'];
     if ($piece == 'on') {
-       $laPiece = $_POST['lapiece'];
-         try {
-            $update  = "UPDATE forfait set (nom_forfait, description_forfait, tarif, id_piece) = ('$nom','$desc',$tarif, $laPiece) where id_forfait = $id ";
+        $laPiece = $_POST['lapiece'];
+        try {
+            $update = "UPDATE forfait set (nom_forfait, description_forfait, tarif, id_piece) = ('$nom','$desc',$tarif, $laPiece) where id_forfait = $id ";
             $requete = $conn->prepare($update);
             $requete->execute();
             echo '<script> alert_info("Forfait modifié","success");    setTimeout(function(){ history.go(-2); }, 1500); </script>';
         } catch (Exception $ex) {
             echo '<script> alert_info("erreur","error");</script>';
         }
-        
     } else {
         try {
-            $update  = "UPDATE forfait set (nom_forfait, description_forfait, tarif) = ('$nom','$desc',$tarif) where id_forfait = $id ";
+            $update = "UPDATE forfait set (nom_forfait, description_forfait, tarif) = ('$nom','$desc',$tarif) where id_forfait = $id ";
             $requete = $conn->prepare($update);
             $requete->execute();
             echo '<script> alert_info("Forfait modifié","success");    setTimeout(function(){ history.go(-2); }, 1500); </script>';

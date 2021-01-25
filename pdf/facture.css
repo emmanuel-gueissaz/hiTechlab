@@ -1,0 +1,39 @@
+.titrecolonne{
+    height: 25px;
+    font-size: 130%;
+    background-color: #E84D0E;
+    color: white;
+
+}
+
+.laPage{
+    font-family: Arial;
+    font-size: 100%;
+}
+
+
+.infoColonne{
+    background-color: #DCDCDC;
+        height: 25px;
+        color: black;
+     
+        
+}
+
+
+.infoColonneWeb {
+      background-color: #DCDCDC;
+        height: 25px;
+        color: black;
+        border: 2px solid white;
+        height: 30px;
+}
+
+.titrecolonneWeb{
+    height: 25px;
+    font-size: 130%;
+    background-color: #E84D0E;
+    color: white;
+        border: 2px solid white;
+
+}

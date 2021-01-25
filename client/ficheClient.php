@@ -83,14 +83,14 @@ include '../BDD/connexionBdd.php';
                         futur stat
                     </div>
 
-                    <H4 class="titreDevis">Demande de devis</H4>
+                    <H4 class="titreDevis">Les devis</H4>
                     <div class="demandeDevis">
                         <?php
-                        $requete = "select reparation.id,modele.lib_modeele, reparation.numserie, reparation.daterestitution, reparation.heure from reparation
+                        $requete = "select reparation.id,max(a.id_statut) as id_statut, modele.lib_modeele, reparation.numserie, reparation.daterestitution, reparation.heure from reparation
                                     inner join a ON a.id = reparation.id
                                     inner join modele ON modele.id_modele = reparation.id_modele
-                                    where a.id_statut = 1
-                                    and reparation.email = '$email'";
+									where reparation.email = '$email'
+									group by  reparation.id, modele.lib_modeele, reparation.numserie, reparation.daterestitution, reparation.heure";
                         $requete = $conn->prepare($requete);
                         $requete->execute();
                         while ($ligne = $requete->fetch()) {
@@ -99,13 +99,33 @@ include '../BDD/connexionBdd.php';
                             $date = $ligne['daterestitution'];
                             $heure = $ligne['heure'];
                             $id = $ligne['id'];
-                            echo "<div class='laDemande'>"
+                            $id_statut = $ligne['id_statut'];
+                  
+                            if($id_statut=='1'){
+                                  $couleurDemande = 'laDemande';
+                            }
+                            if($id_statut=='2'){
+                                  $couleurDemande = 'attAccepte';
+                            }
+                            if($id_statut=='3'){
+                                  $couleurDemande = 'Refuse';
+                            }
+                            if($id_statut=='4'){
+                                  $couleurDemande = 'accepte';
+                            }
+                            if($id_statut=='5'){
+                                  $couleurDemande = 'reparer';
+                            }
+                            if($id_statut=='6'){
+                                  $couleurDemande = 'facture';
+                            }
+                            echo "<div class='$couleurDemande'>"
                             . "<div class='labelDsDevis'> $id </div>"
                             . "<div class='labelDsDevis'> $modele </div>"
                             . "<div class='labelDsDevis'> $numeserie </div>"
                             . "<div class='labelDsDevis'> $date </div>"
                             . "<div class='labelDsDevis'> $heure </div>"
-                            . "<button class='btn btn-primary' onclick='document.location.href=$test /hitechlab/reparation/laReparation.php?id=$id $test'>  "
+                            . "<button class='btn btn-primary' onclick='document.location.href=$test /hitechlab/reparation/leDevis.php?id=$id $test'>  "
                             . "     <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-eye-fill' viewBox='0 0 16 16'>
   <path d='M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z'/>
   <path d='M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z'/>
