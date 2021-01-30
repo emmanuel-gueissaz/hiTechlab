@@ -7,13 +7,13 @@
                 <h1><a href="" class="logo"></a></h1>
                 <ul class="list-unstyled components mb-5">
                     <li class="active">
-                        <a href="#"><span class="fa fa-home"></span> Tableau de bord</a>
+                        <a href="/hitechlab/tableauDeBord/tableauDeBord.php"><span class="fa fa-home"></span> Tableau de bord</a>
                     </li>
                     <li>
-                        <a href="/hitechlab/client/menuClient.php"><span class="fa fa-user"></span> Client</a>
+                        <a href="/hitechlab/client/menuClient.php?page=1"><span class="fa fa-user"></span> Client</a>
                     </li>
                     <li>
-                        <a href="/hitechlab/reparation/menuReparation.php"><span class="fa fa-sticky-note"></span> réparation</a>
+                        <a href="/hitechlab/reparation/menuReparation.php?page=1"><span class="fa fa-sticky-note"></span> réparation</a>
                     </li>
                     <li>
                         <a href="/hitechlab/boutique/menuBoutique.php"><span class="fa fa-cogs"></span> Boutique</a>

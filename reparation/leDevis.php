@@ -57,7 +57,7 @@ use PHPMailer\PHPMailer\Exception;
                 <?php $id = $_GET['id']; ?>
 
                 <input type="button" class="btn btn-outline-secondary" value="retour" onclick="history.back();"/>
-                <input type="button" class="btn btn-outline-secondary" value="PDF" onclick="window.open('/hitechlab/pdf/laFacture.php?id=<?php echo $id; ?>');return false;"/>
+                <input type="button" class="btn btn-outline-secondary" value="PDF" onclick="window.open('/hitechlab/pdf/leDevisPdf.php?id=<?php echo $id; ?>');return false;"/>
 
                 <form method="POST" style="display: inline-block;">
                     <input type="submit" class="btn btn-outline-secondary" name="envoiMail" value="Envoyer le devis"/>
@@ -276,13 +276,22 @@ use PHPMailer\PHPMailer\Exception;
 
 
 
-                        <?php echo $total . '€';     ?>
+                        <?php echo $total . '€'; ?>
 
 
                     </div>
                     <div style="text-align: right; margin-top: 2%;">
-                        <input type="button" value="Réparation terminé" class="btn btn-outline-secondary" />
+
+                        <form method="POST" style="display: inline-block;">
+                            <input type="submit" name="attente" value="Attente de pièce" class="btn btn-outline-secondary" />
+                        </form>
+                        <form method="POST" style="display: inline-block;">
+                            <input type="submit" name="termine" value="Réparation terminé" class="btn btn-outline-secondary" />
+                        </form>
+
+
                         <input type="button" value="Facturé" class="btn btn-outline-secondary" onclick="document.location.href = '/hitechlab/reglement/leReglement.php?id=<?php echo $_GET['id']; ?>'" />
+
                     </div>
                 </div>
 
@@ -516,13 +525,13 @@ where reparation.id = $id";
             $mail->Port = 465;
 
             $mail->setFrom('loup.cascadeur@gmail.com', 'Hi tech lab'); // Personnaliser l'envoyeur
-            $mail->addAddress('loup.cascadeur@gmail.com', 'Client'); // Ajouter le destinataire
+            $mail->addAddress($email, 'Client'); // Ajouter le destinataire
             $mail->addReplyTo('loup.cascadeur@gmail.com', 'Information'); // L'adresse de réponse
 
 
             $mail->isHTML(true); // Paramétrer le format des emails en HTML ou non
 
-            $mail->Subject = 'Devis Hi Tech lab';
+            $mail->Subject = 'Devis  Hi Tech lab';
             $mail->Body = $html;
 
             $mail->SMTPDebug = 0;
@@ -531,6 +540,164 @@ where reparation.id = $id";
             } else {
 
                 $insert = "insert into a (id, id_statut,datee,heure)values ($id,2, current_date, LOCALTIME(0));";
+                if (!$requete = $conn->prepare($insert)) {
+                    echo "<script>alert_info('Email renvoyé','success');</script>";
+                }
+                $requete->execute();
+                echo "<script>alert_info('Email envoyé','success');</script>";
+            }
+        }
+
+// en attente de piece possède le lien de suivi 
+        if (isset($_POST['attente'])) {
+            $id = $_GET['id'];
+            $t = "'";
+            $requete = "select client.email, nom, prenom from reparation
+inner join client ON client.email = reparation.email
+where reparation.id = $id";
+            $requete = $conn->prepare($requete);
+            $requete->execute();
+            $ligne = $requete->fetch();
+            $email = $ligne['email'];
+            $nom = $ligne['nom'];
+            $prenom = $ligne['prenom'];
+
+
+
+            $html = '<html><head>'
+                    . ' <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">'
+                    . '</head>'
+                    . '<body style="font-family: Arial;">'
+                    . '<div style="text-align:center;"> '
+                    . '<H4 style="display:inline-block; margin-bottom: 2px;">Bienvenue chez </H4><br>'
+                    . '<h2 style="display:inline-block;">HI-TECH LAB </H2><br> '
+                    . '</div>'
+                    . '<div style="text-align:center;">'
+                    . 'Bonjour ' . $nom . ' ' . $prenom . ', <br> '
+                    . 'Votre apparail électronique est en attente de pièce, nous vous contacterons dès réceptions.'
+                    . '<br>Vous pouvez cliquer sur le lien suivant pour accéder au suivi en ligne. '
+                    . '     <div style="text-align:center">  <a   href="" style="               
+                 display: inline-block;
+  border-radius: 4px;
+  background-color: #E84D0E;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 20px;
+  padding: 13px;
+  width: 250px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+  text-decoration:none;"
+ 
+ > Suivi en ligne </a></div></div>'
+                    . '</body></html>';
+
+            $mail = new PHPmailer();
+            $mail->isSMTP(); // Paramétrer le Mailer pour utiliser SMTP 
+            $mail->Host = 'smtp.gmail.com'; // Spécifier le serveur SMTP
+            $mail->SMTPAuth = true; // Activer authentication SMTP
+            $mail->Username = 'loup.cascadeur@gmail.com'; // Votre adresse email d'envoi
+            $mail->Password = 'cjpst26130'; // Le mot de passe de cette adresse email
+            $mail->SMTPSecure = 'ssl'; // Accepter SSL
+            $mail->Port = 465;
+
+            $mail->setFrom('loup.cascadeur@gmail.com', 'Hi tech lab'); // Personnaliser l'envoyeur
+            $mail->addAddress($email, 'Client'); // Ajouter le destinataire
+            $mail->addReplyTo('loup.cascadeur@gmail.com', 'Information'); // L'adresse de réponse
+
+
+            $mail->isHTML(true); // Paramétrer le format des emails en HTML ou non
+
+            $mail->Subject = 'En attente de piece Hi Tech lab';
+            $mail->Body = $html;
+
+            $mail->SMTPDebug = 0;
+            if (!$mail->send()) {
+                echo "<script>alert_info('erreur','error');</script>";
+            } else {
+
+                $insert = "insert into a (id, id_statut,datee,heure)values ($id,5, current_date, LOCALTIME(0));";
+                if (!$requete = $conn->prepare($insert)) {
+                    echo "<script>alert_info('Email renvoyé','success');</script>";
+                }
+                $requete->execute();
+                echo "<script>alert_info('Email envoyé','success');</script>";
+            }
+        }
+        
+// réparation terminé possède le lien de suivi 
+           if (isset($_POST['termine'])) {
+            $id = $_GET['id'];
+            $t = "'";
+            $requete = "select client.email, nom, prenom from reparation
+inner join client ON client.email = reparation.email
+where reparation.id = $id";
+            $requete = $conn->prepare($requete);
+            $requete->execute();
+            $ligne = $requete->fetch();
+            $email = $ligne['email'];
+            $nom = $ligne['nom'];
+            $prenom = $ligne['prenom'];
+
+
+
+            $html = '<html><head>'
+                    . ' <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">'
+                    . '</head>'
+                    . '<body style="font-family: Arial;">'
+                    . '<div style="text-align:center;"> '
+                    . '<H4 style="display:inline-block; margin-bottom: 2px;">Bienvenue chez </H4><br>'
+                    . '<h2 style="display:inline-block;">HI-TECH LAB </H2><br> '
+                    . '</div>'
+                    . '<div style="text-align:center;">'
+                    . 'Bonjour ' . $nom . ' ' . $prenom . ', <br> '
+                    . 'Votre apparail électronique est prêt! Vous pouvez dès à présent venir le récupérer en boutique.'
+                    . '<br>Vous pouvez cliquer sur le lien suivant pour accéder au suivi en ligne. '
+                    . '     <div style="text-align:center">  <a   href="" style="               
+                 display: inline-block;
+  border-radius: 4px;
+  background-color: #E84D0E;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 20px;
+  padding: 13px;
+  width: 250px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+  text-decoration:none;"
+ 
+ > Suivi en ligne </a></div></div>'
+                    . '</body></html>';
+
+            $mail = new PHPmailer();
+            $mail->isSMTP(); // Paramétrer le Mailer pour utiliser SMTP 
+            $mail->Host = 'smtp.gmail.com'; // Spécifier le serveur SMTP
+            $mail->SMTPAuth = true; // Activer authentication SMTP
+            $mail->Username = 'loup.cascadeur@gmail.com'; // Votre adresse email d'envoi
+            $mail->Password = 'cjpst26130'; // Le mot de passe de cette adresse email
+            $mail->SMTPSecure = 'ssl'; // Accepter SSL
+            $mail->Port = 465;
+
+            $mail->setFrom('loup.cascadeur@gmail.com', 'Hi tech lab'); // Personnaliser l'envoyeur
+            $mail->addAddress($email, 'Client'); // Ajouter le destinataire
+            $mail->addReplyTo('loup.cascadeur@gmail.com', 'Information'); // L'adresse de réponse
+
+
+            $mail->isHTML(true); // Paramétrer le format des emails en HTML ou non
+
+            $mail->Subject = 'Reparation terminee Hi Tech lab';
+            $mail->Body = $html;
+
+            $mail->SMTPDebug = 0;
+            if (!$mail->send()) {
+                echo "<script>alert_info('erreur','error');</script>";
+            } else {
+
+                $insert = "insert into a (id, id_statut,datee,heure)values ($id,6, current_date, LOCALTIME(0));";
                 if (!$requete = $conn->prepare($insert)) {
                     echo "<script>alert_info('Email renvoyé','success');</script>";
                 }

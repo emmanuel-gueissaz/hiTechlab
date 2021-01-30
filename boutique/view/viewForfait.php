@@ -24,7 +24,39 @@ include '../../BDD/connexionBdd.php';
         <script src="../../include/alert.js" type="text/javascript"></script>
 
         <link href="view.css" rel="stylesheet" type="text/css"/>
+        <script>
 
+
+            function page(leBouton) {
+
+                let searchParams = new URLSearchParams(window.location.search);
+                searchParams.has('page');
+                let nPage = searchParams.get('page');
+                if (nPage == '') {
+                    nPage = 1;
+                }
+                let temp = leBouton.value;
+                if (temp == '-') {
+                    nPage--;
+                } else {
+                    nPage++;
+                }
+                if (nPage <= 0) {
+                    nPage = 1;
+                }
+                const url = new URL(window.location);
+                url.searchParams.set('page', nPage);
+                window.history.pushState({}, '', url);
+
+
+                var categ = $('#categ').val();
+                var nom = $('#recherche').val();
+                load_data(categ, nom);
+
+
+
+            }
+        </script>
     </head>
     <body>
 
@@ -95,6 +127,22 @@ include '../../BDD/connexionBdd.php';
                         <div id="lesForfaits">
 
                         </div>
+                        <div>
+                            <button value="-" id="moins" onclick="page(this)" class="btn btn-primary mb-3 mt-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>
+                                </svg>
+                                Précédent
+                            </button>
+                            <button value="+" onclick="page(this)" class="btn btn-primary mb-3 mt-3">                                
+                                Suivant
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"/>
+                                </svg>
+                            </button>
+
+
+                        </div>
                     </div>
 
 
@@ -120,10 +168,14 @@ include '../../BDD/connexionBdd.php';
 
                                 function load_data(categ, nom)
                                 {
+                                    let searchParams = new URLSearchParams(window.location.search);
+                                    searchParams.has('page');
+                                    let nPage = searchParams.get('page');
+                                    var page = nPage * 30;
                                     $.ajax({
                                         url: "../ajax/viewRechercheForfait.php",
                                         method: "post",
-                                        data: {query: categ, nom},
+                                        data: {query: categ, nom, page},
                                         success: function (data)
                                         {
                                             $('#lesForfaits').html(data);

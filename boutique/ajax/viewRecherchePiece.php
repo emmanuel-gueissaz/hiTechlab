@@ -19,11 +19,18 @@ if (isset($_POST['query'])) {
 //   echo $_POST['query'];
     $modele = $_POST['query'];
     $type = $_POST['type'];
+    $recherche = $_POST['recherche'];
+    $marque = $_POST['marque'];
+    $fourni = $_POST['fourni'];
+    $mat = $_POST['mat'];
+    $limit = $_POST['page'];
+    $offest = $limit - 30;
 
 
     $requete = "select * from piece
-                where id_modele=$modele 
-                and id_categ=$type";
+                inner join modele ON modele.id_modele = piece.id_modele
+                where (piece.id_modele  $modele and id_mat = $mat
+                and id_categ $type and modele.id_marque = $marque and id_fournisseur $fourni)and (ref like('%$recherche%') or prixachat::text  like '%$recherche%') or code_bar = '$recherche' limit $limit offset $offest;";
     $requete = $conn->prepare($requete);
     $requete->execute();
 
@@ -32,22 +39,22 @@ if (isset($_POST['query'])) {
         $lib = $ligne['nom_piece'];
         $prix = $ligne['prixachat'];
         $stock = $ligne['stock'];
+        $total = $prix * $stock;
 
         $data .= "  <hr class='my-2' Style='border-top:1px solid black; ' />"
-             
                 . "<div class='element'> "
                 . "<div class='labelPiece'> $lib </div>"
                 . "<div class='labelPiece'> $prix €</div>"
                 . "<div class='labelPiece noResponsive'> $stock </div>"
-                       . "<form method='POST' class='iconElement'>"
+                . "<div class='labelPiece noResponsive'> $total €</div>"
+                . "<form method='POST' class='iconElement'>"
                 . "<button type='submit' class='btn btn-primary iconElement' value='$id' name='modif'> "
                 . "$iconEdit"
-                 . "</button>"
+                . "</button>"
                 . "</form>"
                 . "<form method='POST' class='iconElement'>"
                 . "<button type='submit' class='btn btn-danger iconElement' value='$id' name='supp' > "
                 . "$iconSupp"
-               
                 . "</button>"
                 . "</div>"
                 . "</form>";

@@ -1,0 +1,74 @@
+.chiffre{
+    display: inline-block;
+    width: 100%;
+    font-family: Arial;
+    color: black;
+}
+
+
+.totalCol{
+    display: inline-block;
+    width: 48%; 
+    padding-bottom: 1%;
+    margin-right: 0.5%;
+    margin-left: 0.5%;
+    margin-bottom: 1%;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 5px;
+
+}
+
+.titreColTotal{
+    text-align: left;
+    font-size: 1.5em;
+    width: 96%;
+
+
+}
+
+.donnechiffre{
+    display: inline-block;
+    width: 90%;
+    font-family: Arial;
+    font-size: 1.1em;
+    color: black;
+    margin-left: 2%;
+}
+
+.titredonnechiffre{
+    display: inline-block;
+    width: 45%;
+    text-align: left;
+}
+
+.valuedonnechiffre{
+    display: inline-block;
+    width: 45%;
+    font-size: 1.2em;
+    text-align: right;
+}
+
+.menuTabRep{
+    display: inline-block;
+    width: 20%;
+
+}
+
+.bouttonChiffre{
+    background-color: gray;
+
+}
+
+.menuTabRep:focus .bouttonChiffre {
+    background-color: white;
+    color: black;
+}
+
+.lesReparationtb{
+    display: inline-block;
+    width: 100%; 
+    margin-top: 1%;
+    margin-bottom: 1%;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 5px;
+}

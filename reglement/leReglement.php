@@ -1,6 +1,11 @@
 
 <?php
 include '../BDD/connexionBdd.php';
+
+require_once '../vendor/autoload.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 ?>
 <!doctype html>
 
@@ -54,7 +59,8 @@ include '../BDD/connexionBdd.php';
                 <?php $id = $_GET['id']; ?>
 
                 <input type="button" class="btn btn-outline-secondary" value="retour" onclick="history.back();"/>
-                <input type="button" class="btn btn-outline-secondary" value="PDF" onclick="window.open('/hitechlab/pdf/laFacture.php?id=<?php echo $id; ?>');return false;"/>
+                <input type="button" class="btn btn-outline-secondary" value="Devis" onclick="window.open('/hitechlab/pdf/leDevisPdf.php?id=<?php echo $id; ?>');return false;"/>
+                <input type="button" class="btn btn-outline-secondary" value="Facture" onclick="window.open('/hitechlab/pdf/laFacturePdf.php?id=<?php echo $id; ?>');return false;"/>
 
 
 
@@ -178,7 +184,51 @@ include '../BDD/connexionBdd.php';
             <script src="../lib/js/popper.js" type="text/javascript"></script>
 
 
+            <?php
+            $id = $_GET['id'];
+            $t = "'";
+            $requete = "select client.email, nom, prenom from reparation
+inner join client ON client.email = reparation.email
+where reparation.id = $id";
+            $requete = $conn->prepare($requete);
+            $requete->execute();
+            $ligne = $requete->fetch();
+            $email = $ligne['email'];
+            $nom = $ligne['nom'];
+            $prenom = $ligne['prenom'];
 
+
+
+            $html = '<html><head>'
+                    . ' <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">'
+                    . '</head>'
+                    . '<body style="font-family: Arial;">'
+                    . '<div style="text-align:center;"> '
+                    . '<H4 style="display:inline-block; margin-bottom: 2px;">Bienvenue chez </H4><br>'
+                    . '<h2 style="display:inline-block;">HI-TECH LAB </H2><br> '
+                    . '</div>'
+                    . '<div style="text-align:center;">'
+                    . 'Bonjour ' . $nom . ' ' . $prenom . ', <br> '
+                    . 'Vous venez de faire un règlement, vous pouvez consulter vos règlements ainsi que votre facture. '
+                    . '     <div style="text-align:center">  <a   href="http://localhost:8080/hitechlab/partieclient/acceptationdevis/viewFacture.php?id=' . $id . '" style="               
+                 display: inline-block;
+  border-radius: 4px;
+  background-color: #E84D0E;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 20px;
+  padding: 13px;
+  width: 250px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+  text-decoration:none;"
+ 
+ >Facture / Règlements</a></div></div>'
+                 
+                    . '</body></html>';
+            ?>
 
             <?php
             if (isset($_POST['modfierMontant'])) {
@@ -205,6 +255,31 @@ include '../BDD/connexionBdd.php';
                     $insert = "select * from lereglement($reg, '$libelle', $montant, $id_rep);";
                     $insert = $conn->prepare($insert);
                     $insert->execute();
+
+
+                    $mail = new PHPmailer();
+                    $mail->isSMTP(); // Paramétrer le Mailer pour utiliser SMTP 
+                    $mail->Host = 'smtp.gmail.com'; // Spécifier le serveur SMTP
+                    $mail->SMTPAuth = true; // Activer authentication SMTP
+                    $mail->Username = 'loup.cascadeur@gmail.com'; // Votre adresse email d'envoi
+                    $mail->Password = 'cjpst26130'; // Le mot de passe de cette adresse email
+                    $mail->SMTPSecure = 'ssl'; // Accepter SSL
+                    $mail->Port = 465;
+
+                    $mail->setFrom('loup.cascadeur@gmail.com', 'Hi tech lab'); // Personnaliser l'envoyeur
+                    $mail->addAddress($email, 'Client'); // Ajouter le destinataire
+                    $mail->addReplyTo('loup.cascadeur@gmail.com', 'Information'); // L'adresse de réponse
+
+
+                    $mail->isHTML(true); // Paramétrer le format des emails en HTML ou non
+
+                    $mail->Subject = 'Facture Hi Tech lab';
+                    $mail->Body = $html;
+
+                    $mail->SMTPDebug = 0;
+                    if (!$mail->send()) {
+                        echo "<script>alert_info('erreur email','error');</script>";
+                    }
                     echo "<script> alert_info_redirect('Règlement ajouté', 'success','/hitechlab/reglement/leReglement.php?id=$id')</script>";
                 } catch (Exception $ex) {
                     echo "<script> alert_info('erreur', 'error')</script>";
@@ -212,6 +287,8 @@ include '../BDD/connexionBdd.php';
             }
             ?>
 
+            
+            <?php            include '../include/ProtectSession.php';?>
     </body>
 
 

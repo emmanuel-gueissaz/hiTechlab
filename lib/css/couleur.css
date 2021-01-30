@@ -1,0 +1,84 @@
+.laDemande{
+
+    width: 100%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    margin-bottom: 1%;
+    vertical-align: 0;
+    border-radius: 5px;
+
+
+}
+
+
+.attAccepte{
+    width: 100%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    margin-bottom: 1%;
+
+    vertical-align: 0;
+    border-radius: 5px;
+    /*background-color: orange;*/
+    border: 3px solid orange;
+    color: orange;
+}
+
+.Refuse{
+    width: 100%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    margin-bottom: 1%;
+    vertical-align: 0;
+    border-radius: 5px;
+    /*background-color: red;*/
+    border: 3px solid red;
+    /*color: white;*/
+    color: red;
+}
+
+.attPiece{
+    width: 100%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    margin-bottom: 1%;
+    vertical-align: 0;
+    border-radius: 5px;
+    /*background-color: orangered;*/
+    border: 3px solid orangered;
+    color: orangered;
+}
+.accepte{
+    width: 100%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    margin-bottom: 1%;
+    vertical-align: 0;
+    border-radius: 5px;
+    /*background-color: lawngreen;*/
+    border: 3px solid lawngreen;
+    color: lawngreen;
+}
+
+.reparer{
+    width: 100%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    margin-bottom: 1%;
+    vertical-align: 0;
+    border-radius: 5px;
+    /*background-color: greenyellow;*/
+    border: 3px solid greenyellow;
+    color: greenyellow;
+}
+.facture{
+    width: 100%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    margin-bottom: 1%;
+    vertical-align: 0;
+    border-radius: 5px;
+    /*background-color: purple;*/
+    border: 3px solid purple;
+    color: purple;
+}

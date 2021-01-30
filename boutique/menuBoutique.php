@@ -22,7 +22,7 @@ include '../BDD/connexionBdd.php';
         <link href="../lib/alert/sweetalert2.css" rel="stylesheet" type="text/css"/>
         <script src="../lib/alert/sweetalert2.js" type="text/javascript"></script>
         <script src="../include/alert.js" type="text/javascript"></script>
-      
+
 
     </head>
     <body>
@@ -40,10 +40,26 @@ include '../BDD/connexionBdd.php';
 
 
                 <div style="text-align: center">
-                    <h2 class="titre">Création technicien</h2>
-                    <input type="button" class="btn btn-outline-primary btn-lg" onclick="document.getElementById('createClient').style.display = 'inline-block';  this.style.display = 'none';"  id="btnCreate" value="créer un technicien"/>
+                    <div  style="text-align: right;">
+                        <button class="btn btn-outline-primary" onclick="document.location.href = '/hitechlab/boutique/lesAjouts.php'">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
+                            <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
+                            <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"/>
+                            </svg>
+                        </button>
+                        <?php
+                        $requete = "select count(*) as nbalert from piece where stock <= 1";
+                        $requete = $conn->prepare($requete);
+                        $requete->execute();
+                        $ligne = $requete->fetch();
+                        $nbalert = $ligne['nbalert'];
+                        ?>
+                        <button type="button" class="btn btn-primary" onclick="document.location.href = '/hitechlab/boutique/gestionStock/GestionStock.php'">
+                            Pièce <span class="badge badge-light"><?php echo $nbalert; ?></span>
+                        </button>
 
-                    <div class="createClient" id="createClient" style="text-align: left">
+                    </div>
+                    <div class="createClient slideBar" id="createClient" style="text-align: left">
 
                         <form method="POST">
                             <h4 class="labelClient">Nom : </h4> <input class="inputClient form-control" type="text" name="Nom" required=""/><br>
@@ -61,9 +77,21 @@ include '../BDD/connexionBdd.php';
                             </div>
                             <br>
                             <h4 class="labelClient">Mot de passe : </h4> <input class="inputClient form-control" type="password" name="mdp"/><br>
-                            <h4 class="labelClient">Salaire : </h4> <input class="inputClient form-control" type="number" name="salaire"/><br>
+                            <h4 class="labelClient">Type : </h4>
+                            <select class="inputClient btn-outline-primary" name="type_tech">
+                            <?php 
+                            $requete = 'select * from type_tech';
+                            $requete = $conn -> prepare($requete);
+                            $requete -> execute();
+                            while($ligne = $requete -> fetch()){
+                                $id = $ligne['id_type_tech'];
+                                $lib = $ligne['lib_type_tech'];
+                                echo "<option value='$id'>$lib</script>";
+                                }
+                                ?>
+                                </select>
                             <div style="text-align: center">
-                                <input type="button"  class="btn btn-outline-danger btn-lg" value="Annuler"  onclick="document.getElementById('createClient').style.display = 'none';document.getElementById('btnCreate').style.display = 'inline-block';" />
+                                <input type="button"  class="btn btn-outline-danger btn-lg" value="Annuler"  onclick="document.getElementById('createClient').style.height = '0px';" />
                                 <input type="submit" name="createTec" class="btn btn-outline-primary btn-lg" value="Créer"  />
                             </div>
 
@@ -72,14 +100,28 @@ include '../BDD/connexionBdd.php';
                     </div>
 
                     <div class="lesTechniciens">
-                        
-                            <div class='titreTech noResponsive' >email  </div>
-                           <div class='titreTech'>nom  </div>
-                           <div class='titreTech'>prenom  </div>
-                           <div class='titreTech noResponsive'>tel  </div>
-                         
-                      
-                           
+                        <div class="titreDeTech">
+                            <h5 class="lableTitreTech">
+                                Les techniciens :
+                            </h5>
+                            <button class="btn btn-primary iconElement" onclick="document.getElementById('createClient').style.height = '600px';"  >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                </svg>
+                            </button>
+
+                        </div>
+
+
+
+                        <div class='titreTech noResponsive' >email  </div>
+                        <div class='titreTech'>nom  </div>
+                        <div class='titreTech'>prenom  </div>
+                        <div class='titreTech noResponsive'>tel  </div>
+
+
+
                         <?php
                         $test = '"';
                         $requete = "select email, nom, prenom, tel from technicien";
@@ -91,7 +133,7 @@ include '../BDD/connexionBdd.php';
                             $prenom = $lignes['prenom'];
                             $tel = $lignes['tel'];
                             echo "<div class='leTech'>"
-                             . "<hr class='my-2' Style='border-top:1px solid black; ' />"
+                            . "<hr class='my-2' Style='border-top:1px solid black; ' />"
                             . "<div class='labelTech noResponsive'>$email  </div>"
                             . "<div class='labelTech'>$nom  </div>"
                             . "<div class='labelTech'>$prenom  </div>"
@@ -102,70 +144,68 @@ include '../BDD/connexionBdd.php';
   <path d='M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z'/>
 </svg>
 </button>"
-                           
-                                    . "</div>";
+                            . "</div>";
                         }
                         ?>
 
                     </div>
 
-                    
-                    
-                    <input type="button" class="btn btn-outline-primary btn-lg" onclick="document.location.href= '/hitechlab/boutique/lesAjouts.php'" value="ajout"/>
-
                 </div>
             </div>
+        </div>
 
-            <!-- fin de la page -->
-<?php
-if (isset($_POST['createTec'])) {
-    $nom = $_POST['Nom'];
-    $prenom = $_POST['Prenom'];
-    $tel = $_POST['Tel'];
-    $email = $_POST['Email'];
-    $telfix = $_POST['Tel_fixe'];
-    $rue = $_POST['Rue'];
-    $Cpost = $_POST['CPost'];
-    $ville = $_POST['Ville'];
-    $offre = $_POST['offre'];
-    $mdp = $_POST['mdp'];
+        <!-- fin de la page -->
+        <?php
+        if (isset($_POST['createTec'])) {
+            $nom = $_POST['Nom'];
+            $prenom = $_POST['Prenom'];
+            $tel = $_POST['Tel'];
+            $email = $_POST['Email'];
+            $telfix = $_POST['Tel_fixe'];
+            $rue = $_POST['Rue'];
+            $Cpost = $_POST['CPost'];
+            $ville = $_POST['Ville'];
+            $offre = $_POST['offre'];
+            $mdp = $_POST['mdp'];
+            $type_tech = $_POST['type_tech'];
 
-    $mdp = openssl_encrypt($mdp, "AES-128-ECB", '1234');
-    $salaire = $_POST['salaire'];
+            $mdp = openssl_encrypt($mdp, "AES-128-ECB", '1234');
+            
 
-    if ($offre == 'on') {
-        $offre = 'true';
-    } else {
-        $offre = 'false';
-    }
-
-
-    try {
-        $insert = "insert into technicien (nom,prenom,tel,email,telfixe,rue,cpost,ville,receptionoffre,mdp,salaire) values ('$nom','$prenom','$tel','$email','$telfix','$rue','$Cpost','$ville','$offre','$mdp',$salaire);";
-        // $insert = "insert into client (email) values ('$email');";
-        $test = $conn->prepare($insert);
-        $test->execute();
-
-        echo '<script> alert_info("client créer","success");</script>';
-    } catch (Exception $ex) {
-        echo '<script> alert_info("déja client","error");</script>';
-    }
-}
-?>
-            <!-- mes script js-->
+            if ($offre == 'on') {
+                $offre = 'true';
+            } else {
+                $offre = 'false';
+            }
 
 
+            try {
+                $insert = "insert into technicien (nom,prenom,tel,email,telfixe,rue,cpost,ville,receptionoffre,mdp,type_tech) values ('$nom','$prenom','$tel','$email','$telfix','$rue','$Cpost','$ville','$offre','$mdp',$type_tech);";
+                // $insert = "insert into client (email) values ('$email');";
+                $test = $conn->prepare($insert);
+                $test->execute();
 
-            <!-- libscript js -->
+                echo '<script> alert_info_redirect("Technicien crée","success","/hitechlab/boutique/menuBoutique.php");</script>';
+            } catch (Exception $ex) {
+//                echo '<script> alert_info("déjà technicien","error");</script>';
+                echo $ex;
+            }
+        }
+        ?>
+        <!-- mes script js-->
 
-                    <script src="../lib/js/bootstrap.min.js" type="text/javascript"></script>
+
+
+        <!-- libscript js -->
+
+        <script src="../lib/js/bootstrap.min.js" type="text/javascript"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <script src="../lib/js/main.js" type="text/javascript"></script>
         <script src="../lib/js/popper.js" type="text/javascript"></script>
 
-<?php
-include '../include/ProtectSession.php';
-?>
+        <?php
+        include '../include/ProtectSession.php';
+        ?>
     </body>
 </html>
 

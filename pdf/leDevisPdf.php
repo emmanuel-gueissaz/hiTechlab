@@ -20,6 +20,7 @@ $requete = "select * from reparation inner join modele on modele.id_modele = rep
          inner join a ON a.id = reparation.id
          inner join marque ON marque.id_marque = modele.id_marque
          where reparation.id = $nDevis
+             and a.id_statut <=2
          order by a.id_statut desc
          limit 1";
 $requete = $conn->prepare($requete);
@@ -29,10 +30,10 @@ $email = $ligne['email'];
 $modele = $ligne['lib_modeele'];
 $heure = $ligne['heure'];
 $date = date('d-m-Y', strtotime($ligne['datee']));
-$dateValiditeDevis =  date('d-m-Y', strtotime($date. ' + 14 days'));
+$dateValiditeDevis = date('d-m-Y', strtotime($date . ' + 14 days'));
 $nomMarque = $ligne['nom'];
 $numeserie = $ligne['numserie'];
-
+$notevisiblebon = $ligne['notevisiblebon'];
 
 
 $requete = "select * from client where email = '$email'";
@@ -153,14 +154,14 @@ where reparation.id = $nDevis";
                 
         </tr>";
         }
-        
-                $requete = "select * from remise inner join compter ON compter.id_remise = remise.id_remise where compter.id_reparation = $nDevis";
+
+        $requete = "select * from remise inner join compter ON compter.id_remise = remise.id_remise where compter.id_reparation = $nDevis";
         $requete = $conn->prepare($requete);
         $requete->execute();
         while ($ligne = $requete->fetch()) {
             $lib_remise = $ligne['lib_remise'];
             $tarif = $ligne['montant'];
-            
+
 
             $montantTotal -= $tarif;
 
@@ -197,46 +198,53 @@ where reparation.id = $nDevis";
         </tr>
     </table>
 
-    
-     <table style="width: 100%; text-align: left; margin-left: 5%; margin-top: 2%; ">
-         <tr>
-            <td  style="width:  82%;"> Devis valide jusqu'au : <?php  echo $dateValiditeDevis; ?> </td>
+
+    <table style="width: 100%; text-align: left; margin-left: 5%; margin-top: 2%; ">
+        <tr>
+            <td  style="width:  82%;"> Devis valide jusqu'au : <?php echo $dateValiditeDevis; ?> </td>
         </tr>
-         <tr>
-             <td  style="margin-top: 2%;"> <b>Conditions de règlement appliquées sur les factures</b> </td>
+        <tr>
+            <td  style="margin-top: 2%;"> <b>Conditions de règlement appliquées sur les factures</b> </td>
         </tr>
-         <tr>
-             <td > Date limite de règlement : à réception de la facture </td>
+        <tr>
+            <td > Date limite de règlement : à réception de la facture </td>
         </tr>
-         <tr>
-             <td  > Taux des pénalités en cas de retard de paiement : taux directeur de refinancement de la BCE, majoré de 10 points     </td>
+        <tr>
+            <td  > Taux des pénalités en cas de retard de paiement : taux directeur de refinancement de la BCE, majoré de 10 points     </td>
         </tr>
-         <tr>
-             <td > Escompte en cas de paiement anticipé : aucun     </td>
+        <tr>
+            <td > Escompte en cas de paiement anticipé : aucun     </td>
         </tr>
-         <tr>
-             <td style="border-top: 1px;"> Pour tout diagnostic informatique et ou téléphonie, nécessitant une prise en charge avec tests de composants et    </td>
+        <tr>
+            <td style="border-top: 1px;"> Pour tout diagnostic informatique et ou téléphonie, nécessitant une prise en charge avec tests de composants et    </td>
         </tr>
-         <tr>
-             <td > ouverture de tout appareil électronique, un minimum de 40€ de "diagnostic avancé" sera dû qu'il y ai ou non résolution    </td>
+        <tr>
+            <td > ouverture de tout appareil électronique, un minimum de 40€ de "diagnostic avancé" sera dû qu'il y ai ou non résolution    </td>
         </tr>
-         <tr>
-             <td > de la panne ou refus d'un devis ayant nécessité des tests avant intervention    </td>
+        <tr>
+            <td > de la panne ou refus d'un devis ayant nécessité des tests avant intervention    </td>
+        </tr>
+
+        <tr>
+            <td  style="margin-top: 2%;"> <b>Conditions ou informations spécifiques à la vente / prestation: </b> </td>
+        </tr>
+        <tr>
+            <td > <?php echo $notevisiblebon; ?> </td>
         </tr>
     </table>
-    
+
     <page_footer>
-         <table style="width: 100%; text-align: left; margin-left: 5%; margin-top: 2%;">
-             <tr >
-            <td   style=" border-top: 1px; width: 92%; "> HI-TECH LAB - 820 362 226 RCS Romans Sur Isère - APE : 9511Z  </td>
-        </tr>
-         <tr>
-            <td  > Signature du client  </td>
-        </tr>
-         <tr>
-            <td  > Précédée de la mention "Bon pour accord"  </td>
-        </tr>
-         </table>
+        <table style="width: 100%; text-align: left; margin-left: 5%; margin-top: 2%;">
+            <tr >
+                <td   style=" border-top: 1px; width: 92%; "> HI-TECH LAB - 820 362 226 RCS Romans Sur Isère - APE : 9511Z  </td>
+            </tr>
+            <tr>
+                <td  > Signature du client  </td>
+            </tr>
+            <tr>
+                <td  > Précédée de la mention "Bon pour accord"  </td>
+            </tr>
+        </table>
     </page_footer>
 </page>
 <?php

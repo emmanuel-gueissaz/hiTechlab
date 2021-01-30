@@ -59,7 +59,7 @@ include '../../BDD/connexionBdd.php';
             </h5>
             <div class="boutonHautDevis">
                 <input type="button" class="btn btn-outline-secondary" onclick="test('cadreView')" value="Voir les rapports"/>
-                <input type="button" class="btn btn-outline-secondary" onclick="window.open('/hitechlab/pdf/laFacture.php?id=<?php echo $_GET['id'] ?>')" value="pdf"/>
+                <input type="button" class="btn btn-outline-secondary" onclick="window.open('/hitechlab/pdf/leDevisPdf.php?id=<?php echo $_GET['id'] ?>')" value="PDF"/>
 
 
                 <button onclick="document.location.href = 'tel:+33780558823';" class="btn btn-outline-secondary">
@@ -138,15 +138,15 @@ include '../../BDD/connexionBdd.php';
                     <h3 class="labelCheck">Capteur lumière  : </h3>  <input class="checkRapport" type="checkbox" name="rapportTech[]" disabled=""  />
                     <h3 class="labelCheck">Capteur proximmité  : </h3>  <input class="checkRapport" type="checkbox" name="rapportTech[]" disabled=""  />
                     <h4 class="labelCheckSpec">Dans quel état est l'écran :</h4>  <br>
-                    <h3 class="labelCheck">Intact   : </h3> <input class="checkRapport" type="radio" name="rapportTech[]" disabled=""  />
-                    <h3 class="labelCheck">Micro-rayures   : </h3> <input class="checkRapport" type="radio" name="rapportTech[]" disabled=""  />
-                    <h3 class="labelCheck">Rayures   : </h3> <input class="checkRapport" type="radio" name="rapportTech[]" disabled=""  />
-                    <h3 class="labelCheck">Cassé   : </h3> <input class="checkRapport" type="radio" name="rapportTech[]" disabled="" />
+                    <h3 class="labelCheck">Intact   : </h3> <input class="checkRapport" type="checkbox" name="rapportTech[]" disabled=""  />
+                    <h3 class="labelCheck">Micro-rayures   : </h3> <input class="checkRapport" type="checkbox" name="rapportTech[]" disabled=""  />
+                    <h3 class="labelCheck">Rayures   : </h3> <input class="checkRapport" type="checkbox" name="rapportTech[]" disabled=""  />
+                    <h3 class="labelCheck">Cassé   : </h3> <input class="checkRapport" type="checkbox" name="rapportTech[]" disabled="" />
                     <h4 class="labelCheckSpec">Quel est l'état de la coque :</h4>  <br>
-                    <h3 class="labelCheck">Intact   : </h3> <input class="checkRapport" type="radio" name="rapportTech[]" disabled="" />
-                    <h3 class="labelCheck">Micro-rayures   : </h3> <input class="checkRapport" type="radio" name="rapportTech[]" disabled="" />
-                    <h3 class="labelCheck">Rayures   : </h3> <input class="checkRapport" type="radio" name="rapportTech[]" disabled="" />
-                    <h3 class="labelCheck">Cassé   : </h3> <input class="checkRapport" type="radio" name="rapportTech[]" disabled=""  />
+                    <h3 class="labelCheck">Intact   : </h3> <input class="checkRapport" type="checkbox" name="rapportTech[]" disabled="" />
+                    <h3 class="labelCheck">Micro-rayures   : </h3> <input class="checkRapport" type="checkbox" name="rapportTech[]" disabled="" />
+                    <h3 class="labelCheck">Rayures   : </h3> <input class="checkRapport" type="checkbox" name="rapportTech[]" disabled="" />
+                    <h3 class="labelCheck">Cassé   : </h3> <input class="checkRapport" type="checkbox" name="rapportTech[]" disabled=""  />
 
                     <h3 class="labelCheck">Le tiroir SIM est-il présent ? </h3>  <input class="checkRapport" type="checkbox" name="rapportTech[]" disabled="" />
 
@@ -165,6 +165,7 @@ include '../../BDD/connexionBdd.php';
          inner join a ON a.id = reparation.id
          inner join marque ON marque.id_marque = modele.id_marque
          where reparation.id = $nDevis
+               and a.id_statut <=2
          order by a.id_statut desc
          limit 1";
                 $requete = $conn->prepare($requete);
@@ -177,6 +178,7 @@ include '../../BDD/connexionBdd.php';
                 $dateValiditeDevis = date('d-m-Y', strtotime($date . ' + 14 days'));
                 $nomMarque = $ligne['nom'];
                 $numeserie = $ligne['numserie'];
+                $notevisiblebon = $ligne['notevisiblebon'];
 
 
 
@@ -335,6 +337,12 @@ where reparation.id = $nDevis";
                         ouverture de tout appareil électronique, un minimum de 40€ de "diagnostic avancé" sera dû qu'il y ai ou non résolution
                         de la panne ou refus d'un devis ayant nécessité des tests avant intervention.
 
+                        <br>
+                        <b>Conditions ou informations spécifiques à la vente / prestation: </b> 
+
+
+                        <div > <?php echo $notevisiblebon; ?> </div>
+
                     </div>
 
 
@@ -379,21 +387,21 @@ where reparation.id = $nDevis";
 
         <!-- fin de la page -->
 
-<?php
-$requete = "select * from reparation inner join modele ON modele.id_modele = reparation.id_modele where id=" . $_GET['id'] . ";";
-$requete = $conn->prepare($requete);
-$requete->execute();
-$ligne = $requete->fetch();
-$marque = $ligne['id_marque'];
-$modele = $ligne['id_modele'];
-$serie = $ligne['numserie'];
+        <?php
+        $requete = "select * from reparation inner join modele ON modele.id_modele = reparation.id_modele where id=" . $_GET['id'] . ";";
+        $requete = $conn->prepare($requete);
+        $requete->execute();
+        $ligne = $requete->fetch();
+        $marque = $ligne['id_marque'];
+        $modele = $ligne['id_modele'];
+        $serie = $ligne['numserie'];
 
-$rapport = $ligne['rapportcli'];
-$rapportTech = $ligne['rapporttech'];
+        $rapport = $ligne['rapportcli'];
+        $rapportTech = $ligne['rapporttech'];
 
 // script pour découper le tableau boolean et permet d'afficher le rapport
 
-echo "<script>var temp = '$rapport';
+        echo "<script>var temp = '$rapport';
                         temp = temp.replace('{','');
                         temp = temp.replace('}','');
                         temp = temp.split(',');
@@ -408,7 +416,7 @@ echo "<script>var temp = '$rapport';
 
                   </script>";
 
-echo "<script>var temp = '$rapportTech';
+        echo "<script>var temp = '$rapportTech';
                         temp = temp.replace('{','');
                         temp = temp.replace('}','');
                         temp = temp.split(',');
@@ -437,38 +445,39 @@ echo "<script>var temp = '$rapportTech';
 
 
 
-if (isset($_POST['refuser'])) {
-    $id = $_GET['id'];
-    try {
-        $insert = "insert into a (id, id_statut,datee,heure)values ($id,3, current_date, LOCALTIME(0));";
-        $requete = $conn->prepare($insert);
-        $requete->execute();
-        echo "<script> alert_info('Devis refusé, pour toutes questions veuillé nous appeler', 'question')</script>";
-    } catch (Exception $ex) {
-        echo "<script> alert_info('erreur', 'error')</script>";
-    }
-}
-if (isset($_POST['accepter'])) {
-    $id = $_GET['id'];
-    try {
-        $insert = "insert into a (id, id_statut,datee,heure)values ($id,4, current_date, LOCALTIME(0));";
-        $requete = $conn->prepare($insert);
-        $requete->execute();
-        echo "<script> alert_info_redirect('Devis accepté', 'success','/hitechlab/partieclient/acceptationdevis/viewdevis.php?id=$id')</script>";
-    } catch (Exception $ex) {
-        echo "<script> alert_info('erreur', 'error')</script>";
-    }
-}
-?>
+        if (isset($_POST['refuser'])) {
+            $id = $_GET['id'];
+            $t = "'";
+            try {
+                $insert = "insert into a (id, id_statut,datee,heure)values ($id,3, current_date, LOCALTIME(0));";
+                $requete = $conn->prepare($insert);
+                $requete->execute();
+                echo '<script> alert_info("Vous avez refusé le devis. N' . $t . 'hésitez pas a nous contacter pour toutes questions relative à l' . $t . 'intervention." , "question")</script>';
+            } catch (Exception $ex) {
+                echo '<script> alert_info("Vous avez refusé le devis. N' . $t . 'hésitez pas a nous contacter pour toutes questions relative à l' . $t . 'intervention." , "question")</script>';
+            }
+        }
+        if (isset($_POST['accepter'])) {
+            $id = $_GET['id'];
+            try {
+                $insert = "insert into a (id, id_statut,datee,heure)values ($id,4, current_date, LOCALTIME(0));";
+                $requete = $conn->prepare($insert);
+                $requete->execute();
+                echo "<script> alert_info_redirect('Devis accepté', 'success','/hitechlab/partieclient/acceptationdevis/viewdevis.php?id=$id')</script>";
+            } catch (Exception $ex) {
+                echo "<script> alert_info('erreur', 'error')</script>";
+            }
+        }
+        ?>
 
 
 
 
 
 
-<?php
+        <?php
 //include '../../include/protectionSessionMembre.php';
-?>
+        ?>
 
 
     </body>

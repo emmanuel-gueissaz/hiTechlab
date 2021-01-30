@@ -43,9 +43,9 @@ include '../../BDD/connexionBdd.php';
                     <div class="cadreView">
                         <div class="titreView">
                             <h5 class="lableTitreView">
-                                Les remises :
+                                Les fournisseurs :
                             </h5>
-                            <button class="btn btn-primary iconElement" onclick="document.location.href = '/hitechlab/boutique/ajout/ajouterTypeRemise.php'"  >
+                            <button class="btn btn-primary iconElement" onclick="document.location.href = '/hitechlab/boutique/ajout/ajouterFournisseur.php'"  >
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
                                 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
                                 <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
@@ -57,12 +57,12 @@ include '../../BDD/connexionBdd.php';
                         $icon = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
                                  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
                                  </svg>';
-                        $requete = "select * from remise";
+                        $requete = "select * from fournisseur";
                         $requete = $conn->prepare($requete);
                         $requete->execute();
                         while ($lignes = $requete->fetch()) {
-                            $id = $lignes['id_remise'];
-                            $lib = $lignes['lib_remise'];
+                            $id = $lignes['id_fournisseur'];
+                            $lib = $lignes['lib_fournisseur'];
 
                             echo "  <hr class='my-2' Style='border-top:1px solid black; ' />"
                                          . "<form method='POST'>"
@@ -103,12 +103,12 @@ include '../../BDD/connexionBdd.php';
             $id = $_POST['supp'];
             
             try {
-                   $requete = "delete from remise where id_remise = $id ;";
+                   $requete = "delete from fournisseur where id_fournisseur = $id ;";
             $requete = $conn -> prepare($requete);
             $requete -> execute();
-             echo '<script> alert_info_redirect("Le type de remise à est supprimée","success","/hitechlab/boutique/view/viewTypeRemise.php");</script>';
+             echo '<script> alert_info_redirect("Le fournisseur est supprimée","success","/hitechlab/boutique/view/viewFournisseur.php");</script>';
             } catch (Exception $ex) {
-                  echo '<script> alert_info("Le type de remise ne peut être supprimée","error");</script>';
+                  echo '<script> alert_info("Le fournisseur ne peut être supprimée","error");</script>';
             }
          
             

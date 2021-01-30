@@ -57,64 +57,7 @@
 }
 
 
-.laDemande{
 
-    width: 100%;
-    padding-top: 1%;
-    padding-bottom: 1%;
-    vertical-align: 0;
-    border-radius: 5px;
-
-}
-
-
-.attAccepte{
-    width: 100%;
-    padding-top: 1%;
-    padding-bottom: 1%;
-    vertical-align: 0;
-    border-radius: 5px;
-    background-color: orange;
-    color: white;
-}
-
-.Refuse{
-    width: 100%;
-    padding-top: 1%;
-    padding-bottom: 1%;
-    vertical-align: 0;
-    border-radius: 5px;
-    background-color: red;
-    color: white;
-}
-.accepte{
-    width: 100%;
-    padding-top: 1%;
-    padding-bottom: 1%;
-    vertical-align: 0;
-    border-radius: 5px;
-    background-color: lawngreen;
-    color: black;
-}
-
-.reparer{
-    width: 100%;
-    padding-top: 1%;
-    padding-bottom: 1%;
-    vertical-align: 0;
-    border-radius: 5px;
-    background-color: lawngreen;
-    color: black;
-}
-.facture{
-    width: 100%;
-    padding-top: 1%;
-    padding-bottom: 1%;
-    vertical-align: 0;
-    border-radius: 5px;
-    background-color: purple;
-    color: white;
-}
 
 .labelDsDevis{
     display: inline-block;

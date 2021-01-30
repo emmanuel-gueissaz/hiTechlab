@@ -8,10 +8,10 @@ include '../BDD/connexionBdd.php';
 
 
 
-            require_once '../vendor/autoload.php';
-            
-            use PHPMailer\PHPMailer\PHPMailer;
-            use PHPMailer\PHPMailer\Exception;
+require_once '../vendor/autoload.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 ?>
 <html lang="fr">
     <head>
@@ -114,6 +114,10 @@ include '../BDD/connexionBdd.php';
                         <input type="button" value="+" class="plus btn btn-primary btn-sm" onclick="document.location.href = '/hitechlab/boutique/ajout/ajouterModele.php'"/>
                         <h4 class="labelReparation">Numéro de série: </h4> <input class="inputReparation form-control" type="text"  name="serie" />
 
+                        <h4 class="labelReparation">Pannes : </h4>
+
+                        <textarea class="zoneTextPanne form-control"  name="lapanne" ></textarea>
+
                         <div class="form-check form-switch">
                             <h4 class="labelReparation">Rapport: </h4>
                             <input class="form-check-input checkVisibleRapport" type="checkbox" id="afficheRapport"  onclick="displayOn('afficheRapport', 'rapport');"   > 
@@ -142,22 +146,17 @@ include '../BDD/connexionBdd.php';
                                 <h3 class="labelCheck">Capteur lumière  : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
                                 <h3 class="labelCheck">Capteur proximmité  : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
                                 <h4 class="labelCheckSpec">Dans quel état est l'écran :</h4>  <br>
-                                 <h3 class="labelCheck">Intact   : </h3> <input class="checkRapport" type="checkbox" name="rapport[]"/>
-                                 <h3 class="labelCheck">Micro-rayures   : </h3> <input class="checkRapport" type="checkbox" name="rapport[]"/>
-                                 <h3 class="labelCheck">Rayures   : </h3> <input class="checkRapport" type="checkbox" name="rapport[]"/>
-                                 <h3 class="labelCheck">Cassé   : </h3> <input class="checkRapport" type="checkbox" name="rapport[]"/>
-                                  <h4 class="labelCheckSpec">Quel est l'état de la coque :</h4>  <br>
-                                 <h3 class="labelCheck">Intact   : </h3> <input class="checkRapport" type="checkbox" name="rapport[]"/>
-                                 <h3 class="labelCheck">Micro-rayures   : </h3> <input class="checkRapport" type="checkbox" name="rapport[]"/>
-                                 <h3 class="labelCheck">Rayures   : </h3> <input class="checkRapport" type="checkbox" name="rapport[]"/>
-                                 <h3 class="labelCheck">Cassé   : </h3> <input class="checkRapport" type="checkbox" name="rapport[]"/>
-                                 
+                                <h3 class="labelCheck">Intact   : </h3> <input class="checkRapport" type="checkbox" name="rapport[]"/>
+                                <h3 class="labelCheck">Micro-rayures   : </h3> <input class="checkRapport" type="checkbox" name="rapport[]"/>
+                                <h3 class="labelCheck">Rayures   : </h3> <input class="checkRapport" type="checkbox" name="rapport[]"/>
+                                <h3 class="labelCheck">Cassé   : </h3> <input class="checkRapport" type="checkbox" name="rapport[]"/>
+                                <h4 class="labelCheckSpec">Quel est l'état de la coque :</h4>  <br>
+                                <h3 class="labelCheck">Intact   : </h3> <input class="checkRapport" type="checkbox" name="rapport[]"/>
+                                <h3 class="labelCheck">Micro-rayures   : </h3> <input class="checkRapport" type="checkbox" name="rapport[]"/>
+                                <h3 class="labelCheck">Rayures   : </h3> <input class="checkRapport" type="checkbox" name="rapport[]"/>
+                                <h3 class="labelCheck">Cassé   : </h3> <input class="checkRapport" type="checkbox" name="rapport[]"/>
+
                                 <h3 class="labelCheck">Le tiroir SIM est-il présent ? </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
-
-
-                               
-
-
 
 
                             </div>
@@ -182,8 +181,8 @@ include '../BDD/connexionBdd.php';
                         }
                         ?>
                         <h4 class="labelReparation"> Accessoire : </h4> <input class="inputReparation form-control" type="text" id="Nom" name="accessoire" />
-                        <h4 class="labelReparation">    Note client: </h4> <input class="inputReparation form-control" type="text" id="Nom" name="noteCli" />
-                        <h4 class="labelReparation"> Note visible: </h4> <input class="inputReparation form-control" type="text" id="Nom" name="noteVisi" />
+                        <h4 class="labelReparation"> Note client: </h4> <input class="inputReparation form-control" type="text" id="Nom" name="noteCli" />
+                        <h4 class="labelReparation"> Note visible: </h4> <textarea class="zoneTextPanne form-control" type="text" id="Nom" name="noteVisi" ></textarea>
                         <h4 class="labelReparation"> Note interne: </h4> <input class="inputReparation form-control" type="text" id="Nom" name="noteInterne" />
                         <h4 class="labelReparation"> Code vérrouillage : </h4> <input class="inputReparation form-control" type="text" id="Nom" name="codeVerro" />
                         <h4 class="labelReparation"> Date de restitution : </h4> <input class="inputReparation form-control" type="date" id="Nom" name="dateRest" />
@@ -220,15 +219,15 @@ include '../BDD/connexionBdd.php';
 
                     </div>
                     <div style="text-align: center;">
-                    <input type="button"  class="btn btn-outline-danger btn-lg" value="annuler" onclick="history.back()"/>
-                    <input type="submit" class="btn btn-outline-primary btn-lg" name="creerDevis" id="valideTest" value="creer"/>
-                   
+                        <input type="button"  class="btn btn-outline-danger btn-lg" value="annuler" onclick="history.back()"/>
+                        <input type="submit" class="btn btn-outline-primary btn-lg" name="creerDevis" id="valideTest" value="creer"/>
+
                     </div>
                 </form>
             </div>
-            
-            
-   
+
+
+
 
         </div>
         <!-- mes script js-->
@@ -246,63 +245,63 @@ include '../BDD/connexionBdd.php';
 
 //transforme le rapport en une array boulean pour postgretSql
 
-                                $('#valideTest').click(function () {
-                                    var test = document.getElementsByName('rapport[]');
-                                    var temp = '';
-                                    temp += '{';
-                                    for (var i = 0; i < test.length; i++) {
-                                        temp += test[i].checked;
-                                        if (i < test.length - 1) {
-                                            temp += ',';
-                                        }
-
+                            $('#valideTest').click(function () {
+                                var test = document.getElementsByName('rapport[]');
+                                var temp = '';
+                                temp += '{';
+                                for (var i = 0; i < test.length; i++) {
+                                    temp += test[i].checked;
+                                    if (i < test.length - 1) {
+                                        temp += ',';
                                     }
-                                    temp += '}';
 
-                                    document.getElementById('leRapportCacher').value = temp;
-                                    console.log(temp);
                                 }
-                                );
+                                temp += '}';
+
+                                document.getElementById('leRapportCacher').value = temp;
+                                console.log(temp);
+                            }
+                            );
 
 
 
-                                function load_data(mat, marque)
-                                {
-                                    $.ajax({
-                                        url: "./ajax/rechercheModele.php",
-                                        method: "post",
-                                        data: {query: mat, marque},
-                                        success: function (data)
-                                        {
-                                            $('#result').html(data);
-                                        }
-                                    });
-                                }
-
-
-
-
-                                $('#marque').click(function () {
-
-
-                                    var mat = $('#mat').val();
-                                    var marque = $('#marque').val();
-                                    load_data(mat, marque);
-                                    ;
+                            function load_data(mat, marque)
+                            {
+                                $.ajax({
+                                    url: "./ajax/rechercheModele.php",
+                                    method: "post",
+                                    data: {query: mat, marque},
+                                    success: function (data)
+                                    {
+                                        $('#result').html(data);
+                                    }
                                 });
+                            }
 
-                                $('#mat').click(function () {
 
 
-                                    var mat = $('#mat').val();
-                                    var marque = $('#marque').val();
-                                    load_data(mat, marque);
-                                });
+
+                            $('#marque').click(function () {
 
 
                                 var mat = $('#mat').val();
                                 var marque = $('#marque').val();
                                 load_data(mat, marque);
+                                ;
+                            });
+
+                            $('#mat').click(function () {
+
+
+                                var mat = $('#mat').val();
+                                var marque = $('#marque').val();
+                                load_data(mat, marque);
+                            });
+
+
+                            var mat = $('#mat').val();
+                            var marque = $('#marque').val();
+                            load_data(mat, marque);
 
 
 
@@ -310,6 +309,7 @@ include '../BDD/connexionBdd.php';
 
 
         <?php
+
         if (isset($_POST['creerDevis'])) {
             $email = $_GET['id'];
             $typeMat = $_POST['mat'];
@@ -319,7 +319,7 @@ include '../BDD/connexionBdd.php';
             $etat = $_POST['etat'];
             $accessoire = $_POST['accessoire'];
             $noteCli = $_POST['noteCli'];
-            $noteVisi = $_POST['noteVisi'];
+            $noteVisi = trim($_POST['noteVisi']);
             $noteInterne = $_POST['noteInterne'];
             $code = $_POST['codeVerro'];
             $date = $_POST['dateRest'];
@@ -329,32 +329,34 @@ include '../BDD/connexionBdd.php';
             $remplacement = $_POST['remplacement'];
             $defautsav = $_POST['defautsav'];
             $defautreco = $_POST['defautreco'];
+            $laPanne = trim($_POST['lapanne']);
+
+      
 
 
             $rapport = $_POST['leRapportCacher'];
 
             try {
-                $insert = "select * from creerdevis($modele,'$email',$etat,'$serie','$noteCli','$code','$accessoire','$date','$heure','$noteVisi','$noteInterne','$rapport','$panne', '$inter', '$remplacement', '$defautsav', '$defautreco');";
+                $insert = "select * from creerdevis($modele,'$email',$etat,'$serie','$noteCli','$code','$accessoire','$date','$heure','$noteVisi','$noteInterne','$rapport','$panne', '$inter', '$remplacement', '$defautsav', '$defautreco','$laPanne',true);";
                 $requete = $conn->prepare($insert);
                 $requete->execute();
 
 
-                echo '<script> alert_info_redirect("devis créer","success","/client/menuClient.php");</script>';
-                
-                
-            $html = '<html><head>'
-                    . ' <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">'
-                    . '</head>'
-                    . '<body style="font-family: Arial;">'
-                    . '<div style="text-align:center;"> '
-                    . '<H4 style="display:inline-block; margin-bottom: 2px;">Bienvenue chez </H4><br>'
-                    . '<h2 style="display:inline-block;">HI-TECH LAB </H2><br> '
-                    . '</div>'
-                    . '<div style="text-align:center;">'
-                    . 'Bonjour, votre demande a été prise en charge. <br> '
-                    . 'Veuillez cliquer sur le lien suivant pour accéder au suivis en-ligne '
+               
 
-                    . '     <div style="text-align:center">  <input type="button" value="Suivre votre réparation" style="               
+
+                $html = '<html><head>'
+                        . ' <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">'
+                        . '</head>'
+                        . '<body style="font-family: Arial;">'
+                        . '<div style="text-align:center;"> '
+                        . '<H4 style="display:inline-block; margin-bottom: 2px;">Bienvenue chez </H4><br>'
+                        . '<h2 style="display:inline-block;">HI-TECH LAB </H2><br> '
+                        . '</div>'
+                        . '<div style="text-align:center;">'
+                        . 'Bonjour, votre demande a été prise en charge. <br> '
+                        . 'Veuillez cliquer sur le lien suivant pour accéder au suivis en-ligne '
+                        . '     <div style="text-align:center">  <input type="button" value="Suivre votre réparation" style="               
                  display: inline-block;
   border-radius: 4px;
   background-color: #E84D0E;
@@ -369,44 +371,34 @@ include '../BDD/connexionBdd.php';
   margin: 5px;"
  
   /></div></div>'
-                    . '</body></html>';
-                 $mail = new PHPmailer();
-            $mail->isSMTP(); // Paramétrer le Mailer pour utiliser SMTP 
-            $mail->Host = 'smtp.gmail.com'; // Spécifier le serveur SMTP
-            $mail->SMTPAuth = true; // Activer authentication SMTP
-            $mail->Username = 'loup.cascadeur@gmail.com'; // Votre adresse email d'envoi
-            $mail->Password = 'cjpst26130'; // Le mot de passe de cette adresse email
-            $mail->SMTPSecure = 'ssl'; // Accepter SSL
-            $mail->Port = 465;
+                        . '</body></html>';
+                $mail = new PHPmailer();
+                $mail->isSMTP(); // Paramétrer le Mailer pour utiliser SMTP 
+                $mail->Host = 'smtp.gmail.com'; // Spécifier le serveur SMTP
+                $mail->SMTPAuth = true; // Activer authentication SMTP
+                $mail->Username = 'loup.cascadeur@gmail.com'; // Votre adresse email d'envoi
+                $mail->Password = 'cjpst26130'; // Le mot de passe de cette adresse email
+                $mail->SMTPSecure = 'ssl'; // Accepter SSL
+                $mail->Port = 465;
 
-            $mail->setFrom('loup.cascadeur@gmail.com', 'Hi tech lab'); // Personnaliser l'envoyeur
-            $mail->addAddress('loup.cascadeur@gmail.com', 'Client'); // Ajouter le destinataire
-            $mail->addReplyTo('loup.cascadeur@gmail.com', 'Information'); // L'adresse de réponse
+                $mail->setFrom('loup.cascadeur@gmail.com', 'Hi tech lab'); // Personnaliser l'envoyeur
+                $mail->addAddress($email, 'Client'); // Ajouter le destinataire
+                $mail->addReplyTo('loup.cascadeur@gmail.com', 'Information'); // L'adresse de réponse
 
 
-            $mail->isHTML(true); // Paramétrer le format des emails en HTML ou non
+                $mail->isHTML(true); // Paramétrer le format des emails en HTML ou non
 
-            $mail->Subject = 'Demande de prise en charge';
-            $mail->Body = $html;
+                $mail->Subject = 'Demande de prise en charge';
+                $mail->Body = $html;
 
-            $mail->SMTPDebug = 1;
-            if (!$mail->send()) {
-            } 
-
-          
+                $mail->SMTPDebug = 0;
+                if (!$mail->send()) {
+                    
+                }
+           echo '<script> alert_info_redirect("Demande de devis faite","success","/client/menuClient.php");</script>';
             } catch (Exception $ex) {
                 echo '<script> alert_info("erreur","error");</script>';
             }
-        }
-
-
-
-
-        if (isset($_POST['ajouterMarque'])) {
-            $nom = $_POST['laMarque'];
-            $insert = "insert into marque (nom) values ('$nom');";
-            $requete = $conn->prepare($insert);
-            $remplacement->execute();
         }
         ?>
 

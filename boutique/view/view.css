@@ -7,7 +7,7 @@
     overflow-x: hidden;
     height: 400px;
     margin-top: 1%;
- 
+
 
 }
 
@@ -20,7 +20,7 @@
     overflow-x: hidden;
     max-height: 400px;
     margin-top: 1%;
- 
+
 }
 
 
@@ -32,15 +32,16 @@
 
 .labelElement{
     display: inline-block;
-    width: 80%;
+    width: 85%;
     font-family: Arial;
     font-size: 120%;
     color: black;
+
 }
 
 .labelPiece{
     display: inline-block;
-    width: 25%;
+    width: 22%;
     font-family: Arial;
     font-size: 120%;
     color: black;
@@ -48,8 +49,8 @@
 
 
 .titrePiece{
-     display: inline-block;
-    width: 26%;
+    display: inline-block;
+    width: 21%;
     font-family: Arial;
     font-size: 120%;
     color: black;
@@ -60,7 +61,7 @@
 .iconElement{
     display: inline-block;
     margin-left: 1%;
-    
+
 }
 
 .titreView{
@@ -69,33 +70,46 @@
 
 .lableTitreView{
     display: inline-block;
-    width: 80%;
+    width: 85%;
     font-family: Arial;
     color: black;
     text-align: left;
     font-size: 200%;
     margin-top: 1%;
+    
 
 }
 
+
+.totalPiece{
+    display: inline-block;
+    width: 20%;
+    margin-left: 80%;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; 
+    font-family: Arial;
+    font-size: 1.5em;
+    color: black;
+    border-radius: 5px;
+}
+
 .cadreView::-webkit-scrollbar-thumb {
-	 border-radius: 10px;
-	background-color: #3e64ff;
+    border-radius: 10px;
+    background-color: #3e64ff;
 }
 
 .cadreView::-webkit-scrollbar{
     background-color:  #F5F5F5;
-width: 8px;
+    width: 8px;
 
 }
 .cadreViewSansHeight::-webkit-scrollbar-thumb {
-	 border-radius: 10px;
-	background-color: #3e64ff;
+    border-radius: 10px;
+    background-color: #3e64ff;
 }
 
 .cadreViewSansHeight::-webkit-scrollbar{
     background-color:  #F5F5F5;
-width: 8px;
+    width: 8px;
 
 }
 
@@ -104,13 +118,13 @@ width: 8px;
 .labelRecherche{
     display: inline-block;
     width: 25%;
-  
-    
+
+
 }
 
 
 .selectRecheche{
-     display: inline-block;
+    display: inline-block;
     width: 20%;
     vertical-align: 0;
 }
@@ -121,28 +135,32 @@ width: 8px;
         width: 59%;
         font-size: 100%;
     }
-    
+
     .selectRecheche{
         width: 39%;
     }
-    
-    
+
+
     .noResponsive{
         display: none;
     }
-    
- 
+
+
     .labelPiece{
-    width: 35%;
-    font-size: 100%;
-}
+        width: 35%;
+        font-size: 100%;
+    }
 
 
-.titrePiece{
-    width: 35%;
-    font-size: 100%;
-  
-}
+    .titrePiece{
+        width: 35%;
+        font-size: 100%;
 
+    }
+
+    .totalPiece{
+        width: 50%;
+        margin-left: 50%;
+    }
 
 }

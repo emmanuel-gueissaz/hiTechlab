@@ -19,11 +19,12 @@ if (isset($_POST['query'])) {
 //   echo $_POST['query'];
     $categ = $_POST['query'];
     $nom = $_POST['nom'];
-
+    $limit = $_POST['page'];
+    $offest = $limit - 30;
 
     $requete = "select id_forfait, nom_forfait, tarif, piece.nom_piece, forfait.id_piece, forfait.tarif from  forfait
 left join piece on piece.id_piece = forfait.id_piece
-where forfait.id_categ = '$categ' and (forfait.nom_forfait like '%$nom%' or forfait.tarif::text  like '%$nom%' or piece.nom_piece like '%$nom%') ; ";
+where forfait.id_categ = '$categ' and (forfait.nom_forfait like '%$nom%' or forfait.tarif::text  like '%$nom%' or piece.nom_piece like '%$nom%') limit $limit offset $offest; ";
     $requete = $conn->prepare($requete);
     $requete->execute();
 
@@ -32,7 +33,7 @@ where forfait.id_categ = '$categ' and (forfait.nom_forfait like '%$nom%' or forf
         $lib = $ligne['nom_forfait'];
         $piece = $ligne['nom_piece'];
         $tarif = $ligne['tarif'];
- 
+
 
         $data .= "  <hr class='my-2' Style='border-top:1px solid black; ' />"
                 . "<div class='element'> "

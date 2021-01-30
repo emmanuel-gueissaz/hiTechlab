@@ -59,6 +59,9 @@ include '../BDD/connexionBdd.php';
                 <!-- debut de la page -->
 
                 <input type="button" class="btn btn-outline-secondary" value="retour" onclick="history.back();"/>
+                <form method="POST" style="display: inline-block">
+                    <input type="submit" name="voirCli" class="btn btn-outline-secondary" value="Client" />
+                </form>
 
                 <form method="POST">
                     <div  >
@@ -114,6 +117,12 @@ include '../BDD/connexionBdd.php';
                         <input type="button" value="+" class="plus btn btn-primary btn-sm" onclick="document.location.href = '/hitechlab/boutique/ajout/ajouterModele.php'"/>
                         <h4 class="labelReparation">Numéro de série: </h4> <input class="inputReparation form-control" type="text" id="serie"  name="serie" />
 
+                        <h4 class="labelReparation">Pannes : </h4>
+
+                        <textarea class="zoneTextPanne form-control"  name="lapanne" id="lapanne" >
+                       
+                        </textarea>
+
                         <div class="form-check form-switch">
                             <h4 class="labelReparation">Rapport: </h4>
                             <input class="form-check-input checkVisibleRapport" type="checkbox" id="afficheRapport"  onclick="displayOn('afficheRapport', 'rapport');"   > 
@@ -133,7 +142,7 @@ include '../BDD/connexionBdd.php';
                                 <h3 class="labelCheck">Caméra arrière : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"  disabled=""/>
                                 <h3 class="labelCheck">Son haut-parleurs : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"  disabled=""/>
                                 <h3 class="labelCheck">Son écouteur : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"  disabled=""/>
-                                    <h3 class="labelCheck">Tactile : </h3>  <input  class="checkRapport"type="checkbox" name="rapport[]"  disabled="" />
+                                <h3 class="labelCheck">Tactile : </h3>  <input  class="checkRapport"type="checkbox" name="rapport[]"  disabled="" />
                                 <h3 class="labelCheck">Connecteur de charge : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]" disabled=""/>
                                 <h3 class="labelCheck">Autonomie : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"  disabled=""/>
                                 <h3 class="labelCheck">Prise écouteur : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"  disabled=""/>
@@ -225,7 +234,7 @@ include '../BDD/connexionBdd.php';
                         ?>
                         <h4 class="labelReparation"> Accessoire : </h4> <input class="inputReparation form-control" type="text" id="accessoire" name="accessoire" />
                         <h4 class="labelReparation">    Note client: </h4> <input class="inputReparation form-control" type="text" id="noteCli" name="noteCli" />
-                        <h4 class="labelReparation"> Note visible: </h4> <input class="inputReparation form-control" type="text" id="noteVisi" name="noteVisi" />
+                        <h4 class="labelReparation"> Note visible: </h4> <textarea class="zoneTextPanne form-control" type="text" id="noteVisi" name="noteVisi" ></textarea>
                         <h4 class="labelReparation"> Note interne: </h4> <input class="inputReparation form-control" type="text" id="noteInterne" name="noteInterne" />
                         <h4 class="labelReparation"> Code vérrouillage : </h4> <input class="inputReparation form-control" type="text" id="codeVerro" name="codeVerro" />
                         <h4 class="labelReparation"> Date de restitution : </h4> <input class="inputReparation form-control" type="date" id="dateRest" name="dateRest" />
@@ -252,6 +261,25 @@ include '../BDD/connexionBdd.php';
 
                             <h4 class="labelReparation"> Défauts constatés: </h4> <input class="inputReparation form-control" type="text" id="defautreco" name="defautreco"  />
                         </div>
+                        <h4 class="labelReparation"> Technicien: </h4>
+                        <?php
+                        try {
+                            $requete = "select email,nom, prenom from technicien";
+                            $requete = $conn->prepare($requete);
+                            $requete->execute();
+                            echo '<select name="technicien" id="technicien" class="inputReparation btn btn-outline-primary btn-sm dropdown-toggle">';
+                            while ($ligne = $requete->fetch()) {
+                                $id = $ligne['email'];
+                                $nom = $ligne['nom'];
+                                $prenom = $ligne['prenom'];
+
+                                echo "<option value='$id'>$nom $prenom</option>";
+                            }
+                            echo ' </select>';
+                        } catch (Exception $ex) {
+                            
+                        }
+                        ?>
 
 
                         <!-- fin de la page -->
@@ -259,7 +287,7 @@ include '../BDD/connexionBdd.php';
 
                     </div>
                     <div style="text-align: center;">
-                        <input type="button"  class="btn btn-outline-danger btn-lg" value="Retour" onclick="history.back()"/>
+<!--                        <input type="button"  class="btn btn-outline-danger btn-lg" value="Retour" onclick="history.back()"/>-->
                         <input type="submit" class="btn btn-outline-primary btn-lg" name="ModifierRapport" id="ModifierRapport" value="Modifier"/>
 
                     </div>
@@ -363,6 +391,8 @@ include '../BDD/connexionBdd.php';
             $remplacement = $ligne['pieceremplace'];
             $defautsav = $ligne['defautsav'];
             $defautreco = $ligne['defautreco'];
+            $laPanne = $ligne['lapanne'];
+            $technicien = $ligne['email_technicien'];
 
 
             $rapport = $ligne['rapportcli'];
@@ -402,7 +432,9 @@ include '../BDD/connexionBdd.php';
             . "$('#intervention').val('$inter'),"
             . "$('#remplacement').val('$remplacement'),"
             . "$('#defautsav').val('$defautsav'),"
-            . "$('#defautreco').val('$defautreco')"
+            . "$('#defautreco').val('$defautreco'),"
+            . "$('#lapanne').val('$laPanne'),"
+            . "$('#technicien').val('$technicien')"
             . "</script>";
 
             if ($panne != '') {
@@ -480,6 +512,7 @@ include '../BDD/connexionBdd.php';
                 $remplacement = $_POST['remplacement'];
                 $defautsav = $_POST['defautsav'];
                 $defautreco = $_POST['defautreco'];
+                $technicien = $_POST['technicien'];
 
 
                 $rapport = $_POST['leRapportCacher'];
@@ -487,16 +520,27 @@ include '../BDD/connexionBdd.php';
                 try {
 
                     $update = "update reparation
-set (id_modele,numserie,id_etat,accessoires,noteclient,notevisiblebon,noteinterne,codeverrouillage,daterestitution,heure,anciennepanne,ancienneintervention,pieceremplace,defautsav,defautreco,rapporttech) = ('$modele','$serie','$etat','$accessoire','$noteCli','$noteVisi','$noteInterne','$code','$date','$heure','$panne', '$inter', '$remplacement', '$defautsav', '$defautreco','$rapport')
+set (id_modele,numserie,id_etat,accessoires,noteclient,notevisiblebon,noteinterne,codeverrouillage,daterestitution,heure,anciennepanne,ancienneintervention,pieceremplace,defautsav,defautreco,rapporttech,email_technicien) = ('$modele','$serie','$etat','$accessoire','$noteCli','$noteVisi','$noteInterne','$code','$date','$heure','$panne', '$inter', '$remplacement', '$defautsav', '$defautreco','$rapport','$technicien')
 where reparation.id = $id;";
 
                     $update = $conn->prepare($update);
                     $update->execute();
 
-                    echo "<script> alert_info_redirect('rapport modifié', 'success','/hitechlab/reparation/lareparation.php?id=$id');</script>";
+                    echo "<script> alert_info_redirect('Modifications enregistées', 'success','/hitechlab/reparation/lareparation.php?id=$id');</script>";
                 } catch (Exception $ex) {
                     echo '<script> alert_info("erreur", "error");</script>';
                 }
+            }
+
+
+            if (isset($_POST['voirCli'])) {
+                $id = $_GET['id'];
+                $requete = "select email from reparation where id = $id";
+                $requete = $conn->prepare($requete);
+                $requete->execute();
+                $ligne = $requete->fetch();
+                $email = $ligne['email'];
+                echo "<script> document.location.href = '/hitechlab/client/leClient.php?id=$email';</script>";
             }
             ?>
 

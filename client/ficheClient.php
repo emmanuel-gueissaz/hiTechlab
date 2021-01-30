@@ -19,8 +19,10 @@ include '../BDD/connexionBdd.php';
         <link href="../lib/alert/sweetalert2.css" rel="stylesheet" type="text/css"/>
         <script src="../lib/alert/sweetalert2.js" type="text/javascript"></script>
         <script src="../include/alert.js" type="text/javascript"></script>
+        
 
         <link href="ficheClient.css" rel="stylesheet" type="text/css"/>
+        <link href="../lib/css/couleur.css" rel="stylesheet" type="text/css"/>
 
 
 
@@ -40,7 +42,8 @@ include '../BDD/connexionBdd.php';
 
                 <!-- debut de la page -->
 
-                <input type="button" class="btn btn-outline-secondary" value="retour" onclick="history.back();"/>
+                <input type="button" class="btn btn-outline-secondary" value="Retour" onclick="history.back();"/>
+                <input type="button" class="btn btn-outline-secondary" value="Créer une demande" onclick="document.location.href='/hitechlab/reparation/creerDevis.php?id=<?php echo $_GET['id'] ?>'"/>
 
                 <div style="text-align: center;">
                     <div class="infoClient">
@@ -114,9 +117,12 @@ include '../BDD/connexionBdd.php';
                                   $couleurDemande = 'accepte';
                             }
                             if($id_statut=='5'){
-                                  $couleurDemande = 'reparer';
+                                  $couleurDemande = 'attPiece';
                             }
                             if($id_statut=='6'){
+                                  $couleurDemande = 'reparer';
+                            }
+                            if($id_statut=='7'){
                                   $couleurDemande = 'facture';
                             }
                             echo "<div class='$couleurDemande'>"

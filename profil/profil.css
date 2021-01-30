@@ -1,0 +1,41 @@
+.labelDsDevis{
+    display: inline-block;
+    width: 17%;
+}
+
+
+
+/* informaticien*/
+
+.lesStat{
+    display: inline-block;
+    width: 100%;
+    font-family: Arial;
+    font-size: 1.5em;
+    color: black;
+}
+
+.laStat{
+    display: inline-block;
+    width: 49%;
+     text-align: center;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 5px;
+    margin-left: 0.5%;
+    margin-right: 0.5%;
+    margin-top: 1%;
+}
+
+.titreStat{
+    display: inline-block;
+    width: 45%;
+  text-align: left;
+}
+.donneStat{
+    display: inline-block;
+    width: 45%;
+    text-align: right;
+}
+.lesReparation{
+
+}

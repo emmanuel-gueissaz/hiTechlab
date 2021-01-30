@@ -32,7 +32,7 @@
                                                 echo '  </li>
                                 <li class="nav-item">
                                 <form method="POST"> 
-                                <input class="nav-link boutonLien" type="submit" name="deco" value="deconnexion">
+                                <input class="nav-link boutonLien" type="submit" name="deco" value="Déconnexion">
                                 </form>
                                 </li>';
                                                 

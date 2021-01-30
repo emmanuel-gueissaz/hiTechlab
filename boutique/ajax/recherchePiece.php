@@ -9,7 +9,7 @@ if (isset($_POST['query'])) {
 //   echo $_POST['query'];
     $modele = $_POST['query'];
     $type = $_POST['type'];
-    
+  
    
     $requete = "select * from piece
                 where id_modele=$modele 

@@ -31,8 +31,26 @@
 
 }
 
+.titreDeTech{
+    width: 100%;
+}
 
+.lableTitreTech{
+    display: inline-block;
+    width: 80%;
+    font-family: Arial;
+    color: black;
+    text-align: left;
+    font-size: 200%;
+    margin-top: 1%;
 
+}
+
+.iconElement{
+    display: inline-block;
+    margin-left: 1%;
+    
+}
 
 .ajout{
     display: inline-block;

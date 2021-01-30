@@ -12,9 +12,12 @@ if (isset($_POST['query'])) {
 //   echo $_POST['query'];
     $mat = $_POST['query'];
     $marque = $_POST['marque'];
+      $limit = $_POST['page'];
+    $offest = $limit - 30;
     $requete = "select id_modele,lib_modeele from modele
                 where id_marque = $marque
-                and id_mat = $mat ";
+                and id_mat = $mat 
+                    limit $limit offset $offest";
     $requete = $conn->prepare($requete);
     $requete->execute();
 
