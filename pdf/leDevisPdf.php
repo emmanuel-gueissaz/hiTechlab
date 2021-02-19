@@ -14,7 +14,7 @@ try {
     echo $ex->getMessage();
 }
 
-$nDevis = $_GET['id'];
+$nDevis = openssl_decrypt($_GET['id'], "AES-128-ECB", 'lEdEvis26300aBz');
 
 $requete = "select * from reparation inner join modele on modele.id_modele = reparation.id_modele
          inner join a ON a.id = reparation.id
@@ -175,8 +175,47 @@ where reparation.id = $nDevis";
                 
         </tr>";
         }
+
         ?>
 
+    </table>
+
+
+    <table style="width: 100%; text-align: center; margin-left: 5%; margin-top: 2%; ">
+
+
+        <tr >
+            <td class="titrecolonne" style="width:  40%;">Accessoires </td>
+            <td class="titrecolonne" style="width:  10%;">PU HT</td>
+            <td class="titrecolonne" style="width:  12%;">Qte</td>
+            <td class="titrecolonne" style="width:  13%;">TVA</td>
+            <td class="titrecolonne" style="width:  15%;">Total HT</td>
+        </tr>
+        <?php
+        $requete = "select  accessoire.id,nom, qte, accessoire.prixvente  from accessoire 
+                            inner join ajout ON ajout.id_accessoire = accessoire.id
+                            where ajout.id_rep = $nDevis";
+        $requete = $conn->prepare($requete);
+        $requete->execute();
+        while ($ligne = $requete->fetch()) {
+            $id = $ligne['id'];
+            $lib_remise = $ligne['nom'];
+            $tarif = $ligne['prixvente'];
+            $qte = $ligne['qte'];
+            $total = $tarif * $qte;
+            $montantTotal += $total;
+
+            echo "
+         <tr style='text-align: center;'>
+            <td class='infoColonne' style='width:  40%;'>$lib_remise  </td>
+            <td class='infoColonne' style='width:  12%;'>$tarif €</td>
+            <td class='infoColonne' style='width:  10%;'>$qte</td>
+            <td class='infoColonne' style='width:  13%;'>TVA non applicable</td>
+            <td class='infoColonne' style='width:  15%;'>$total € </td>
+                
+        </tr>";
+        }
+        ?>
     </table>
 
     <table style="width: 100%; text-align: center; margin-left: 5%; margin-top: 2%; ">

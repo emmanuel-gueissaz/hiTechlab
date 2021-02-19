@@ -6,7 +6,7 @@ include '../BDD/connexionBdd.php';
 
 <html lang="fr">
     <head>
-        <title>Accueil</title>
+        <title>HI-TECH LAB</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -99,7 +99,7 @@ include '../BDD/connexionBdd.php';
 
 
 
-                    <div class="createClient slideBar" id="createClient" style="text-align: left">
+                    <div class="createClient slideBar" id="createClient" style="text-align: left;">
 
                         <h4 class="labelClient"> professionnel : </h4> 
                         <div class="form-check form-switch checkboxClient ">
@@ -164,8 +164,8 @@ include '../BDD/connexionBdd.php';
                             </button>
 
                         </div>
-                        <div class="slideBar" style="    overflow-y: scroll;overflow-x: hidden;">
-                            <div style="text-align: left;">
+                        <div class="slideBar" style="overflow-y: scroll;overflow-x: hidden; max-height: 540px; height: 540px;">
+                            <div style="text-align: right; width: 92%;">
                                 <h2 class="larecherche">Recherche : </h2>
                                 <input type="text" id="saisie" class="form-control inputClient"/>
                             </div>
@@ -180,27 +180,26 @@ include '../BDD/connexionBdd.php';
 
 
                             <div id="result" class="lesClients"></div>
-                            <div>
-                                <button value="-" id="moins" onclick="page(this)" class="btn btn-primary mb-3 mt-3">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>
-                                    </svg>
-                                    Précédent
-                                </button>
-                                <button value="+" onclick="page(this)" class="btn btn-primary mb-3 mt-3">                                
-                                    Suivant
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"/>
-                                    </svg>
-                                </button>
 
-
-                            </div>
                         </div>
 
                     </div>
-                    <input type="button" class="btn btn-outline-primary btn-lg boutonClient" onclick="document.location.href = '/client/creerClient.php'" value="rechercher par vente"/><br>
+                    <div>
+                        <button value="-" id="moins" onclick="page(this)" class="btn btn-primary mb-3 mt-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>
+                            </svg>
+                            Précédent
+                        </button>
+                        <button value="+" onclick="page(this)" class="btn btn-primary mb-3 mt-3">                                
+                            Suivant
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"/>
+                            </svg>
+                        </button>
 
+
+                    </div>
 
 
 
@@ -286,35 +285,35 @@ include '../BDD/connexionBdd.php';
 
 
 
-                        function load_data(pomme)
-                        {
+                            function load_data(pomme)
+                            {
 
-                            let searchParams = new URLSearchParams(window.location.search);
-                            searchParams.has('page');
-                            let nPage = searchParams.get('page');
-                            var page = nPage * 30;
-                            $.ajax({
-                                url: "recherche.php",
-                                method: "post",
-                                data: {query: pomme, page},
-                                success: function (data)
+                                let searchParams = new URLSearchParams(window.location.search);
+                                searchParams.has('page');
+                                let nPage = searchParams.get('page');
+                                var page = nPage * 30;
+                                $.ajax({
+                                    url: "recherche.php",
+                                    method: "post",
+                                    data: {query: pomme, page},
+                                    success: function (data)
+                                    {
+                                        $('#result').html(data);
+                                    }
+                                });
+                            }
+
+                            $('#saisie').keyup(function () {
+                                var search = $(this).val();
+                                if (search != '')
                                 {
-                                    $('#result').html(data);
+                                    load_data(search);
+                                } else
+                                {
+                                    load_data('');
+
                                 }
                             });
-                        }
-
-                        $('#saisie').keyup(function () {
-                            var search = $(this).val();
-                            if (search != '')
-                            {
-                                load_data(search);
-                            } else
-                            {
-                                load_data('');
-
-                            }
-                        });
 
 
         </script>

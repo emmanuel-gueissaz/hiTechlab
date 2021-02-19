@@ -12,7 +12,7 @@ use PHPMailer\PHPMailer\Exception;
 
 <html lang="fr">
     <head>
-        <title>Accueil</title>
+        <title>HI-TECH LAB</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -56,11 +56,14 @@ use PHPMailer\PHPMailer\Exception;
 
                 <!-- debut de la page -->
 
-                <?php $id = $_GET['id']; ?>
+                <?php
+                $idCrypt = openssl_encrypt($_GET['id'], "AES-128-ECB", 'lEdEvis26300aBz');
+                $id = $_GET['id'];
+                ?>
 
                 <input type="button" class="btn btn-outline-secondary" value="retour" onclick="history.back();"/>
-                <input type="button" class="btn btn-outline-secondary" value="Devis" onclick="window.open('/hitechlab/pdf/leDevisPdf.php?id=<?php echo $id; ?>');return false;"/>
-                <input type="button" class="btn btn-outline-secondary" value="Facture" onclick="window.open('/hitechlab/pdf/laFacturePdf.php?id=<?php echo $id; ?>');return false;"/>
+                <input type="button" class="btn btn-outline-secondary" value="Devis" onclick="window.open('/hitechlab/pdf/leDevisPdf.php?id=<?php echo $idCrypt; ?>');return false;"/>
+                <input type="button" class="btn btn-outline-secondary" value="Facture" onclick="window.open('/hitechlab/pdf/laFacturePdf.php?id=<?php echo $idCrypt; ?>');return false;"/>
 
 
 
@@ -104,6 +107,34 @@ use PHPMailer\PHPMailer\Exception;
                             echo "</div>";
                         }
                         ?>
+                        <?php
+                        $requete = "select datee,montant from utiliser                   
+                                    where id_reparation = $id";
+                        $requete = $conn->prepare($requete);
+                        $requete->execute();
+                        while ($ligne = $requete->fetch()) {
+                            $datee = $ligne['datee'];
+
+                            $montant = $ligne['montant'];
+
+
+                            $prix = $ligne['montant'];
+                            echo"<div class='unReglement'>";
+                            echo "<hr class='my-2' Style='border-top:1px solid black; ' />";
+                            echo "<div class='infoReglementLong noResponsive'>Avoir</div>";
+                            echo "<div class='infoReglement'>" . $datee . "</div>";
+                            echo "<div class='infoReglement noResponsive'></div>";
+                            echo "<div class='infoReglement noResponsive'></div>";
+                            echo "<div class='infoReglement'><div class='inputMontantLg'> $montant €</div></div>";
+
+
+
+
+                            echo "</div>";
+                        }
+                        ?>
+
+
                     </div>
                     <div class="nouveauReglement" >
                         <label class="titreReglement">Ajouter un règlement :</label>
@@ -143,8 +174,61 @@ use PHPMailer\PHPMailer\Exception;
                         </form>
 
                     </div>
-                    <div style="text-align: right;">
-                        <div  class="reste">
+
+                    <div class="nouveauReglement" >
+                        <label class="titreReglement">Utiliser avoir :</label>
+
+                        <button class="btn btn-primary" onclick="document.getElementById('AjouterAvoir').style.height = '150px';" id="ajtAvr" >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                            </svg>
+                        </button>
+                        <div  class="AjoutReglement slideBar" id="AjouterAvoir" >
+
+                            <?php
+                            try {
+                                $id = $_GET['id'];
+                                $requete = "select email from reparation where id = $id; ";
+                                $requete = $conn->prepare($requete);
+                                $requete->execute();
+                                $ligne = $requete->fetch();
+                                $email = $ligne['email'];
+                                $requete = "select COALESCE(sum(montant) - (select COALESCE(sum(montant),0)  from utiliser inner join reparation ON reparation.id = utiliser.id_reparation
+where reparation.email = '$email'),0) - 
+(select COALESCE(sum(montant),0)  from utiliser_achat inner join achat ON achat.id_achat = utiliser_achat.id_achat
+where achat.email = '$email') as montant from creer 
+inner join reparation ON reparation.id = creer.id_reparation
+where reparation.email = '$email';";
+                                $requete = $conn->prepare($requete);
+                                $requete->execute();
+                                $ligne = $requete->fetch();
+
+
+                                $montant = $ligne['montant'];
+                                if ($montant <= 0) {
+                                    echo "<script> document.getElementById('ajtAvr').disabled = 'true'; </script>";
+                                }
+
+                                echo"<div class='unReglement'>";
+                                echo "<hr class='my-2' Style='border-top:1px solid black; ' />";
+                                echo "<form method='POST' class='infoReglement'>"
+                                . "<div class='infoReglementLong'>" . $montant . " €</div>"
+                                . "<input type='hidden' name='montant' value='$montant'/>"
+                                . "<button type='submit' name='utiliserAvoir' class='btn btn-primary' style='margin-left:2%;' value='$id_Avoir'> Utiliser </button>"
+                                . "</form>";
+
+                                echo "</div>";
+                            } catch (Exception $ex) {
+                                
+                            }
+                            ?>
+
+                        </div>
+
+                    </div>
+                    <div style="text-align: right;" >
+                        <div  class="reste " >
 
                             Reste à payer:
                             <?php
@@ -158,6 +242,7 @@ use PHPMailer\PHPMailer\Exception;
 
                             if ($reste <= 0) {
                                 echo "<script>  document.getElementById('ajtReg').disabled = true; </script>";
+                                echo "<script> document.getElementById('ajtAvr').disabled = 'true'; </script>";
                             }
                             ?>
 
@@ -210,7 +295,7 @@ where reparation.id = $id";
                     . '<div style="text-align:center;">'
                     . 'Bonjour ' . $nom . ' ' . $prenom . ', <br> '
                     . 'Vous venez de faire un règlement, vous pouvez consulter vos règlements ainsi que votre facture. '
-                    . '     <div style="text-align:center">  <a   href="http://localhost:8080/hitechlab/partieclient/acceptationdevis/viewFacture.php?id=' . $id . '" style="               
+                    . '     <div style="text-align:center">  <a   href="http://localhost:8080/hitechlab/partieclient/acceptationdevis/viewFacture.php?id=' . $idCrypt . '" style="               
                  display: inline-block;
   border-radius: 4px;
   background-color: #E84D0E;
@@ -226,7 +311,6 @@ where reparation.id = $id";
   text-decoration:none;"
  
  >Facture / Règlements</a></div></div>'
-                 
                     . '</body></html>';
             ?>
 
@@ -242,6 +326,54 @@ where reparation.id = $id";
                     echo "<script> alert_info_redirect('Règlement modifié', 'success','/hitechlab/reglement/leReglement.php?id=$id')</script>";
                 } catch (Exception $ex) {
                     echo "<script> alert_info('erreur', 'error')</script>";
+                }
+            }
+            //utiliser avoir
+            if (isset($_POST['utiliserAvoir'])) {
+                $id = $_GET['id'];
+                $requete = "select * from calculReste ($id);";
+                $requete = $conn->prepare($requete);
+                $requete->execute();
+                $ligne = $requete->fetch();
+                $reste = $ligne['calculreste'];
+                $montant = $_POST['montant'];
+
+                if ($montant > $reste) {
+                    $montant = $reste;
+                }
+
+                try {
+                    $insert = "select * from utiliseravoir($montant::real,$id);";
+                    $insert = $conn->prepare($insert);
+                    $insert->execute();
+
+                    $mail = new PHPmailer();
+                    $mail->isSMTP(); // Paramétrer le Mailer pour utiliser SMTP 
+                    $mail->Host = 'smtp.gmail.com'; // Spécifier le serveur SMTP
+                    $mail->SMTPAuth = true; // Activer authentication SMTP
+                    $mail->Username = 'loup.cascadeur@gmail.com'; // Votre adresse email d'envoi
+                    $mail->Password = 'cjpst26130'; // Le mot de passe de cette adresse email
+                    $mail->SMTPSecure = 'ssl'; // Accepter SSL
+                    $mail->Port = 465;
+
+                    $mail->setFrom('loup.cascadeur@gmail.com', 'Hi tech lab'); // Personnaliser l'envoyeur
+                    $mail->addAddress($email, 'Client'); // Ajouter le destinataire
+                    $mail->addReplyTo('loup.cascadeur@gmail.com', 'Information'); // L'adresse de réponse
+
+
+                    $mail->isHTML(true); // Paramétrer le format des emails en HTML ou non
+
+                    $mail->Subject = 'Facture Hi Tech lab';
+                    $mail->Body = $html;
+
+                    $mail->SMTPDebug = 0;
+                    if (!$mail->send()) {
+                        echo "<script>alert_info('erreur email','error');</script>";
+                    }
+                    echo "<script> alert_info_redirect('Règlement ajouté', 'success','/hitechlab/reglement/leReglement.php?id=$id')</script>";
+                } catch (Exception $ex) {
+                    //echo "<script> alert_info('erreur', 'error')</script>";
+                    echo $ex;
                 }
             }
 
@@ -287,8 +419,8 @@ where reparation.id = $id";
             }
             ?>
 
-            
-            <?php            include '../include/ProtectSession.php';?>
+
+            <?php include '../include/ProtectSession.php'; ?>
     </body>
 
 

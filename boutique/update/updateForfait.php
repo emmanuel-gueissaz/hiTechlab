@@ -46,7 +46,7 @@ include '../../BDD/connexionBdd.php';
         <h4 class="labelAjout" > description: </h4> 
         <input class=" inputMdp form-control" type="text"  name="desc" id="desc" required=""/>
         <h4 class="labelAjout" > tarif : </h4> 
-        <input class=" inputMdp form-control" type="number"  name="tarif" id="tarif" required=""/>
+        <input class=" inputMdp form-control" type="text"  name="tarif" id="tarif" required=""/>
         <h4 class="labelAjout">Piece : </h4>
         <div class="form-check form-switch inputMdp ">
 

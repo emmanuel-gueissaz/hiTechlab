@@ -19,7 +19,6 @@ include '../BDD/connexionBdd.php';
     <div class="contentConnexion">
 
         <div class="imageCnx">
-
             <img src="../image/logo.png" width="90%;">
         </div>
 
@@ -40,8 +39,10 @@ include '../BDD/connexionBdd.php';
 
                         <input type="text" class="inputConnexion form-control" name="utiPart" required="" /><br>
                         <input type="password" class="inputConnexion form-control" name="mdpPart" required=""  /><br>
-                        <input type="submit" class="btn btn-outline-primary btn-lg" name="validePart" value="connexion"/>
 
+                        <input type="submit" class="btn btn-outline-primary btn-lg" name="validePart" value="connexion"/>   <br><br>
+
+                        <a href="/hitechlab/connexion/dejaClient.php" >Déjà client</a>
                     </form>
 
                 </div>
@@ -69,16 +70,16 @@ if (isset($_POST['validePart'])) {
     if ($uti != '') {
 
         try {
-            $requete = "select email,mdp,nom from only client where email = '$uti' ";
+            $requete = "select email,mdp,prenom from only client where email = '$uti' ";
             $requete = $conn->prepare($requete);
             $requete->execute();
             $ligne = $requete->fetch();
             if ($uti == $ligne['email']) {
                 $decrypted_string = openssl_decrypt($ligne['mdp'], "AES-128-ECB", '1234');
                 if ($mdp == $decrypted_string) {
-                    echo '<script> alert_info_redirect("Bienvenue M. ' . $ligne['nom'] . '","success", "/hitechlab/accueil/accueil.php");</script>';
+                    echo '<script> alert_info_redirect("Bienvenue  ' . $ligne['prenom'] . '","success", "/hitechlab/partieClient/profil/profilClient.php");</script>';
 
-                    $_SESSION['nom'] = $ligne['nom'];
+                    $_SESSION['prenom'] = $ligne['prenom'];
                     $_SESSION['type'] = 'membre';
                     $_SESSION['email'] = $ligne['email'];
                 } else {
@@ -104,22 +105,22 @@ if (isset($_POST['valideTech'])) {
 
     if ($uti != '') {
         try {
-            $requete = "select email,mdp,nom, type_tech from only technicien where email = '$uti';";
+            $requete = "select email,mdp,prenom, type_tech from only technicien where email = '$uti';";
             $requete = $conn->prepare($requete);
             $requete->execute();
             $ligne = $requete->fetch();
             if ($uti == $ligne['email']) {
                 $decrypted_string = openssl_decrypt($ligne['mdp'], "AES-128-ECB", '1234');
                 if ($mdp == $decrypted_string) {
-                    $_SESSION['nom'] = $ligne['nom'];
+                    $_SESSION['prenom'] = $ligne['prenom'];
                     $_SESSION['email'] = $ligne['email'];
                     $_SESSION['type_tech'] = $ligne['type_tech'];
                     if ($ligne['type_tech'] == 2) {
                         $_SESSION['type'] = 'membre';
-                        echo '<script> alert_info_redirect("Bienvenue M. ' . $ligne['nom'] . '","success","/hitechlab/profil/profilinfo.php?page=1");</script>';
+                        echo '<script> alert_info_redirect("Bienvenue ' . $ligne['prenom'] . '","success","/hitechlab/profil/profilinfo.php?page=1");</script>';
                     } else {
                         $_SESSION['type'] = 'admin';
-                        echo '<script> alert_info_redirect("Bienvenue M. ' . $ligne['nom'] . '","success","/hitechlab//tableauDeBord/tableauDeBord.php");</script>';
+                        echo '<script> alert_info_redirect("Bienvenue ' . $ligne['prenom'] . '","success","/hitechlab/tableauDeBord/tableauDeBord.php");</script>';
                     }
                 } else {
                     echo '<script> alert_info("Mauvais login","error");</script>';

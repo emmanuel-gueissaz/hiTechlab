@@ -18,7 +18,7 @@
 .laStat{
     display: inline-block;
     width: 49%;
-     text-align: center;
+    text-align: center;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     border-radius: 5px;
     margin-left: 0.5%;
@@ -29,7 +29,7 @@
 .titreStat{
     display: inline-block;
     width: 45%;
-  text-align: left;
+    text-align: left;
 }
 .donneStat{
     display: inline-block;
@@ -37,5 +37,111 @@
     text-align: right;
 }
 .lesReparation{
+    display: inline-block;
+    margin-top: 2%;
+    text-align: center;
+    width: 100%;
 
 }
+
+.menuInfo{
+    display: inline-block;
+    width: 33.3%;
+
+
+}
+
+
+.labelDsDevis{
+    display: inline-block;
+    width: 17%;
+    color: black;
+}
+
+.compteurPiece{
+    display: inline-block;
+
+    margin-left: 10%;
+}
+
+.infoPieceDevis{
+    display: inline-block;
+    width: 90%;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+
+
+
+}
+
+.labelPiece{
+    display: inline-block;
+    width: 30%;
+    color: black;
+    margin-bottom: 1%;
+}
+
+
+.laReparation{
+    overflow-y: hidden;  
+    overflow-x: hidden;
+    height: 40px;
+    max-height: 200px;
+    transition: all 1s;
+
+
+}
+
+.boutonPlus{
+    display: inline-block;
+    width: 100%;
+    margin-bottom:  1%;
+
+}
+
+
+.lesStockLine{
+    display:inline-block;
+    vertical-align:middle; 
+    width:5%;
+}
+
+.AfficheLesRep{
+    display: inline-block;
+    width: 90%;
+    transition: all 1s;
+}
+
+.lesNotif{
+    display: inline-block;
+    width: 9%; 
+    transition: all 1s;
+    vertical-align: top;  
+    text-align: center;
+
+}
+
+.cloche{
+    display: inline-block;
+}
+
+.lanotif{
+    display: inline-block;
+    width: 95%; 
+}
+
+.slideBar::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #6c757d;
+}
+
+.slideBar::-webkit-scrollbar{
+    background-color:  #F5F5F5;
+    width: 8px;
+
+}
+
+
+
+

@@ -7,7 +7,7 @@ include '../BDD/connexionBdd.php';
 ?>
 <html lang="fr">
     <head>
-        <title>Accueil</title>  
+        <title>HI-TECH LAB</title>  
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -48,14 +48,23 @@ include '../BDD/connexionBdd.php';
                             </svg>
                         </button>
                         <?php
+                        $requete = "select count(*) as nbalert from accessoire where stock <= 1";
+                        $requete = $conn->prepare($requete);
+                        $requete->execute();
+                        $ligne = $requete->fetch();
+                        $nbalertAccessoire = $ligne['nbalert'];
+
                         $requete = "select count(*) as nbalert from piece where stock <= 1";
                         $requete = $conn->prepare($requete);
                         $requete->execute();
                         $ligne = $requete->fetch();
-                        $nbalert = $ligne['nbalert'];
+                        $nbalertPiece = $ligne['nbalert'];
                         ?>
-                        <button type="button" class="btn btn-primary" onclick="document.location.href = '/hitechlab/boutique/gestionStock/GestionStock.php'">
-                            Pièce <span class="badge badge-light"><?php echo $nbalert; ?></span>
+                        <button type="button" class="btn btn-primary" onclick="document.location.href = '/hitechlab/boutique/gestionStock/GestionStockAccessoire.php?page=1'">
+                            Accessoires <span class="badge badge-light"><?php echo $nbalertAccessoire; ?></span>
+                        </button>
+                        <button type="button" class="btn btn-primary" onclick="document.location.href = '/hitechlab/boutique/gestionStock/GestionStock.php?page=1'">
+                            Pièces <span class="badge badge-light"><?php echo $nbalertPiece; ?></span>
                         </button>
 
                     </div>
@@ -79,17 +88,17 @@ include '../BDD/connexionBdd.php';
                             <h4 class="labelClient">Mot de passe : </h4> <input class="inputClient form-control" type="password" name="mdp"/><br>
                             <h4 class="labelClient">Type : </h4>
                             <select class="inputClient btn-outline-primary" name="type_tech">
-                            <?php 
-                            $requete = 'select * from type_tech';
-                            $requete = $conn -> prepare($requete);
-                            $requete -> execute();
-                            while($ligne = $requete -> fetch()){
-                                $id = $ligne['id_type_tech'];
-                                $lib = $ligne['lib_type_tech'];
-                                echo "<option value='$id'>$lib</script>";
+                                <?php
+                                $requete = 'select * from type_tech';
+                                $requete = $conn->prepare($requete);
+                                $requete->execute();
+                                while ($ligne = $requete->fetch()) {
+                                    $id = $ligne['id_type_tech'];
+                                    $lib = $ligne['lib_type_tech'];
+                                    echo "<option value='$id'>$lib</script>";
                                 }
                                 ?>
-                                </select>
+                            </select>
                             <div style="text-align: center">
                                 <input type="button"  class="btn btn-outline-danger btn-lg" value="Annuler"  onclick="document.getElementById('createClient').style.height = '0px';" />
                                 <input type="submit" name="createTec" class="btn btn-outline-primary btn-lg" value="Créer"  />
@@ -170,7 +179,7 @@ include '../BDD/connexionBdd.php';
             $type_tech = $_POST['type_tech'];
 
             $mdp = openssl_encrypt($mdp, "AES-128-ECB", '1234');
-            
+
 
             if ($offre == 'on') {
                 $offre = 'true';

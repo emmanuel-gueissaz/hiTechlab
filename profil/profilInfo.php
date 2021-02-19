@@ -7,7 +7,7 @@ include '../BDD/connexionBdd.php';
 
 <html lang="fr">
     <head>
-        <title>Accueil</title>
+        <title>HI-TECH LAB</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -17,7 +17,7 @@ include '../BDD/connexionBdd.php';
 
         <link href="../lib/css/couleur.css" rel="stylesheet" type="text/css"/>
         <link href="profil.css" rel="stylesheet" type="text/css"/>
-        
+
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <link href="../lib/css/style.css" rel="stylesheet" type="text/css"/>
         <link href="../lib/alert/sweetalert2.css" rel="stylesheet" type="text/css"/>
@@ -41,10 +41,25 @@ include '../BDD/connexionBdd.php';
                 if (nPage <= 0) {
                     nPage = 1;
                 }
-                document.location.href = '?page=' + nPage;
+                const url = new URL(window.location);
+                url.searchParams.set('page', nPage);
+                window.history.pushState({}, '', url);
+                var lesMenu = document.getElementsByClassName('menuInfo');
+                for (var i = 0, max = lesMenu.length; i < max; i++) {
+                    if (lesMenu[i].getAttribute('aria-selected') == 'true') {
+                        lesMenu[i].click();
+                    }
+
+
+                }
+
+
+                // document.getElementsByClassName('nav-home-tab').getAttribute('aria-selected');
 
 
             }
+
+
         </script>
 
 
@@ -68,7 +83,7 @@ include '../BDD/connexionBdd.php';
                     $email = $_SESSION['email'];
 
                     $requete = "select  ROW_NUMBER() OVER()  from reparation inner join a ON a.id = reparation.id
-where email_technicien ='$email' group by reparation.id having max(a.id_statut)=7 order by row_number desc limit 1";
+where email_technicien ='$email'  and EXTRACT('month' from a.datee::date) =  EXTRACT('month' from current_date) group by reparation.id having max(a.id_statut)=7 order by row_number desc limit 1";
                     $requete = $conn->prepare($requete);
                     $requete->execute();
                     $ligne = $requete->fetch();
@@ -80,32 +95,17 @@ where email_technicien ='$email' group by reparation.id having max(a.id_statut)=
                 </div>
                 <div >
 
-                    <div>
-                        <button value="-" id="moins" onclick="page(this)" class="btn btn-primary mb-3 mt-3">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>
-                            </svg>
-                            Précédent
-                        </button>
-                        <button value="+" onclick="page(this)" class="btn btn-primary mb-3 mt-3">                                
-                            Suivant
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"/>
-                            </svg>
-                        </button>
 
-
-                    </div>
                 </div>
 
-                <div class="connexion" >
-                    <nav>
-                        <div class="nav nav-pills " id="nav-tab" role="tablist">
-                            <a class="nav-item nav-link active menuConnexion" id="nav-home-tab" data-toggle="tab" href="#nav-rep" role="tab" aria-controls="nav-rep" aria-selected="true"  onclick="load_reparation(4, 'nav-rep')">A réparer</a>
+                <div class="lesReparation" >
+                    <nav  >
+                        <div class="nav nav-pills  " id="nav-tab" role="tablist">
+                            <a class="nav-item nav-link active menuInfo" id="nav-home-tab" data-toggle="tab" href="#nav-rep" role="tab" aria-controls="nav-rep" aria-selected="true"  onclick="load_reparation(4, 'nav-rep')">A réparer</a>
 
-                            <a class="nav-item nav-link menuConnexion" id="nav-contact-tab" data-toggle="tab" href="#nav-piece" role="tab" aria-controls="nav-piece" aria-selected="false" onclick="load_reparation(5, 'nav-piece')">Attente de pièce</a>
+                            <a class="nav-item nav-link menuInfo" id="nav-contact-tab" data-toggle="tab" href="#nav-piece" role="tab" aria-controls="nav-piece" aria-selected="false" onclick="load_reparation(5, 'nav-piece')">Attente de pièce</a>
 
-                            <a class="nav-item nav-link menuConnexion" id="nav-contact-tab" data-toggle="tab" href="#nav-fini" role="tab" aria-controls="nav-fini" aria-selected="false" onclick="load_reparation(7, 'nav-fini')">Fini</a>
+                            <a class="nav-item nav-link menuInfo" id="nav-contact-tab" data-toggle="tab" href="#nav-fini" role="tab" aria-controls="nav-fini" aria-selected="false" onclick="load_reparation(7, 'nav-fini')">Terminé</a>
                         </div>
                     </nav>
                     <div class="tab-content" id="nav-tabContent">
@@ -125,6 +125,20 @@ where email_technicien ='$email' group by reparation.id having max(a.id_statut)=
 
                         </div>
                     </div>
+                    <div>
+                        <button value="-" id="moins" onclick="page(this)" class="btn btn-primary mb-3 mt-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>
+                            </svg>
+                            Précédent
+                        </button>
+                        <button value="+" onclick="page(this)" class="btn btn-primary mb-3 mt-3">                                
+                            Suivant
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"/>
+                            </svg>
+                        </button>
+                    </div>
                 </div>
 
 
@@ -140,18 +154,22 @@ where email_technicien ='$email' group by reparation.id having max(a.id_statut)=
 
         <script>
 
-                                function load_reparation(statut, receptacle)
-                                {
+                            function load_reparation(statut, receptacle)
+                            {
 
-                                    $.ajax({
-                                        url: 'ajax/afficheDevisInformaticien.php',
-                                        method: 'post',
-                                        data: {query: statut},
-                                        success: function (data) {
-                                            $('#' + receptacle).html(data);
-                                        }
-                                    });
-                                }
+                                let searchParams = new URLSearchParams(window.location.search);
+                                searchParams.has('page');
+                                let nPage = searchParams.get('page');
+                                var page = nPage * 30;
+                                $.ajax({
+                                    url: 'ajax/afficheDevisInformaticien.php',
+                                    method: 'post',
+                                    data: {query: statut, page},
+                                    success: function (data) {
+                                        $('#' + receptacle).html(data);
+                                    }
+                                });
+                            }
         </script>
 
 

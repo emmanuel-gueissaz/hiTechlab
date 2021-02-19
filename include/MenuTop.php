@@ -3,7 +3,7 @@
  if(isset($_POST['deco'])){
      session_unset();
      session_destroy();
-     echo '<script> document.location.href="/connexion/connexion.php"';
+    
  };
  ?>
 
@@ -22,12 +22,10 @@
 
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="nav navbar-nav ml-auto">
-                                <li class="nav-item active">
-                                    <a class="nav-link" href="">Accueil</a>
-                                </li>
-                                 <li class="nav-item">
-                                    <?php if($_SESSION['nom']!= null){
-                                                echo '<a class="nav-link" href="/connexion/connexion.php">' . $_SESSION['nom'] . '</a>';
+                                
+                                 <li class="nav-item active">
+                                    <?php if($_SESSION['prenom']!= null){
+                                                echo '<a class="nav-link" href="/hitechlab/profil/profilTech.php?page=1">' . $_SESSION['prenom'] . '</a>';
                                    
                                                 echo '  </li>
                                 <li class="nav-item">
@@ -38,7 +36,7 @@
                                                 
                                     } 
                                     else{
-                                         echo '<a class="nav-link" href="/connexion/connexion.php">Connexion</a>';
+                                         echo '<a class="nav-link" href="/hitechlab/connexion/connexion.php">Connexion</a>';
                                     }
                                     ?>
                                     

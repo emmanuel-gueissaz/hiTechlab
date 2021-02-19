@@ -134,6 +134,14 @@
     display: inline-block;
     text-align: right;
 }
+
+.labelCheckRange{
+    font-size: 1em;
+    width: 74%;
+    display: inline-block;
+    text-align: right; 
+  
+}
 .labelCheckSpec{
     width: 90%;
     font-size: 1.2em;
@@ -205,7 +213,7 @@
 
 .donneIntervention{
     display: inline-block;
-    width: 27%;
+    width: 26.8%;
     color: black;
     font-family: Arial;
     font-size: 140%;
@@ -222,18 +230,25 @@
 
 .inputQte{
     display: inline-block;
-    width: 30%;
+    width: 25%;
     vertical-align: middle;
     height: 30px;
 
 
 }
 
+.inputMontant{
+    display: inline-block;
+    width: 10%;
+    vertical-align: middle;
+    height: 30px;
+}
+
 
 .viewDevis{
     display: inline-block;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    width: 95%;
+    width: 100%;
     border-radius: 5px;
 
 }
@@ -254,13 +269,14 @@
 .labelDsDevis{
     display: inline-block;
     width: 17%;
+    vertical-align: middle;
 }
 
 .leDevis{
     display: block;
     margin-top: 1%;
     margin-bottom: 1%;
-/*       transition: all 1s;*/
+    /*       transition: all 1s;*/
 
 
 }
@@ -268,7 +284,7 @@
     max-height: 600px;
     overflow-x: hidden;
     overflow-y: scroll;
- 
+
 }
 
 
@@ -285,6 +301,26 @@
     background-color:  #F5F5F5;
     width: 8px;
 
+}
+
+
+.lableTitreRep{
+    display: inline-block;
+    width: 80%;
+    font-family: Arial;
+    color: black;
+    text-align: left;
+    font-size: 200%;
+    margin-top: 1%;
+
+}
+
+.labelPieceRepe{
+    display: inline-block;
+    width: 100%;
+    font-family: Arial;
+    font-size: 120%;
+    color: black;
 }
 
 @media (max-width: 768px) {
@@ -331,6 +367,15 @@
     .selectRecheche{
         width: 95%;
         text-align: center;
+    }
+
+
+    .inputMontant{
+        width: 40%;
+    }
+
+    .zoneTextPanne{
+        width: 39%;
     }
 }
 

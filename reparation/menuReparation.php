@@ -9,7 +9,7 @@ include '../BDD/connexionBdd.php';
 
 <html lang="fr">
     <head>
-        <title>Accueil</title>
+        <title>HI-TECH LAB</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -91,11 +91,10 @@ include '../BDD/connexionBdd.php';
 
                 <!-- debut de la page -->
                 <div style="text-align: center;">
-
-
-
-
-
+                    <form method="POST" style="margin-bottom: 1%;">
+                        <h4 class="selectRecheche" style="margin-right: 2%;">Code barre :</h4>
+                        <input type="text" name="openRepBar" class="form-control selectRecheche" />
+                    </form> 
 
                     <div class="viewDevis">
                         <div class="barRechercheDevis">
@@ -380,7 +379,7 @@ include '../BDD/connexionBdd.php';
 
                                 });
                                 $('#mat').click();
- 
+
 
 
         </script>
@@ -388,6 +387,27 @@ include '../BDD/connexionBdd.php';
 
     </body>
 
+    <?php
+    if (isset($_POST['suppDevis'])) {
+        $id = $_POST['suppDevis'];
+    
+        try {
+            $requete = "select * from supprepdemande($id);";
+            $requete = $conn->prepare($requete);
+            $requete->execute();
+            echo '<script> alert_info("Réparation supprimée","success");</script>';
+        } catch (Exception $ex) {
+            echo '<script> alert_info("Cette réparation ne peut être supprimée","error");</script>';
+        }
+    }
+    
+    
+    
+    if(isset($_POST['openRepBar'])){
+        $id = $_POST['openRepBar'];
+        echo "<script>document.location.href = '/hitechlab/reparation/laReparation.php?id=$id'</script>";
+    }
+    ?>
     <!--protection de session -->
     <?php
     include '../include/ProtectSession.php';

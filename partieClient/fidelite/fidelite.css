@@ -1,0 +1,119 @@
+.cadreFidelite{
+    display: inline-block;
+    width: 95%;
+    height: 400px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 5px;
+
+}
+
+.titreFidelite{
+    display: inline-block;
+    width: 95%;
+    font-family: Arial;
+    font-size: 150%;
+    text-align: left;   
+    margin-top: 1%;
+    color:black;
+}
+
+.lesCarre{
+    display: inline-block;
+    width: 100%;
+    margin-top: 100px;
+
+}
+.petitCarre{
+    display: inline-block;
+    width: 60px;
+    margin-left: 5%;
+    margin-right: 5%;
+    border: 1px solid green;
+    height: 60px;
+    border-radius: 5px;
+    vertical-align: middle;
+    background-color: #fafafa;
+    transition: all 2s;
+
+}
+
+.iconDsCarre{
+    display: inline-block;
+    width: 100%;
+    margin-top: 10%;
+
+}
+
+.GrosCarre{
+    display: inline-block;
+    width: 100px;
+    margin-left: 5%;
+    margin-right: 5%;
+    border: 1px solid green;
+    height: 100px;
+    border-radius: 5px;
+    vertical-align: middle;
+    background-color: #fafafa;
+    transition: all 2s;
+
+}
+
+.containtProgressBar{
+    display: inline-block;
+    position: relative;
+    height: 2px;
+    width: 85%;
+    z-index: -1;
+
+}
+.progressBar{
+    background-color: green;
+    height: 2px;
+    width: 0%;
+    margin-top: -6.5%;
+    z-index: -1;
+    transition: all 2s;
+}
+
+@media (max-width: 768px){
+
+    .headerClient{
+        width: 100%;
+        margin-bottom: 1%;
+
+    }
+    .progressBar{
+        margin-top: -10.5%;
+    }
+    .cadreFidelite{
+        background-color: red;
+    }
+
+
+}
+
+
+
+@media (max-width: 435px){
+    .progressBar{
+        margin-top: -10.5%;
+    }
+
+    .GrosCarre{
+        width: 45px;
+        height: 45px;
+
+    }
+    .petitCarre{
+        width: 30px;
+        height: 30px;
+    }
+
+    .containtProgressBar{
+        width: 95%;
+    }
+
+    .iconDsCarre{
+        opacity: 0;
+    }
+}

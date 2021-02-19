@@ -21,11 +21,14 @@ if (isset($_POST['query'])) {
 //   echo $_POST['query'];
     $categ = $_POST['query'];
     $nom = $_POST['nom'];
+    $limit = $_POST['page'];
+    $offset = $limit-30;
 
 
-    $requete = "select id_forfait, nom_forfait, tarif, piece.nom_piece, forfait.id_piece, forfait.tarif from  forfait
+    $requete = "select id_forfait, nom_forfait,description_forfait, tarif, piece.nom_piece, forfait.id_piece, forfait.tarif, piece.stock from  forfait
 left join piece on piece.id_piece = forfait.id_piece
-where forfait.id_categ = '$categ' and (forfait.nom_forfait like '%$nom%' or forfait.tarif::text  like '%$nom%' or piece.nom_piece like '%$nom%') ; ";
+where forfait.id_categ = '$categ' and (forfait.nom_forfait like '%$nom%' or forfait.tarif::text  like '%$nom%' or piece.nom_piece like '%$nom%')
+            limit $limit offset $offset ; ";
     $requete = $conn->prepare($requete);
     $requete->execute();
 
@@ -34,13 +37,16 @@ where forfait.id_categ = '$categ' and (forfait.nom_forfait like '%$nom%' or forf
         $lib = $ligne['nom_forfait'];
         $piece = $ligne['nom_piece'];
         $tarif = $ligne['tarif'];
+        $desc = $ligne['description_forfait'];
+        $stock = $ligne['stock'];
 
 
-        $data .= "  <hr class='my-2' Style='border-top:1px solid black; ' />"
+        $data .= "  <hr class='my-2' Style='border-top:1px solid #E84D0E;color: #E84D0E; ' />"
                 . "<div class='element'> "
-                . "<div class='labelPiece'> $lib </div>"
-                . "<div class='labelPiece'> $tarif €</div>"
-                . "<div class='labelPiece noResponsive'> $piece </div>"
+                . "<div class='labelPieceRepe'> $lib </div>"
+                . "<div class='labelPieceRepe'> $desc </div>"
+                . "<div class='labelPieceRepe'> $tarif €</div>"
+                . "<div class='labelPieceRepe noResponsive'> $piece <span class='badge badge-secondary' style='display:inline-block;'>$stock</span> </div>"
                 . "<form method='POST' class='iconElement'>"
                 . "<button type='submit' class='btn btn-primary iconElement' value='$id' name='Add'> "
                 . "$iconAdd"

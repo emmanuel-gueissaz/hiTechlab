@@ -7,7 +7,7 @@ include '../BDD/connexionBdd.php';
 
 <html lang="fr">
     <head>
-        <title>Accueil</title>
+        <title>HI-TECH LAB</title>
         <meta charset="utf-8">
 
 
@@ -145,6 +145,8 @@ include '../BDD/connexionBdd.php';
                 </div>
             </div>
         </div>
+        
+   
 
 
 

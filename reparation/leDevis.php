@@ -13,7 +13,7 @@ use PHPMailer\PHPMailer\Exception;
 
 <html lang="fr">
     <head>
-        <title>Accueil</title>
+        <title>HI-TECH LAB</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -28,7 +28,37 @@ use PHPMailer\PHPMailer\Exception;
         <link href="reparation.css" rel="stylesheet" type="text/css"/>
         <link href="../boutique/view/view.css" rel="stylesheet" type="text/css"/>
 
+        <script>
 
+
+            function page(leBouton) {
+
+                let searchParams = new URLSearchParams(window.location.search);
+                searchParams.has('page');
+                let nPage = searchParams.get('page');
+                if (nPage == '') {
+                    nPage = 1;
+                }
+                let temp = leBouton.value;
+                if (temp == '-') {
+                    nPage--;
+                } else {
+                    nPage++;
+                }
+                if (nPage <= 0) {
+                    nPage = 1;
+                }
+                const url = new URL(window.location);
+                url.searchParams.set('page', nPage);
+                window.history.pushState({}, '', url);
+
+
+                var categ = $('#categ').val();
+                var nom = $('#recherche').val();
+                load_data(categ, nom);
+
+            }
+        </script>
     </head>
     <body>
 
@@ -44,6 +74,10 @@ use PHPMailer\PHPMailer\Exception;
         ?>
 
 
+        <?php
+        $idCrypt = openssl_encrypt($_GET['id'], "AES-128-ECB", 'lEdEvis26300aBz');
+        ?>
+
         <div class="wrapper d-flex align-items-stretch">
             <?php include '../include/Sidebar.php'; ?>
 
@@ -56,8 +90,9 @@ use PHPMailer\PHPMailer\Exception;
 
                 <?php $id = $_GET['id']; ?>
 
-                <input type="button" class="btn btn-outline-secondary" value="retour" onclick="history.back();"/>
-                <input type="button" class="btn btn-outline-secondary" value="PDF" onclick="window.open('/hitechlab/pdf/leDevisPdf.php?id=<?php echo $id; ?>');return false;"/>
+                <input type="button" class="btn btn-outline-secondary" value="retour" onclick="history.back()"/>
+                <input type="button" class="btn btn-outline-secondary" value="PDF" onclick="window.open('/hitechlab/pdf/leDevisPdf.php?id=<?php echo $idCrypt; ?>');
+                        return false;"/>
 
                 <form method="POST" style="display: inline-block;">
                     <input type="submit" class="btn btn-outline-secondary" name="envoiMail" value="Envoyer le devis"/>
@@ -99,8 +134,8 @@ use PHPMailer\PHPMailer\Exception;
 
                     <div class="cadreViewSansHeight" >
                         <div class="titreView">
-                            <h5 class="lableTitreView">
-                                Ajouter une intervention :
+                            <h5 class="lableTitreRep">
+                                Les interventions  :
                             </h5>
                             <button class="btn btn-primary iconElement" onclick="document.getElementById('AffichePlus').style.display = 'inline-block';"  >
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
@@ -138,29 +173,125 @@ use PHPMailer\PHPMailer\Exception;
 
                             </div>
 
-
-
-
-
-
-                            <div >
-                                <div class="titrePiece" style="margin-left: 10%;">Nom </div>
-                                <div class="titrePiece">Tarif </div>
-                                <div class="titrePiece noResponsive">Piece </div>
-
-                            </div>
                             <div id="lesForfaits">
 
                             </div>
+                            <div>
+                                <button value="-" id="moins" onclick="page(this)" class="btn btn-primary mb-3 mt-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>
+                                    </svg>
+                                    Précédent
+                                </button>
+                                <button value="+" onclick="page(this)" class="btn btn-primary mb-3 mt-3">                                
+                                    Suivant
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"/>
+                                    </svg>
+                                </button>
+
+
+                            </div>
+
                         </div>
 
+                        <!--                    </div>
+                    
+                                            <div class="cadreViewSansHeight">-->
+                        <?php
+                        $id = $_GET['id'];
+                        $total = 0;
+                        $requete = "select * from forfait  inner join prend ON prend.id_forfait = forfait.id_forfait where prend.id = $id";
+                        $requete = $conn->prepare($requete);
+                        $requete->execute();
+                        while ($ligne = $requete->fetch()) {
+                            $id_forfait = $ligne['id_forfait'];
+                            $nomForfait = $ligne['nom_forfait'];
+                            $tarif = $ligne['tarif'];
+                            $qte = $ligne['qte'];
 
+                            $total += $tarif * $qte;
+                            echo " <hr class='my-2' Style='border-top:1px solid black; ' />";
+                            echo "<label class='donneIntervention'> $nomForfait  </label>";
+                            echo "<label class='donneIntervention'  style='text-align:right; padding-right:5%;'> $tarif  €</label>";
+                            echo "<div class='donneIntervention'><form method='POST' class='iconElement'>"
+                            . "<input type='number' class='inputQte form-control' value='$qte' name='qte' />"
+                            . "<button type='submit' class='btn btn-secondary iconElement' value='$id_forfait' name='edit' > "
+                            . "$iconEdit"
+                            . "</button>"
+                            . "</form></div>";
+                            echo "<form method='POST' class='iconElement'>"
+                            . "<button type='submit' class='btn btn-danger iconElement' value='$id_forfait' name='supp' > "
+                            . "$iconSupp"
+                            . "</button>"
+                            . "</form>";
+                        }
+                        ?>
+                    </div>
+                    <div class="cadreViewSansHeight">
+                        <div class="titreView">
+                            <h5 class="lableTitreRep">
+                                Ajouter un équipement :
+                            </h5>
+                            <button class="btn btn-primary iconElement" onclick="document.location.href = '/hitechlab/boutique/view/viewAccessoire.php?page=1&type=reparation&id=<?php echo $_GET['id'] ?>'"  >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                </svg>
+                            </button>
+
+                        </div>
+                        <!--                    </div>
+                                            <div class="cadreViewSansHeight" >-->
+
+
+                        <?php
+                        $t = '"';
+                        $id_rep = $_GET['id'];
+                        $requete = "select  accessoire.id,nom, modele.lib_modeele, qte, accessoire.prixvente,accessoire.matiere  from accessoire 
+                            inner join ajout ON ajout.id_accessoire = accessoire.id
+                            inner join modele ON modele.id_modele = accessoire.id_modele
+                            where ajout.id_rep = $id_rep";
+                        $requete = $conn->prepare($requete);
+                        $requete->execute();
+
+                        $a = 0;
+                        while ($lignes = $requete->fetch()) {
+
+                            $id = $lignes['id'];
+                            $nom = $lignes['nom'];
+                            $lib_modeele = $lignes['lib_modeele'];
+                            $qte = $lignes['qte'];
+                            $prixvente = $lignes['prixvente'];
+                            $matiere = $lignes['matiere'];
+                            $total += $prixvente * $qte;
+                            if ($a != 0) {
+                                echo " <hr class='my-2' Style='border-top:1px solid black; ' />";
+                            }
+                            $a++;
+                            echo "<div class='unAccessoire'>"
+                            . "<div class='blockImg' onclick='document.location.href=$t /hitechlab/boutique/update/updateAccessoire.php?id=$id $t'>"
+                            . "<img class='imageAccessoire' src='../boutique/image/$id.png'/>"
+                            . "</div>"
+                            . "<div class='infoAccessoire' style='width:62%;'>"
+                            . "<label class='titreInfoAccessoire' style=' cursor: pointer;' onclick='document.location.href=$t /hitechlab/boutique/update/updateAccessoire.php?id=$id $t'>$nom</label>"
+                            . "<label class='labelInfoAccessoire'>Modèle : <span class='badge badge-secondary'> $lib_modeele</span></label>"
+                            . "<label class='labelInfoAccessoire'>Matière : <span class='badge badge-secondary'> $matiere</span></label>"
+                            . "<label class='labelInfoAccessoire'>Quantité :  <form method='POST' class='inputQte'><input type='number' name='qteAcc' class='form-control' value='$qte' style='display:inline-block;width:60%;'/>"
+                            . "<button type='submit' name='modifQteAcc' class='btn btn-secondary' style='display:inline-block;margin-left:1%;' value='$id'>$iconEdit</button></form> </label>"
+                            . "</div>"
+                            . "<div class='prixAccesoire'>"
+                            . "<label class='titreInfoAccessoire' style=' cursor: pointer;' onclick='document.location.href=$t /hitechlab/boutique/update/updateAccessoire.php?id=$id $t'>$prixvente €</label>"
+                            . "<form method = 'POST' class = 'titreInfoAccessoire' ><button type = 'submit' name = 'suppAcces' class = 'btn btn-danger' style = 'display:inline-block;' value = '$id'>$iconSupp</button></form > "
+                            . "</div></div>";
+                        }
+                        ?>
                     </div>
 
 
                     <div class="cadreViewSansHeight" >
                         <div class="titreView">
-                            <h5 class="lableTitreView">
+                            <h5 class="lableTitreRep">
                                 Ajouter une Remise :
                             </h5>
                             <button class="btn btn-primary iconElement" onclick="document.getElementById('AfficheRemise').style.display = 'inline-block';"  >
@@ -173,10 +304,11 @@ use PHPMailer\PHPMailer\Exception;
                         </div>
                         <div class="AffichePlus" id="AfficheRemise">
                             <div class="titreView" id="AfficheRemise">
-                                <h4 class="labelRecherche">Type de remise : </h4> 
 
 
-                                <form method="POST" style="display: inline-block;">
+
+                                <form method="POST" style="display: inline-block;width: 100%;">
+                                    <h4 class="labelRecherche">Type de remise : </h4> 
                                     <?php
                                     try {
                                         $requete = "select * from remise";
@@ -193,10 +325,11 @@ use PHPMailer\PHPMailer\Exception;
                                         
                                     }
                                     ?>
-                                    <input type="button" value="+" class="btn btn-primary" onclick="document.location.href = '/hitechlab/boutique/ajout/ajouterTypeRemise.php'"/> 
+
+                                    <!--<input type="button" value="+" class="btn btn-primary" onclick="document.location.href = '/hitechlab/boutique/ajout/ajouterTypeRemise.php'"/>--> 
                                     <h4 class="labelRecherche">Montant : </h4> 
 
-                                    <input type="text" name="montantRemise" class="inputQte form-control"/>
+                                    <input type="text" name="montantRemise" class="inputMontant form-control"/>
                                     <input type="submit" name="ajouterRemise" class=" btn btn-primary" value="Ajouter"/>
                                 </form>
 
@@ -207,41 +340,11 @@ use PHPMailer\PHPMailer\Exception;
 
 
                         </div>
-                    </div>
-                    <div class="cadreViewSansHeight">
-                        <div class="titreView">
-                            <h5 class="lableTitreView" style="width: 85%;">
-                                Les interventions :
-                            </h5>
-                        </div>
+                        <!--                    </div>
+                                            <div class="cadreViewSansHeight">-->
+
                         <?php
                         $id = $_GET['id'];
-                        $total = 0;
-                        $requete = "select * from forfait  inner join prend ON prend.id_forfait = forfait.id_forfait where prend.id = $id";
-                        $requete = $conn->prepare($requete);
-                        $requete->execute();
-                        while ($ligne = $requete->fetch()) {
-                            $id_forfait = $ligne['id_forfait'];
-                            $nomForfait = $ligne['nom_forfait'];
-                            $tarif = $ligne['tarif'];
-                            $qte = $ligne['qte'];
-
-                            $total += $tarif * $qte;
-
-                            echo "<label class='donneIntervention'> $nomForfait  </label>";
-                            echo "<label class='donneIntervention'> $tarif  €</label>";
-                            echo "<div class='donneIntervention'><form method='POST' class='iconElement'>"
-                            . "<input type='number' class='inputQte form-control' value='$qte' name='qte' />"
-                            . "<button type='submit' class='btn btn-secondary iconElement' value='$id_forfait' name='edit' > "
-                            . "$iconEdit"
-                            . "</button>"
-                            . "</form></div>";
-                            echo "<form method='POST' class='iconElement'>"
-                            . "<button type='submit' class='btn btn-danger iconElement' value='$id_forfait' name='supp' > "
-                            . "$iconSupp"
-                            . "</button>"
-                            . "</form>";
-                        }
                         $requete = "select * from remise inner join compter ON compter.id_remise = remise.id_remise where compter.id_reparation = $id";
                         $requete = $conn->prepare($requete);
                         $requete->execute();
@@ -252,9 +355,9 @@ use PHPMailer\PHPMailer\Exception;
 
 
                             $total -= $tarif;
-
+                            echo " <hr class='my-2' Style='border-top:1px solid black; ' />";
                             echo "<label class='donneIntervention'> $lib_remise  </label>";
-                            echo "<label class='donneIntervention'> -$tarif  €</label>";
+                            echo "<label class='donneIntervention' style='text-align:right; padding-right:5%;'> -$tarif  €</label>";
                             echo "<div class='donneIntervention'><form method='POST' class='iconElement'>"
                             . "<input type='text' class='inputQte form-control' value='$tarif' name='tarif' />"
                             . "<button type='submit' class='btn btn-secondary iconElement' value='$id_remise' name='editRemise' > "
@@ -270,6 +373,102 @@ use PHPMailer\PHPMailer\Exception;
                         ?>
 
                     </div>
+
+
+                    <div class="cadreViewSansHeight" >
+                        <div class="titreView">
+                            <h5 class="lableTitreRep">
+                                Creer un Avoir :
+                            </h5>
+                            <button class="btn btn-primary iconElement" onclick="document.getElementById('AfficheAvoir').style.display = 'inline-block';"  >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                </svg>
+                            </button>
+
+                        </div>
+                        <div class="AffichePlus" id="AfficheAvoir">
+                            <div class="titreView" id="AfficheAvoir">
+
+
+
+                                <form method="POST" style="display: inline-block; width: 100%;">
+                                    <h4 class="labelRecherche">Type de d'avoir : </h4> 
+                                    <?php
+                                    try {
+                                        $requete = "select * from avoire";
+                                        $requete = $conn->prepare($requete);
+                                        $requete->execute();
+                                        echo '<select name="avoir" id="avoir" class="selectRecheche btn btn-outline-primary btn-sm dropdown-toggle">';
+                                        while ($ligne = $requete->fetch()) {
+                                            $id = $ligne['id_avoire'];
+                                            $lib = $ligne['lib_avoire'];
+                                            echo "<option value='$id'>$lib</option>";
+                                        }
+                                        echo ' </select>';
+                                    } catch (Exception $ex) {
+                                        
+                                    }
+                                    ?>
+
+
+                                    <h4 class="labelRecherche">Montant : </h4> 
+
+                                    <input type="text" name="montantAvoir" class="inputMontant form-control"/>
+                                    <input type="submit" name="ajouterAvoir" class=" btn btn-primary" value="Ajouter"/>
+                                </form>
+
+
+
+
+                            </div>
+
+
+                        </div>
+                        <!--                    </div>
+                                            <div class="cadreViewSansHeight">-->
+
+                        <?php
+                        $id = $_GET['id'];
+                        $requete = "select * from creer where id_reparation = $id";
+                        $requete = $conn->prepare($requete);
+                        $requete->execute();
+                        while ($ligne = $requete->fetch()) {
+                            $id_remise = $ligne['id_avoire'];
+
+                            $tarif = $ligne['montant'];
+                            $date = $ligne['datee'];
+
+
+//                            $total -= $tarif;
+                            echo " <hr class='my-2' Style='border-top:1px solid black;'/>";
+                            echo "<label class='donneIntervention'> Avoir  </label>";
+                            echo "<label class='donneIntervention' style='text-align:right; padding-right:5%;'> -$tarif  €</label>";
+                            echo "<div class='donneIntervention'><form method='POST' class='iconElement'>"
+                            . "<input type='text' class='inputQte form-control' value='$tarif' name='tarif' />"
+                            . "<button type='submit' class='btn btn-secondary iconElement' value='$id_remise' name='editAvoir' > "
+                            . "$iconEdit"
+                            . "</button>"
+                            . "</form></div>";
+                            echo "<form method='POST' class='iconElement'>"
+                            . "<button type='submit' class='btn btn-danger iconElement' value='$id_remise' name='suppAvoir' > "
+                            . "$iconSupp"
+                            . "</button>"
+                            . "</form>";
+                        }
+                        ?>
+
+                    </div>
+
+
+
+
+
+
+
+
+
                     <div class="cadreViewSansHeight" >
 
                         <h5 class="lableTitreView" >Total : </h5>
@@ -317,10 +516,14 @@ use PHPMailer\PHPMailer\Exception;
 
                             function load_data(categ, nom)
                             {
+                                let searchParams = new URLSearchParams(window.location.search);
+                                searchParams.has('page');
+                                let nPage = searchParams.get('page');
+                                var page = nPage * 30;
                                 $.ajax({
                                     url: "ajax/viewRechercheForfaitDevis.php",
                                     method: "post",
-                                    data: {query: categ, nom},
+                                    data: {query: categ, nom, page},
                                     success: function (data)
                                     {
                                         $('#lesForfaits').html(data);
@@ -404,7 +607,7 @@ use PHPMailer\PHPMailer\Exception;
             }
         }
 
-        // les remises
+// les remises
         if (isset($_POST['suppRemise'])) {
             $id_remise = trim($_POST['suppRemise']);
             $id_rep = trim($_GET['id']);
@@ -431,6 +634,31 @@ use PHPMailer\PHPMailer\Exception;
             }
         }
 
+        if (isset($_POST['suppAcces'])) {
+            $id_accesoire = trim($_POST['suppAcces']);
+            $id_rep = trim($_GET['id']);
+            try {
+                $delele = "delete from ajout where id_accessoire = $id_accesoire and ajout.id_rep = $id_rep";
+                $requete = $conn->prepare($delele);
+                $requete->execute();
+                echo "<script> alert_info_redirect('Accessoire supprimée', 'success','/hitechlab/reparation/ledevis.php?id=$id_rep')</script>";
+            } catch (Exception $ex) {
+                echo '<script> alert_info("erreur","error");</script>';
+            }
+        }
+        if (isset($_POST['modifQteAcc'])) {
+            $id_rep = $_GET['id'];
+            $id_produit = $_POST['modifQteAcc'];
+            $qte = $_POST['qteAcc'];
+            try {
+                $update = "update ajout set qte = $qte where id_accessoire = $id_produit and id_rep = $id_rep;";
+                $update = $conn->prepare($update);
+                $update->execute();
+                echo "<script> alert_info_redirect('Quantité modifiée','success','/hitechlab/reparation/ledevis.php?id=$id_rep'); </script>";
+            } catch (Exception $ex) {
+                echo "<script> alert_info('Erreur','error'); </script>";
+            }
+        }
 
         if (isset($_POST['modif'])) {
             $id = $_POST['modif'];
@@ -454,9 +682,53 @@ use PHPMailer\PHPMailer\Exception;
             }
         }
 
+        // avoir 
+        if (isset($_POST['ajouterAvoir'])) {
+            $id = $_GET['id'];
+            $id_avoir = $_POST['avoir'];
+            $montant_avoir = $_POST['montantAvoir'];
+            try {
+                $insert = "insert into creer (id_avoire,id_reparation, datee, montant) values ($id_avoir,$id,current_date,$montant_avoir)";
+                $requete = $conn->prepare($insert);
+                $requete->execute();
+                echo "<script> alert_info_redirect('Avoir crée', 'success','/hitechlab/reparation/leDevis.php?id=$id')</script>";
+            } catch (Exception $ex) {
+                echo '<script> alert_info("erreur","error");</script>';
+                echo $ex;
+            }
+        }
 
+        if (isset($_POST['suppAvoir'])) {
+            $id_avoir = trim($_POST['suppAvoir']);
+            $id_rep = trim($_GET['id']);
+            try {
+                $delele = "delete from creer where id_avoire = '$id_avoir' and creer.id_reparation = '$id_rep'";
+                $requete = $conn->prepare($delele);
+                $requete->execute();
+                echo "<script> alert_info_redirect('Avoir supprimée', 'success','/hitechlab/reparation/leDevis.php?id=$id_rep')</script>";
+            } catch (Exception $ex) {
+                echo '<script> alert_info("erreur","error");</script>';
+            }
+        }
+        if (isset($_POST['editAvoir'])) {
+            $id_avoir = trim($_POST['editAvoir']);
+            $id_rep = trim($_GET['id']);
+            $tarif = $_POST['tarif'];
+            try {
+                $delele = "update creer set (montant,datee) = ($tarif,current_date) where id_avoire = '$id_avoir' and id_reparation = '$id_rep' ";
+                $requete = $conn->prepare($delele);
+                $requete->execute();
+                echo "<script> alert_info_redirect('Avoir modifiée', 'success','/hitechlab/reparation/leDevis.php?id=$id_rep')</script>";
+            } catch (Exception $ex) {
+                echo '<script> alert_info("erreur","error");</script>';
+            }
+        }
+
+//Devis
         if (isset($_POST['envoiMail'])) {
             $t = "'";
+
+
             $requete = "select client.email, nom, prenom from reparation
 inner join client ON client.email = reparation.email
 where reparation.id = $id";
@@ -480,7 +752,7 @@ where reparation.id = $id";
                     . '<div style="text-align:center;">'
                     . 'Bonjour ' . $nom . ' ' . $prenom . ', <br> '
                     . 'Veuillez cliquer sur le lien suivant pour accéder au devis et sa validation en-ligne '
-                    . '     <div style="text-align:center">  <a   href="http://localhost:8080/hitechlab/partieclient/acceptationdevis/viewdevis.php?id=' . $id . '" style="               
+                    . '     <div style="text-align:center">  <a   href="http://localhost:8080/hitechlab/partieclient/acceptationdevis/viewdevis.php?id=' . $idCrypt . '" style="               
                  display: inline-block;
   border-radius: 4px;
   background-color: #E84D0E;
@@ -496,7 +768,7 @@ where reparation.id = $id";
   text-decoration:none;"
  
  >Voir le devis</a></div></div>'
-                    . '     <div style="text-align:center">  <a   href="http://localhost:8080/hitechlab/partieclient/acceptationdevis/viewdevis.php?id=' . $id . '" style="               
+                    . '     <div style="text-align:center">  <a   href="http://localhost:8080/hitechlab/partieclient/suivi/suivi.php?id=' . $idCrypt . '" style="               
                  display: inline-block;
   border-radius: 4px;
   background-color: #E84D0E;
@@ -576,7 +848,7 @@ where reparation.id = $id";
                     . 'Bonjour ' . $nom . ' ' . $prenom . ', <br> '
                     . 'Votre apparail électronique est en attente de pièce, nous vous contacterons dès réceptions.'
                     . '<br>Vous pouvez cliquer sur le lien suivant pour accéder au suivi en ligne. '
-                    . '     <div style="text-align:center">  <a   href="" style="               
+                    . '     <div style="text-align:center">  <a   href="http://localhost:8080/hitechlab/partieclient/suivi/suivi.php?id=' . $idCrypt . '" style="               
                  display: inline-block;
   border-radius: 4px;
   background-color: #E84D0E;
@@ -626,9 +898,9 @@ where reparation.id = $id";
                 echo "<script>alert_info('Email envoyé','success');</script>";
             }
         }
-        
+
 // réparation terminé possède le lien de suivi 
-           if (isset($_POST['termine'])) {
+        if (isset($_POST['termine'])) {
             $id = $_GET['id'];
             $t = "'";
             $requete = "select client.email, nom, prenom from reparation
@@ -655,7 +927,7 @@ where reparation.id = $id";
                     . 'Bonjour ' . $nom . ' ' . $prenom . ', <br> '
                     . 'Votre apparail électronique est prêt! Vous pouvez dès à présent venir le récupérer en boutique.'
                     . '<br>Vous pouvez cliquer sur le lien suivant pour accéder au suivi en ligne. '
-                    . '     <div style="text-align:center">  <a   href="" style="               
+                    . '     <div style="text-align:center">  <a   href="http://localhost:8080/hitechlab/partieclient/suivi/suivi.php?id=' . $idCrypt . '" style="               
                  display: inline-block;
   border-radius: 4px;
   background-color: #E84D0E;

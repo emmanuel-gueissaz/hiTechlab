@@ -3,7 +3,7 @@
 include '../../BDD/connexionBdd.php';
 
 
-$data == '';
+$data = '';
 
 if (isset($_POST['query'])) {
 //   echo $_POST['query'];

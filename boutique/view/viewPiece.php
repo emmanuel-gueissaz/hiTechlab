@@ -8,7 +8,7 @@ include '../../BDD/connexionBdd.php';
 ?>
 <html lang="fr">
     <head>
-        <title>Accueil</title>  
+        <title>HI-TECH LAB</title>  
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -189,11 +189,12 @@ include '../../BDD/connexionBdd.php';
                             <input type="text" id="larecherche" class="form-control"/>
                         </div>
 
-                        <div >
+                        <div>
                             <div class="titrePiece" style="margin-left: 10%;">Nom </div>
                             <div class="titrePiece">Prix unitaire</div>
                             <div class="titrePiece noResponsive">Stock </div>
-                            <div class="titrePiece noResponsive">Total </div>
+                            <div class="titrePiece noResponsive" >Total </div>
+                            <div class="titrePiece noResponsive" ></div>
 
                         </div>
                         <div id="lesPieces">

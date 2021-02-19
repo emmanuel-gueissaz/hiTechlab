@@ -8,7 +8,7 @@ include '../../BDD/connexionBdd.php';
 ?>
 <html lang="fr">
     <head>
-        <title>Accueil</title>  
+        <title>HI-TECH LAB</title>  
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -72,7 +72,7 @@ include '../../BDD/connexionBdd.php';
 
 
 
-                    <div class="cadreView">
+                    <div class="cadreView"  style="height: 600px;">
                         <div class="titreView">
                             <h5 class="lableTitreView">
                                 Les Forfaits :
@@ -118,12 +118,7 @@ include '../../BDD/connexionBdd.php';
 
 
 
-                        <div >
-                            <div class="titrePiece" style="margin-left: 10%;">Nom </div>
-                            <div class="titrePiece">Tarif </div>
-                            <div class="titrePiece noResponsive">Piece </div>
-
-                        </div>
+                  
                         <div id="lesForfaits">
 
                         </div>

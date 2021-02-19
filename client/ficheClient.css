@@ -63,9 +63,43 @@
     display: inline-block;
     width: 15%;
 }
+.labelDsAchat{
+    display: inline-block;
+    width: 37.5%;
+}
+
+.titreInfoDevis{
+    width: 97%;
+  
+}
+
+.slideBar::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #3e64ff;
+}
+
+.slideBar::-webkit-scrollbar{
+    background-color:  #F5F5F5;
+    width: 8px;
+
+}
+
 
 @media (max-width: 768px){
     .infoClient{
         width: 100%;
+    }
+
+    .labelDsDevis{
+
+        width: 35%;
+    }
+
+    .noResponsive{
+        display: none;
+    }
+
+    .titreInfoDevis{
+        width: 94%;
     }
 }

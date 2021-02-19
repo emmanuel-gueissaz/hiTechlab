@@ -33,8 +33,8 @@ include '../../BDD/connexionBdd.php';
             
         }
         ?>
+        <input type="button" value="+" class="plus btn btn-primary btn-sm" onclick="document.location.href = '/hitechlab/boutique/ajout/ajouterTypeMat.php'"/>
 
-     
         <h4 class="labelAjout">Marque: </h4> 
 
 
@@ -91,7 +91,7 @@ include '../../BDD/connexionBdd.php';
             $requete = "select * from fournisseur";
             $requete = $conn->prepare($requete);
             $requete->execute();
-            echo '<select name="marque" id="marque" class="listeAjout btn btn-outline-primary btn-sm dropdown-toggle ">';
+            echo '<select name="fournisseur" id="fournisseur" class="listeAjout btn btn-outline-primary btn-sm dropdown-toggle ">';
             while ($ligne = $requete->fetch()) {
                 $id = $ligne['id_fournisseur'];
                 $lib = $ligne['lib_fournisseur'];
@@ -112,9 +112,9 @@ include '../../BDD/connexionBdd.php';
         <input class=" inputMdp form-control" type="text"  name="prix" required=""/>
         <h4 class="labelAjout" > Stock: </h4> 
         <input class=" inputMdp form-control" type="text"  name="stock" required=""/>
-        <h4 class="labelAjout" > Code bar: </h4> 
+        <h4 class="labelAjout" > Code barre: </h4> 
         <input class=" inputMdp form-control" type="text"  name="codebar" id="codeBar" />
-        <input type="button" value="+" class="plus btn btn-primary btn-sm"  onclick=""/> 
+
 
         <input type="button"  class="btn btn-outline-danger btn-lg inputMdp" value="annuler" onclick="history.back()"/>
         <input type="submit" name="ajouterPiece" class="btn btn-outline-primary btn-lg inputMdp" value="ajouter" />
@@ -127,9 +127,6 @@ include '../../BDD/connexionBdd.php';
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
 <script>
-
-//transforme le rapport en une array boulean pour postgretSql
-
 
 
             function load_data(mat, marque)
@@ -184,9 +181,10 @@ if (isset($_POST['ajouterPiece'])) {
     $prix = $_POST['prix'];
     $stock = $_POST['stock'];
     $codebar = $_POST['codebar'];
+    $fournisseur = $_POST['fournisseur'];
 
     try {
-        $insert = "insert into piece (id_categ, id_modele, nom_piece, ref, prixachat, stock, code_bar) values ($typePiece,$modele,'$nom','$ref',$prix,$stock,'$codebar');";
+        $insert = "insert into piece (id_categ, id_modele, nom_piece, ref, prixachat, stock, code_bar, id_fournisseur) values ($typePiece,$modele,'$nom','$ref',$prix,$stock,'$codebar',$fournisseur);";
         $requete = $conn->prepare($insert);
         $requete->execute();
         echo '<script> alert_info("Pièce ajouté","success");    setTimeout(function(){ history.go(-2); }, 1500); </script>';

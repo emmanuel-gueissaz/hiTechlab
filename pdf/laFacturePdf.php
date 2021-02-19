@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 $host = 'localhost';
 $db = 'hitechlab';
 $username = 'postgres';
@@ -14,7 +15,7 @@ try {
     echo $ex->getMessage();
 }
 
-$nDevis = $_GET['id'];
+$nDevis = openssl_decrypt($_GET['id'], "AES-128-ECB", 'lEdEvis26300aBz');
 
 $requete = "select * from facturesansreg($nDevis);";
 $requete = $conn->prepare($requete);
@@ -36,7 +37,7 @@ $date = date('d-m-Y', strtotime($ligne['datee']));
 $nomMarque = $ligne['nom'];
 $numeserie = $ligne['numserie'];
 $numFact = $ligne['id_facture'];
-    $notevisiblebon = $ligne['notevisiblebon'];
+$notevisiblebon = $ligne['notevisiblebon'];
 
 
 
@@ -180,8 +181,46 @@ where reparation.id = $nDevis";
                 
         </tr>";
         }
+       
         ?>
 
+    </table>
+
+    <table style="width: 100%; text-align: center; margin-left: 5%; margin-top: 2%; ">
+
+
+        <tr >
+            <td class="titrecolonne" style="width:  40%;">Accessoires </td>
+            <td class="titrecolonne" style="width:  10%;">PU HT</td>
+            <td class="titrecolonne" style="width:  12%;">Qte</td>
+            <td class="titrecolonne" style="width:  13%;">TVA</td>
+            <td class="titrecolonne" style="width:  15%;">Total HT</td>
+        </tr>
+        <?php
+        $requete = "select  accessoire.id,nom, qte, accessoire.prixvente  from accessoire 
+                            inner join ajout ON ajout.id_accessoire = accessoire.id
+                            where ajout.id_rep = $nDevis";
+        $requete = $conn->prepare($requete);
+        $requete->execute();
+        while ($ligne = $requete->fetch()) {
+            $id = $ligne['id'];
+            $lib_remise = $ligne['nom'];
+            $tarif = $ligne['prixvente'];
+            $qte = $ligne['qte'];
+            $total = $tarif * $qte;
+            $montantTotal += $total;
+
+            echo "
+         <tr style='text-align: center;'>
+            <td class='infoColonne' style='width:  40%;'>$lib_remise  </td>
+            <td class='infoColonne' style='width:  12%;'>$tarif €</td>
+            <td class='infoColonne' style='width:  10%;'>$qte</td>
+            <td class='infoColonne' style='width:  13%;'>TVA non applicable</td>
+            <td class='infoColonne' style='width:  15%;'>$total € </td>
+                
+        </tr>";
+        }
+        ?>
     </table>
 
     <table style="width: 100%; text-align: center; margin-left: 5%; margin-top: 2%; ">
@@ -208,6 +247,26 @@ where reparation.id = $nDevis";
         <tr>
             <td  style="width:  82%;"> Référence du devis associé à cette facture : <?php echo $nDevis; ?> </td>
         </tr>
+        <?php
+        $nDevis = openssl_decrypt($_GET['id'], "AES-128-ECB", 'lEdEvis26300aBz');;
+        $requete = "select email from reparation inner join utiliser ON utiliser.id_reparation = reparation.id where id = $nDevis";
+        $requete = $conn->prepare($requete);
+        $requete->execute();
+        $ligne = $requete->fetch();
+        $email = $ligne['email'] ;
+       if ($email != '') {
+            echo ' <tr><td>Références de facture pour avoir: ';
+          $requete = "select id_facture,id from creer inner join reparation on reparation.id = creer.id_reparation where email = '$email' and creer.datee::date >= current_date-90";
+            $requete = $conn->prepare($requete);
+            $requete->execute();
+            while ($ligne = $requete->fetch()) {
+                $facture = $ligne['id_facture'];
+                $id_rep = $ligne['id'];
+                echo  " $facture  ";
+            }
+            echo '</td></tr>';
+        }
+        ?>
 
         <tr>
             <td > Date limite de règlement : à réception de la facture </td>
@@ -227,7 +286,7 @@ where reparation.id = $nDevis";
         <tr>
             <td > de la panne ou refus d'un devis ayant nécessité des tests avant intervention    </td>
         </tr>
-            
+
         <tr>
             <td  style="margin-top: 2%;"> <b>Conditions ou informations spécifiques à la vente / prestation: </b> </td>
         </tr>

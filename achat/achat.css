@@ -1,0 +1,123 @@
+.cadreAccessoire{
+    display: inline-block;
+    width: 100%;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; 
+    border-radius: 5px;
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+
+.unAccessoire{
+    display: inline-block;
+    width: 98%;
+    border-radius: 5px;
+    margin-bottom:  1%;
+
+}
+
+.blockImg{
+    display: inline-block;
+    width: 20%;
+    vertical-align: 0;
+    cursor: pointer;
+}
+
+
+.imageAccessoire{
+    display: inline-block;
+    width: 100%;
+    border-radius: 5px;
+}
+
+.infoAccessoire{
+    display: inline-block;
+    width: 67%;
+    margin-left: 1%;
+    vertical-align: top;   
+
+}
+
+.labelInfoAccessoire{
+    display: inline-block;
+    width: 95%; 
+    text-align: left;
+    font-family: Arial;
+    font-size: 1.2em;
+    margin-top: 0.5%;
+
+
+}
+.titreInfoAccessoire{
+    display: inline-block;
+    width: 95%; 
+    text-align: left;
+    font-family: fantasy;
+    font-size: 1.6em;
+    margin-top: 0.5%;
+    color: #E84D0E;
+}
+
+
+.prixAccesoire {
+    display: inline-block;
+    width: 10%;
+    vertical-align: top;   
+
+
+}
+.inputQte{
+    display: inline-block;
+    width: 20%;
+    vertical-align: middle;
+}
+
+.totalPiece{
+    display: inline-block;
+    width: 20%;
+    margin-left: 80%;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; 
+    font-family: Arial;
+    font-size: 1.5em;
+    color: black;
+    border-radius: 5px;
+}
+
+.labelRecherche{
+    display: inline-block;
+    width: 25%;
+    text-align: right;
+    padding-right: 3%;
+
+}
+
+.iconElement{
+    display: inline-block;
+    margin-left: 1%;
+
+}
+
+@media (max-width:768px){
+    .totalPiece{
+        width: 50%;
+        margin-left: 50%;
+    }
+
+    .inputQte{
+        width: 50%;
+
+    }
+
+    .labelRecherche{
+        width: 59%;
+        font-size: 100%;
+    }
+
+    .infoAccessoire{
+        width: 60%;
+    }
+
+    .prixAccesoire{
+        width: 17%;
+       
+    }
+}

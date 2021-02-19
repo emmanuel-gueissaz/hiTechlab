@@ -7,7 +7,7 @@ include '../../BDD/connexionBdd.php';
 
 <html lang="fr">
     <head>
-        <title>Accueil</title>
+        <title>HI-TECH LAB</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -51,7 +51,7 @@ include '../../BDD/connexionBdd.php';
 
         <!-- debut de la page -->
         <?php
-        $nDevis = $_GET['id'];
+        $nDevis = openssl_decrypt($_GET['id'], "AES-128-ECB", 'lEdEvis26300aBz');;
 
         $requete = "select * from reparation inner join modele on modele.id_modele = reparation.id_modele
          inner join a ON a.id = reparation.id
@@ -70,7 +70,7 @@ include '../../BDD/connexionBdd.php';
         $nomMarque = $ligne['nom'];
         $numeserie = $ligne['numserie'];
         $numFact = $ligne['id_facture'];
-   $notevisiblebon = $ligne['notevisiblebon'];
+        $notevisiblebon = $ligne['notevisiblebon'];
 
 
         $requete = "select * from client where email = '$email'";
@@ -147,6 +147,33 @@ include '../../BDD/connexionBdd.php';
                     echo "</div>";
                 }
                 ?>
+                  <?php
+                         $id = openssl_decrypt($_GET['id'], "AES-128-ECB", 'lEdEvis26300aBz');
+                        $requete = "select datee,montant from utiliser                   
+                                    where id_reparation = $id";
+                        $requete = $conn->prepare($requete);
+                        $requete->execute();
+                        while ($ligne = $requete->fetch()) {
+                            $datee = $ligne['datee'];
+
+                            $montant = $ligne['montant'];
+
+
+                            $prix = $ligne['montant'];
+                            echo"<div class='unReglement'>";
+                            echo "<hr class='my-2' Style='border-top:1px solid black; ' />";
+                            echo "<div class='infoReglementLong noResponsive'>Avoir</div>";
+                            echo "<div class='infoReglement'>" . $datee . "</div>";
+                            echo "<div class='infoReglement noResponsive'></div>";
+                            echo "<div class='infoReglement noResponsive'></div>";
+                            echo "<div class='infoReglement'><div class='inputMontantLg'> $montant €</div></div>";
+
+
+
+
+                            echo "</div>";
+                        }
+                        ?>
 
             </div>
 
@@ -238,6 +265,7 @@ where reparation.id = $nDevis";
                 
         </tr>";
                         }
+
                         $requete = "select * from remise inner join compter ON compter.id_remise = remise.id_remise where compter.id_reparation = $nDevis";
                         $requete = $conn->prepare($requete);
                         $requete->execute();
@@ -260,6 +288,44 @@ where reparation.id = $nDevis";
                         }
                         ?>
 
+
+                    </table>
+
+                    <table style="width: 100%; text-align: center; margin-left:4%; margin-top: 2%; ">
+
+
+                        <tr >
+                            <td class="titrecolonneWeb" style="width:  40%;">Accessoires </td>
+                            <td class="titrecolonneWeb" style="width:  10%;">PU HT</td>
+                            <td class="titrecolonneWeb" style="width:  12%;">Qte</td>
+                            <td class="titrecolonneWeb" style="width:  13%;">TVA</td>
+                            <td class="titrecolonneWeb" style="width:  15%;">Total HT</td>
+                        </tr>
+                        <?php
+                        $requete = "select  accessoire.id,nom, qte, accessoire.prixvente  from accessoire 
+                            inner join ajout ON ajout.id_accessoire = accessoire.id
+                            where ajout.id_rep = $nDevis";
+                        $requete = $conn->prepare($requete);
+                        $requete->execute();
+                        while ($ligne = $requete->fetch()) {
+                            $id = $ligne['id'];
+                            $lib_remise = $ligne['nom'];
+                            $tarif = $ligne['prixvente'];
+                            $qte = $ligne['qte'];
+                            $total = $tarif * $qte;
+                            $montantTotal += $total;
+
+                            echo "
+         <tr style='text-align: center;'>
+            <td class='infoColonneWeb' style='width:  40%;'>$lib_remise  </td>
+            <td class='infoColonneWeb' style='width:  12%;'>$tarif €</td>
+            <td class='infoColonneWeb' style='width:  10%;'>$qte</td>
+            <td class='infoColonneWeb' style='width:  13%;'>TVA non applicable</td>
+            <td class='infoColonneWeb' style='width:  15%;'>$total € </td>
+                
+                        </tr>";
+                        }
+                        ?>
                     </table>
 
                     <table style="width: 100%; text-align: center; margin-left: 5%; margin-top: 2%; ">
@@ -282,8 +348,27 @@ where reparation.id = $nDevis";
                     </table>
 
                     <div class="basPageDevis">
-                        Référence du devis associé à cette facture : <a href="/hitechlab/partieclient/acceptationdevis/viewDevis.php?id=<?php echo $nDevis; ?>"><?php echo $nDevis; ?> </a><br>
-      
+                        Référence du devis associé à cette facture : <a href="/hitechlab/partieclient/acceptationdevis/viewDevis.php?id=<?php echo $_GET['id']; ?>"><?php echo $nDevis; ?> </a><br>
+
+                        <?php
+                        $requete = "select email from reparation inner join utiliser ON utiliser.id_reparation = reparation.id where id = $nDevis";
+                        $requete = $conn->prepare($requete);
+                        $requete->execute();
+                        $ligne = $requete->fetch();
+                        $email = $ligne['email'] ;
+                        if ($email != '') {
+                            echo ' Références de facture pour avoir: ';
+                            $requete = "select id_facture,id from creer inner join reparation on reparation.id = creer.id_reparation where email = '$email' and creer.datee::date >= current_date-90";
+                            $requete = $conn->prepare($requete);
+                            $requete->execute();
+                            while ($ligne = $requete->fetch()) {
+                                $facture = $ligne['id_facture'];
+                                $id_rep = openssl_encrypt($ligne['id'], "AES-128-ECB", 'lEdEvis26300aBz');
+                                echo "<a href='/hitechlab/partieclient/acceptationdevis/viewFacture.php?id=$id_rep'>$facture</a> ";
+                            }
+                            echo '<br>';
+                        }
+                        ?>
                         Date limite de règlement : à réception de la facture. <br>
                         Taux des pénalités en cas de retard de paiement : taux directeur de refinancement de la BCE, majoré de 10 points
                         Escompte en cas de paiement anticipé : aucun
@@ -312,29 +397,19 @@ where reparation.id = $nDevis";
         <script src="../../lib/js/main.js" type="text/javascript"></script>
         <script src="../../lib/js/popper.js" type="text/javascript"></script>
 
-        <?php
-//        $id = $_GET['id'];
-//        $requete = "select id_statut from a where id = $id order by id_statut desc limit 1";
-//        $requete = $conn->prepare($requete);
-//        $requete->execute();
-//        $ligne = $requete->fetch();
-//        $statut = $ligne['id_statut'];
-//      
-//        
-        ?>
 
 
 
         <!-- fin de la page -->
 
         <?php
-        $requete = "select * from reparation inner join modele ON modele.id_modele = reparation.id_modele where id=" . $_GET['id'] . ";";
-        $requete = $conn->prepare($requete);
-        $requete->execute();
-        $ligne = $requete->fetch();
-        $marque = $ligne['id_marque'];
-        $modele = $ligne['id_modele'];
-        $serie = $ligne['numserie'];
+//        $requete = "select * from reparation inner join modele ON modele.id_modele = reparation.id_modele where id=$nDevis;";
+//        $requete = $conn->prepare($requete);
+//        $requete->execute();
+//        $ligne = $requete->fetch();
+//        $marque = $ligne['id_marque'];
+//        $modele = $ligne['id_modele'];
+//        $serie = $ligne['numserie'];
         ?>
 
 

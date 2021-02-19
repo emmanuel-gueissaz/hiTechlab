@@ -1,13 +1,13 @@
 .leMotDePasse{
     width: 50%;
 
- display: inline-block;
- margin-top: 15%;
+    display: inline-block;
+    margin-top: 15%;
 
 
- border-radius: 15px;
-box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
- 
+    border-radius: 15px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
 }
 
 
@@ -18,7 +18,7 @@ box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     margin-right: 5%;
     font-family: Arial;
     font-size: 150%;
-     margin-bottom: 1%;
+    margin-bottom: 1%;
     margin-top: 3%;
 
 
@@ -31,8 +31,8 @@ box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     margin-bottom: 1%;
     margin-top: 3%;
     vertical-align: 0;
-    
-        
+
+
 
 }
 
@@ -43,9 +43,9 @@ box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .plus{
-   
-   width: 5%;
-   vertical-align: 0;
+
+    width: 5%;
+    vertical-align: 0;
 }
 
 .listeAjout{
@@ -54,13 +54,13 @@ box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     margin-bottom: 1%;
     margin-top: 3%;
     vertical-align: 0;
-    
-     
+
+
 }
 
 .recherchePiece{
     display: none;
-    
+
 }
 
 #marge{
@@ -68,18 +68,17 @@ box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 
-
 @media (max-width: 768px) {
     .leMotDePasse{
         width: 95%;
     } 
-    
+
     .labelMdp{
         width: 45%;
     }
-    
+
     .inputMdp{
         width:40%;
     }
-    
+
 }

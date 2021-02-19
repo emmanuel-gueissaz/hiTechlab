@@ -15,7 +15,7 @@ use PHPMailer\PHPMailer\Exception;
 ?>
 <html lang="fr">
     <head>
-        <title>Accueil</title>
+        <title>HI-TECH LAB</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -123,28 +123,34 @@ use PHPMailer\PHPMailer\Exception;
                             <input class="form-check-input checkVisibleRapport" type="checkbox" id="afficheRapport"  onclick="displayOn('afficheRapport', 'rapport');"   > 
                         </div>
                         <div style="text-align: center;">
-                            <div class="rapport" id="rapport">
-                                <h3 class="labelCheck"> Affichage : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
-                                <h3 class="labelCheck"> Bouton volume haut : </h3>  
-                                <input class="checkRapport" type="checkbox" name="rapport[]"/>
-                                <h3 class="labelCheck"> Bouton volume bas : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
-                                <h3 class="labelCheck">Bouton power : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
-                                <h3 class="labelCheck">Lecteur d'empreinte : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
-                                <h3 class="labelCheck">Caméra avant : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
-                                <h3 class="labelCheck">Caméra arrière : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
-                                <h3 class="labelCheck">Son haut-parleurs : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
-                                <h3 class="labelCheck">Son écouteur : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
-                                <h3 class="labelCheck">Tactile : </h3>  <input  class="checkRapport"type="checkbox" name="rapport[]"/>
-                                <h3 class="labelCheck">Connecteur de charge : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
-                                <h3 class="labelCheck">Autonomie : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
-                                <h3 class="labelCheck">Prise écouteur : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
-                                <h3 class="labelCheck">Réseaux : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
-                                <h3 class="labelCheck">Wifi : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
-                                <h3 class="labelCheck">Flash : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
-                                <h3 class="labelCheck">Bluetooth : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
-                                <h3 class="labelCheck">GPS : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
-                                <h3 class="labelCheck">Capteur lumière  : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
-                                <h3 class="labelCheck">Capteur proximmité  : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
+                            <div class="rapport" id="rapport" >
+
+                                <div style="display: inline-block; width: 46%; ">
+                                    <h3 class="labelCheckRange"> Affichage : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
+                                    <h3 class="labelCheckRange">Tactile : </h3>  <input  class="checkRapport"type="checkbox" name="rapport[]"/>
+                                    <h3 class="labelCheckRange"> Bouton volume haut : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
+                                    <h3 class="labelCheckRange"> Bouton volume bas : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
+                                    <h3 class="labelCheckRange">Bouton power : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
+                                    <h3 class="labelCheckRange">Lecteur d'empreinte : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
+                                    <h3 class="labelCheckRange">Caméra avant : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
+                                    <h3 class="labelCheckRange">Caméra arrière : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
+                                    <h3 class="labelCheckRange">Son haut-parleurs : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
+                                    <h3 class="labelCheckRange">Son écouteur : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
+
+
+                                </div>
+                                <div style="display: inline-block; width: 46%;">
+                                    <h3 class="labelCheckRange">Connecteur de charge : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
+                                    <h3 class="labelCheckRange">Autonomie : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
+                                    <h3 class="labelCheckRange">Prise écouteur : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
+                                    <h3 class="labelCheckRange">Réseaux : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
+                                    <h3 class="labelCheckRange">Wifi : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
+                                    <h3 class="labelCheckRange">Flash : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
+                                    <h3 class="labelCheckRange">Bluetooth : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
+                                    <h3 class="labelCheckRange">GPS : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
+                                    <h3 class="labelCheckRange">Capteur lumière  : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
+                                    <h3 class="labelCheckRange">Capteur proximmité  : </h3>  <input class="checkRapport" type="checkbox" name="rapport[]"/>
+                                </div>
                                 <h4 class="labelCheckSpec">Dans quel état est l'écran :</h4>  <br>
                                 <h3 class="labelCheck">Intact   : </h3> <input class="checkRapport" type="checkbox" name="rapport[]"/>
                                 <h3 class="labelCheck">Micro-rayures   : </h3> <input class="checkRapport" type="checkbox" name="rapport[]"/>
@@ -309,7 +315,6 @@ use PHPMailer\PHPMailer\Exception;
 
 
         <?php
-
         if (isset($_POST['creerDevis'])) {
             $email = $_GET['id'];
             $typeMat = $_POST['mat'];
@@ -331,7 +336,8 @@ use PHPMailer\PHPMailer\Exception;
             $defautreco = $_POST['defautreco'];
             $laPanne = trim($_POST['lapanne']);
 
-      
+            $replace = array("'", '"');
+            $laPanne = str_replace($replace, ' ', $laPanne, $final);
 
 
             $rapport = $_POST['leRapportCacher'];
@@ -342,7 +348,7 @@ use PHPMailer\PHPMailer\Exception;
                 $requete->execute();
 
 
-               
+
 
 
                 $html = '<html><head>'
@@ -356,7 +362,7 @@ use PHPMailer\PHPMailer\Exception;
                         . '<div style="text-align:center;">'
                         . 'Bonjour, votre demande a été prise en charge. <br> '
                         . 'Veuillez cliquer sur le lien suivant pour accéder au suivis en-ligne '
-                        . '     <div style="text-align:center">  <input type="button" value="Suivre votre réparation" style="               
+                        . '        <div style="text-align:center">  <a   href="http://localhost:8080/hitechlab/connexion/connexion.php" style="               
                  display: inline-block;
   border-radius: 4px;
   background-color: #E84D0E;
@@ -368,9 +374,10 @@ use PHPMailer\PHPMailer\Exception;
   width: 250px;
   transition: all 0.5s;
   cursor: pointer;
-  margin: 5px;"
+  margin: 5px;
+  text-decoration:none;"
  
-  /></div></div>'
+ >Se connecter </a></div></div>'
                         . '</body></html>';
                 $mail = new PHPmailer();
                 $mail->isSMTP(); // Paramétrer le Mailer pour utiliser SMTP 
@@ -395,7 +402,7 @@ use PHPMailer\PHPMailer\Exception;
                 if (!$mail->send()) {
                     
                 }
-           echo '<script> alert_info_redirect("Demande de devis faite","success","/client/menuClient.php");</script>';
+                echo '<script> alert_info_redirect("Demande de devis faite","success","/client/menuClient.php");</script>';
             } catch (Exception $ex) {
                 echo '<script> alert_info("erreur","error");</script>';
             }

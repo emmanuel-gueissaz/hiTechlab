@@ -32,7 +32,9 @@ limit $limit OFFSET $offest;
 ";
     $requete = $conn->prepare($requete);
     $requete->execute();
-
+    $icon = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                                 <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
+                                 </svg>';
     while ($ligne = $requete->fetch()) {
         $id = $ligne['id'];
         $libModele = $ligne['lib_modeele'];
@@ -67,12 +69,17 @@ limit $limit OFFSET $offest;
                 . "<div class='labelDsDevis'> $numeserie </div>"
                 . "<div class='labelDsDevis'> $date </div>"
                 . "<div class='labelDsDevis'> $nom  $prenom </div>"
-                . "<button class='btn btn-primary' onclick='document.location.href=$test /hitechlab/reparation/leDevis.php?id=$id $test'>  "
+                . "<button class='btn btn-primary' onclick='document.location.href=$test /hitechlab/reparation/leDevis.php?id=$id&page=1 $test'>  "
                 . "     <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-eye-fill' viewBox='0 0 16 16'>
   <path d='M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z'/>
   <path d='M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z'/>
 </svg>"
                 . "</button>"
+                . "<form method='POST' style='display:inline-block; margin-left:1%;'>"
+                . "<button type='submit' name='suppDevis' value='$id' class='btn btn-danger'>"
+                . "$icon"
+                . "</button>"
+                . "</form>"
                 . "</div>";
     }
 }
